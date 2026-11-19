@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Hack Kit — from problem statements to a locked, buildable hackathon idea</title>
+<meta name="description" content="Hack Kit is a Claude Code plugin and Claude skill that takes hackathon teams from problem statements to a validated idea, MVP plan, pitch and one final PDF, with a 12-juror courtroom trial.">
+<meta property="og:title" content="Hack Kit — hackathon ideation with a courtroom trial">
+<meta property="og:description" content="Decode, pick, validate, lock, plan, verify, pitch, ship. 15 /hack: commands for Claude.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23b0522f'/%3E%3Ctext x='32' y='42' font-size='28' text-anchor='middle' fill='%23fbf5e8' font-family='Georgia' font-weight='700'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="seal">HK</span> Hack Kit</a>
+    <nav aria-label="Sections">
+      <a href="#why">Why</a>
+      <a href="#flow">The flow</a>
+      <a href="#court">The trial</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn small" href="https://github.com/syed-imadulla/hack-kit" rel="noopener noreferrer">GitHub ↗</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams</span>
+      <h1>From problem statements to a <em>locked, buildable</em> idea.</h1>
+      <p class="lead">Fifteen <code>/hack:</code> commands walk your team from "here are the statements" to a validated idea, MVP plan, pitch and one final PDF. At two key moments, your idea goes on trial in front of 12 independent AI jurors.</p>
+      <div class="terminal" aria-label="Install commands">
+        <button class="copy" data-copy="/plugin marketplace add syed-imadulla/hack-kit&#10;/plugin install hack@hack-kit">copy</button>
+        <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div><span class="p">›</span> /plugin marketplace add syed-imadulla/hack-kit</div>
+        <div><span class="p">›</span> /plugin install hack@hack-kit</div>
+        <div><span class="p">›</span> <span id="typed" class="typed"></span></div>
+      </div>
+      <div class="cta">
+        <a class="btn rust" href="#install">Install it →</a>
+        <a class="btn ghost" href="#flow">See how it flows</a>
+      </div>
+    </div>
+    <div class="stage" id="heroStage" aria-hidden="true">
+      <div class="orbit"></div><div class="orbit two"></div>
+      <div class="ticket t1">/hack:decode</div>
+      <div class="ticket t2">⚖️ NOT GUILTY 9/12</div>
+      <div class="ticket t3">🔒 core locked</div>
+      <div class="tilt" id="heroTilt">
+        <div class="cube">
+          <div class="face f1"><span class="ico">🔍</span><b>/hack:decode</b><span>understand every statement</span></div>
+          <div class="face f2"><span class="ico">⚖️</span><b>/hack:pick</b><span>trial the top ideas</span></div>
+          <div class="face f3"><span class="ico">🧭</span><b>/hack:users</b><span>think as real users</span></div>
+          <div class="face f4"><span class="ico">🔒</span><b>/hack:lock</b><span>freeze the core</span></div>
+          <div class="face f5"><b class="cream">HACK KIT</b></div>
+          <div class="face f6"></div>
+        </div>
+      </div>
+      <div class="shadow3d"></div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">✦</div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why it exists</span>
+      <h2>Most teams lose in the <em>first two hours</em>.</h2>
+      <p class="lead">They lose before writing a line of code. Hack Kit turns those two hours into a guided path.</p>
+    </div>
+    <div class="grid4">
+      <article class="card reveal tiltable"><span class="n">01</span><h3>The cool problem</h3><p>Teams pick what <span class="strike">sounds exciting</span>, not what the rubric rewards. Hack Kit scores statements on the real rubric weights.</p></article>
+      <article class="card reveal tiltable"><span class="n">02</span><h3>The imaginary user</h3><p>They forget the elderly person with a keypad phone. Every Hack Kit command thinks as the least-digital user.</p></article>
+      <article class="card reveal tiltable"><span class="n">03</span><h3>"No competitors"</h3><p>That claim kills credibility in the Q&amp;A. <code>/hack:compete</code> finds what exists and positions you honestly.</p></article>
+      <article class="card reveal tiltable"><span class="n">04</span><h3>The moving idea</h3><p>The idea changes after every piece of feedback. <code>/hack:lock</code> freezes the core, and later fixes go inside it.</p></article>
+    </div>
+    <div class="verdict-note reveal">
+      <span class="big">⚖️</span>
+      <p class="m0">Hack Kit judges <b>whether the problem is real and whether your solution truly solves it for real users</b>. It never judges business viability, revenue or market size.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The flow · 12 phases, 3 acts</span>
+      <h2>Press play, or click any <em>station</em>.</h2>
+      <p class="lead">Each command asks the questions that matter, saves its work in <code>.hackathon/</code>, and tells you what to run next.</p>
+    </div>
+    <div class="flow-ctl reveal">
+      <button class="btn" id="playFlow" aria-pressed="false">▶ Play the flow</button>
+      <button class="btn ghost small" id="prevPhase" aria-label="Previous phase">←</button>
+      <button class="btn ghost small" id="nextPhase" aria-label="Next phase">→</button>
+      <span class="hint">Tip: use ← → keys</span>
+    </div>
+    <div class="acts reveal" id="acts"></div>
+    <div class="rail" aria-hidden="true"><i id="rail"></i></div>
+    <div class="panel reveal"><div class="panel-in" id="panel" aria-live="polite"></div></div>
+  </div>
+</section>
+
+<!-- COURT -->
+<section id="court" class="dark">
+  <div class="wrap court">
+    <div class="ring-wrap">
+      <div class="ring-stage" id="ringStage">
+        <div class="ring" id="ring"></div>
+        <div class="bench" aria-hidden="true"></div>
+      </div>
+      <div class="verdict" id="verdict" role="status"></div>
+    </div>
+    <div>
+      <span class="eyebrow">The trial · inside /hack:pick and /hack:verify</span>
+      <h2 class="court-h">Twelve jurors. <em class="mustard">One question.</em></h2>
+      <p class="lead">"Does this solve a real problem for its real users?" Each juror is a separate subagent who can't see the others' votes.</p>
+      <ol class="steps" id="trialSteps">
+        <li><span><b>Case file.</b> About 120 words on the problem, users, solution and constraints.</span></li>
+        <li><span><b>Prosecution.</b> The strongest case that it does <em>not</em> solve a real problem.</span></li>
+        <li><span><b>Defense.</b> The strongest case that it does.</span></li>
+        <li><span><b>Jury.</b> 12 jurors vote GUILTY or NOT GUILTY, each with a confidence, a reason and a fix.</span></li>
+        <li><span><b>Judge.</b> Counts only real votes, then gives ratings out of 10, the top fixes and a 30-minute venue check.</span></li>
+      </ol>
+      <div class="score">
+        <button class="btn rust" id="runTrial">⚖️ Run a demo trial</button>
+        <span class="tally" id="tally" aria-live="polite"><span class="ng">0 NOT GUILTY</span> · <span class="g">0 GUILTY</span></span>
+      </div>
+      <div class="ratings" id="ratings" aria-label="Demo ratings"></div>
+      <p class="demo-note">Demo with sample votes for a sample idea ("voice check-in for hospital OPD patients"). The real trial runs inside Claude Code.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTPUT -->
+<section id="output">
+  <div class="wrap two">
+    <div class="reveal">
+      <div class="sec-head tight">
+        <span class="eyebrow">What you get</span>
+        <h2>One folder. <em>One truth.</em></h2>
+        <p class="lead">Everything lives in <code>.hackathon/</code> inside your project. Commit it, and the whole team works from the same state.</p>
+      </div>
+      <ul class="list-check">
+        <li>Stop and resume any time. Each command reads <code>STATE.md</code> first.</li>
+        <li>Each output file comes from a template with the same name.</li>
+        <li>Every number is sourced or marked <code>UNVERIFIED</code>. Targets are labelled as targets.</li>
+        <li><code>/hack:ship</code> compiles it all into <b>FINAL.pdf</b>, with a cover, contents and page numbers.</li>
+      </ul>
+    </div>
+    <div class="tree reveal" id="tree" aria-label="The .hackathon folder"></div>
+  </div>
+</section>
+
+<!-- INSTALL -->
+<section id="install" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Install · pick your way</span>
+      <h2>Use it in <em>your</em> Claude.</h2>
+    </div>
+    <div class="reveal">
+      <div class="tabs" role="tablist" aria-label="Install options">
+        <button class="tab" role="tab" id="tab-cc" aria-controls="p-cc" aria-selected="true">Claude Code plugin</button>
+        <button class="tab" role="tab" id="tab-ai" aria-controls="p-ai" aria-selected="false" tabindex="-1">Claude app skill</button>
+        <button class="tab" role="tab" id="tab-any" aria-controls="p-any" aria-selected="false" tabindex="-1">Any chat AI</button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-cc" aria-labelledby="tab-cc">
+        <p class="mt0"><b>Best experience.</b> Separate commands, truly independent juror subagents, and a PDF at the end.</p>
+<pre class="code"><button class="copy" data-copy="/plugin marketplace add syed-imadulla/hack-kit&#10;/plugin install hack@hack-kit">copy</button><span class="c"># inside Claude Code</span>
+<span class="p">›</span> /plugin marketplace add syed-imadulla/hack-kit
+<span class="p">›</span> /plugin install hack@hack-kit
+<span class="p">›</span> /hack:help</pre>
+        <div class="how">
+          <div class="s"><b>STEP 1</b><p>Open Claude Code in your hackathon project folder.</p></div>
+          <div class="s"><b>STEP 2</b><p>Paste the two commands above. Restart Claude Code if <code>/hack:</code> doesn't appear.</p></div>
+          <div class="s"><b>STEP 3</b><p>Run <code>/hack:start</code> before the statements are out.</p></div>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-ai" aria-labelledby="tab-ai" hidden>
+        <p class="mt0"><b>For teammates using the Claude app</b> (web, desktop or mobile). One skill that runs the whole flow in a single chat.</p>
+        <p><a class="btn rust" href="downloads/hack-kit-skill.zip" download>⬇ Download hack-kit-skill.zip</a></p>
+        <div class="how">
+          <div class="s"><b>STEP 1</b><p>Download the zip. Don't unzip it.</p></div>
+          <div class="s"><b>STEP 2</b><p>In Claude, go to <b>Settings → Capabilities → Skills</b>, then upload the zip and switch it on.</p></div>
+          <div class="s"><b>STEP 3</b><p>In a new chat, type <code>hack start</code> or paste your problem statements.</p></div>
+        </div>
+        <p class="demo-note on-light">The chat version simulates the jury in one conversation, so it's less independent than the Claude Code version.</p>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-any" aria-labelledby="tab-any" hidden>
+        <p class="mt0"><b>No install.</b> Paste this as the first message of a new chat, then paste your statements.</p>
+<pre class="code" id="promptBox"><button class="copy" data-copy-from="promptText">copy</button><span id="promptText"></span></pre>
+      </div>
+
+      <div class="safe">
+        <span class="i">🛡️</span>
+        <p><b>Safe by design.</b> The plugin is plain Markdown instructions plus one small, readable Python script for the PDF. It has no hooks, no background processes, no MCP servers and no telemetry, and it only writes inside your project's <code>.hackathon/</code> folder. This website loads nothing from outside this repo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">13 rules every command follows</span>
+      <h2>Hover or tap to <em>flip</em>.</h2>
+    </div>
+    <div class="rules" id="rulesGrid"></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="band">
+  <div class="wrap two">
+    <div class="sec-head reveal">
+      <span class="eyebrow">A 24-hour hackathon</span>
+      <h2>Your idea, locked in about <em>90 minutes</em>.</h2>
+      <p class="lead">Split the team after the pick. One person validates, one checks competitors, and one talks to real people at the venue.</p>
+      <p><a href="https://github.com/syed-imadulla/hack-kit/blob/main/docs/GUIDE.md" rel="noopener noreferrer">Read the full guide →</a></p>
+    </div>
+    <div class="timeline" id="tl"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently <em>asked</em>.</h2>
+    </div>
+    <div class="reveal">
+      <details><summary>Will it pick the idea for us?</summary><p>No. It scores, runs trials and recommends, but the team captain decides. Every big choice is a question to your team.</p></details>
+      <details><summary>How much usage does a trial cost?</summary><p>A full trial uses about 15 subagent calls: 2 lawyers, 12 jurors and any retries. Quick mode (<code>--quick</code>) uses about 9.</p></details>
+      <details><summary>Does it need web access?</summary><p>The research steps (decode, validate, compete) work best with web search. Without it, Hack Kit still runs, but marks claims <code>UNVERIFIED</code> and tells you what to look up.</p></details>
+      <details><summary>What do I need for the PDF?</summary><p>Python 3, plus Chrome/Chromium, Playwright, or pandoc with a PDF engine. If none of these is available, open <code>FINAL.html</code> and use Print → Save as PDF.</p></details>
+      <details><summary>Why no business or market judging?</summary><p>At the idea stage, judges reward a real problem that's clearly solved. If your rubric asks for business points, <code>/hack:pitch</code> covers them.</p></details>
+      <details><summary>Is it free?</summary><p>Yes. It's open source under the MIT License. You need your own Claude access to run it.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h3>Hack Kit</h3>
+      <p class="m0">Built by Team Udaan, from what we learned making <i>OPD Saathi</i>.<br>Open source under the <a href="https://github.com/syed-imadulla/hack-kit/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>.</p>
+    </div>
+    <p class="m0"><a href="https://github.com/syed-imadulla/hack-kit" rel="noopener noreferrer">GitHub</a> · <a href="https://github.com/syed-imadulla/hack-kit/blob/main/docs/GUIDE.md" rel="noopener noreferrer">Guide</a> · <a href="https://github.com/syed-imadulla/hack-kit/blob/main/CHANGELOG.md" rel="noopener noreferrer">Changelog</a></p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

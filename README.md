@@ -5,11 +5,14 @@
 ### From *"here are the problem statements"* to a locked, validated, buildable hackathon idea, in about an hour.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-0.2.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.0-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-15-orange)](#-commands)
 
 **Decode the statements → pick one with a courtroom trial → think as real users → prove it's real → lock the idea → plan the MVP → pitch → one final PDF.**
+
+### 🌐 [See it in action → syed-imadulla.github.io/hack-kit](https://syed-imadulla.github.io/hack-kit/)
+<sub>An interactive walkthrough with the flow, a demo courtroom trial, and one-click install for Claude Code, the Claude app and any chat AI.</sub>
 
 </div>
 
@@ -235,7 +238,7 @@ See a worked example in [`examples/opd-saathi`](examples/opd-saathi).
 
 | Option | How |
 |---|---|
-| **claude.ai skill** | Zip the folder `claude-ai/hack-kit/`. In claude.ai, upload it under **Settings → Capabilities → Skills**. Then type `hack start` in a chat. |
+| **Claude app skill** | Download [`hack-kit-skill.zip`](docs/downloads/hack-kit-skill.zip) (or zip `claude-ai/hack-kit/` yourself). In Claude, upload it under **Settings → Capabilities → Skills**. Then type `hack start` in a chat. |
 | **Any chat AI** | Paste [`claude-ai/PROMPT.md`](claude-ai/PROMPT.md) as the first message. |
 | **Quick prompts** | Copy single prompts from [`prompts/`](prompts/README.md) for parallel research. |
 
@@ -301,10 +304,10 @@ hack-kit/
 │   ├── hack-kit/       shared rules
 │   └── hack-court/     trial protocol + jurors.json
 ├── templates/          one template per output file
-├── scripts/compile.py  FINAL.md / .html / .pdf
+├── scripts/            compile.py (FINAL.pdf) · build_skill_zip.sh
 ├── claude-ai/          one-chat skill + one-paste prompt
 ├── prompts/            copy-ready prompts
-├── docs/GUIDE.md       the playbook
+├── docs/              website (index.html) · GUIDE.md · skill zip
 └── examples/           OPD Saathi sample
 ```
 </details>

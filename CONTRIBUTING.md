@@ -44,3 +44,8 @@ Check the PDF compiler with:
 ```
 python3 scripts/compile.py examples/opd-saathi/.hackathon
 ```
+
+## Website and skill zip
+- The website lives in `docs/` (`index.html`, `assets/style.css`, `assets/app.js`). Keep it self-contained: no CDNs, no external fonts, no trackers. The page's Content Security Policy blocks them anyway.
+- After editing `claude-ai/hack-kit/SKILL.md`, rebuild the download with `./scripts/build_skill_zip.sh`.
+- Preview locally with `python3 -m http.server -d docs 8000`, then open http://localhost:8000.

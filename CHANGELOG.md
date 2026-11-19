@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 — 2026-11-19
+### Added
+- Project website in `docs/` (GitHub Pages): an interactive 12-phase flow, a 3D demo courtroom trial, a `.hackathon/` folder preview, install tabs with copy buttons, flip cards for the 13 rules, a 24 h timeline and an FAQ.
+  - Self-contained: no external scripts, fonts or trackers. A strict Content Security Policy blocks inline scripts and outbound connections.
+  - Respects reduced-motion settings; keyboard and screen-reader friendly.
+- `docs/downloads/hack-kit-skill.zip`: a ready-to-upload Claude app skill.
+- `scripts/build_skill_zip.sh` to rebuild that zip.
+
 ## 0.2.0 — 2026-11-19
 ### Added
 - `/hack:help`: a command map and quick start.
