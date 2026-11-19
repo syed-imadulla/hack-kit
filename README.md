@@ -14,7 +14,7 @@ From *"here are the problem statements"* to a well-explored, evidence-labelled, 
 
 **Decode → pick the problem → think as real users → explore different ideas → test assumptions → challenge in Hack Court → improve → lock → plan → pitch → one final PDF.**
 
-### 🌐 [See it in action → syedimadulla.me/hack-kit](https://syedimadulla.me/hack-kit/)
+### 🌐 [See it in action → https://syed-imadulla.github.io/hack-kit/](https://syed-imadulla.github.io/hack-kit/)
 <sub>An interactive walkthrough with the flow, a demo Hack Court trial, and one-click install for Claude Code, the Claude app and any chat AI.</sub>
 
 </div>
