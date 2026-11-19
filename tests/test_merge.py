@@ -269,5 +269,52 @@ class TestMerge(unittest.TestCase):
         self.assertIn("## Pending from Alice", (self.folder / "ASSUMPTIONS.md").read_text(encoding="utf-8"))
 
 
+class TestNoDataLoss(unittest.TestCase):
+    """Regression tests for v1.2.2: nothing a teammate writes may disappear."""
+
+    DOC = """# ASSUMPTIONS
+
+| # | Assumption | Status |
+|---|---|---|
+| 1 | Docs cause rejections | open |
+| 2 | Operators add a step | open |
+
+## Pending from Priya — 14:10
+| # | Assumption | Status |
+|---|---|---|
+| 1 | Docs cause rejections | validated |
+| 3 | Families keep papers | open |
+
+Priya: called 3 operators, 2 said docs.
+"""
+
+    def test_free_text_notes_are_kept(self):
+        out, summary, errs = process_file_content(self.DOC, "ASSUMPTIONS.md")
+        self.assertEqual(errs, [])
+        self.assertIn("called 3 operators, 2 said docs", out)
+        self.assertEqual(summary["notes_kept"], 1)
+
+    def test_added_rows_keep_attribution(self):
+        out, _, _ = process_file_content(self.DOC, "ASSUMPTIONS.md")
+        self.assertIn("### From Priya — 14:10", out)
+        self.assertIn("Rows added: Families keep papers", out)
+
+    def test_teammate_id_kept_when_free(self):
+        out, _, _ = process_file_content(self.DOC, "ASSUMPTIONS.md")
+        self.assertIn("| 3 | Families keep papers | open |", out)
+
+    def test_clashing_id_gets_next_free_number(self):
+        doc = self.DOC.replace("| 3 | Families keep papers", "| 2 | Families keep papers")
+        out, _, _ = process_file_content(doc, "ASSUMPTIONS.md")
+        self.assertIn("| 3 | Families keep papers | open |", out)
+
+    def test_notes_only_section_is_kept(self):
+        doc = self.DOC.split("## Pending")[0] + "## Pending from Ravi\nOperator at Tumkur CSC says rush is 10-12.\n"
+        out, _, errs = process_file_content(doc, "ASSUMPTIONS.md")
+        self.assertEqual(errs, [])
+        self.assertIn("Operator at Tumkur CSC says rush is 10-12.", out)
+        self.assertNotIn("## Pending from", out)
+
+
 if __name__ == "__main__":
     unittest.main()

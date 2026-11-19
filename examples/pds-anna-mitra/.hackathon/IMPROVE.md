@@ -3,7 +3,7 @@
 > Summary: 1 round · CORE v1 → v2 · latest decision: REVISE (capped by 3 open collapses)
 
 ## Round 1 — 2026-11-03 14:00 IST
-Feedback source: `STRESS.md` and `court/stress/verdict.md`
+Feedback source: `STRESS.md` and `court-illustrative/stress/verdict.md`
 
 ### Candidates
 | # | Change | Fixes which weakness | Impact | Effort | New risk | Evidence still needed | Inside core / DRIFT | Accepted? |

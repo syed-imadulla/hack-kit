@@ -30,6 +30,15 @@ except ImportError:
     tally = None
 
 
+def short(text, n=80):
+    """Shorten text at a word boundary, with an ellipsis, never mid-word."""
+    t = " ".join(str(text or "").split())
+    if len(t) <= n:
+        return t
+    cut = t[:n].rsplit(" ", 1)[0].rstrip(",;:(")
+    return (cut or t[:n]) + "…"
+
+
 def safe_read(path: Path):
     """Read file text or return empty string if missing/unreadable."""
     try:
@@ -305,6 +314,7 @@ def analyze_court_trials(court_dir: Path, verdict_path: Path = None, open_collap
 
             decision = "UNKNOWN"
             criticisms = []
+            counts, capped, reasons = None, False, []
 
             if raw_file.is_file() and tally:
                 try:
@@ -312,6 +322,10 @@ def analyze_court_trials(court_dir: Path, verdict_path: Path = None, open_collap
                     expected = len(raw_data) if len(raw_data) in (6, 7, 12) else 12
                     res = tally(raw_data, expected=expected, open_collapses=open_collapses)
                     decision = res["decision"]
+                    counts = (res["not_guilty"], res["guilty"], res["insufficient_evidence"])
+                    capped = bool(res.get("capped_by_open_collapses"))
+                    reasons = [f"{r.get('juror', '?')}: {r.get('reason', '')}" for r in raw_data
+                               if isinstance(r, dict) and r.get("vote") in ("GUILTY", "INSUFFICIENT EVIDENCE")]
                     for impact in ("high", "medium"):
                         for fix in res.get("fixes_by_impact", {}).get(impact, []):
                             criticisms.append(f"{fix['juror']}: {fix['change']}")
@@ -340,7 +354,10 @@ def analyze_court_trials(court_dir: Path, verdict_path: Path = None, open_collap
             trials.append({
                 "name": d.name,
                 "decision": decision,
-                "criticisms": criticisms[:3]
+                "criticisms": criticisms[:3],
+                "counts": counts,
+                "capped": capped,
+                "reasons": reasons[:3],
             })
 
     # 2. Fallback to top-level VERDICT.md if no court subdirs exist
@@ -364,12 +381,15 @@ def analyze_court_trials(court_dir: Path, verdict_path: Path = None, open_collap
                 if line_s.startswith("|") or line_s.startswith("- ") or ":" in line_s:
                     cleaned = line_s.strip("| -*")
                     if cleaned and not cleaned.startswith("Juror"):
-                        criticisms.append(cleaned[:80])
+                        criticisms.append(short(cleaned, 80))
 
         trials.append({
             "name": "solution-trial",
             "decision": decision,
-            "criticisms": criticisms[:3]
+            "criticisms": criticisms[:3],
+            "counts": None,
+            "capped": False,
+            "reasons": [],
         })
 
     return trials
@@ -404,6 +424,7 @@ def find_causal_connections(assumptions, demo, plan_check_res, trials, pitch_dri
     - [Contributing Factor]: Plausible contributing influence alongside observed failure.
     - [Correlation]: Observed co-occurrence without established causal direction.
     - [Unknown / Unverified]: Insufficient data to determine causality.
+    - [Open risk]: A recorded gap that never became a proven cause.
     """
     connections = []
 
@@ -411,34 +432,50 @@ def find_causal_connections(assumptions, demo, plan_check_res, trials, pitch_dri
     if assumptions:
         untested_collapses = [a for a in assumptions["items"] if a["is_collapses"] and a["status"] in ("open", "testing")]
         if untested_collapses:
-            names = ", ".join(f'"{a["assumption"][:40]}..."' for a in untested_collapses[:2])
-            connections.append({
-                "category": "[Direct Cause]",
-                "finding": f"Killer assumption(s) {names} remained unvalidated ([?] / [AI]) at trial.",
-                "consequence": "Hack Court procedural rules strictly cap the verdict to REVISE (a solution cannot pass with unresolved collapses assumptions).",
-                "evidence": "tally.py capping rule + ASSUMPTIONS.md"
-            })
+            names = ", ".join(f'"{short(a["assumption"], 50)}"' for a in untested_collapses[:2])
+            capped = [t["name"] for t in (trials or []) if t.get("capped")]
+            if capped:
+                connections.append({
+                    "category": "[Direct Cause]",
+                    "finding": f"Killer assumption(s) {names} were still untested when trial(s) {', '.join(capped)} ran.",
+                    "consequence": "Those trials would have passed, but the rule caps a PASS to REVISE while a collapses assumption is open.",
+                    "evidence": "tally.py on court/<trial>/votes-raw.json + ASSUMPTIONS.md"
+                })
+            else:
+                connections.append({
+                    "category": "[Open risk]",
+                    "finding": f"Killer assumption(s) {names} were never tested.",
+                    "consequence": "The idea's premise is still unproven. No recorded trial was capped by this, so it is a risk, not a proven cause of any verdict.",
+                    "evidence": "ASSUMPTIONS.md"
+                })
 
     # 2. Demo Day Court failure reasons (Direct Cause)
     for t in (trials or []):
         if "demo" in t["name"].lower() and t["decision"] == "FAIL":
-            criticisms_summary = "; ".join(c.split(": ")[-1][:50] for c in t["criticisms"][:2]) if t["criticisms"] else "unbuilt integrations and mock disclosure gap"
+            if t.get("counts"):
+                ng, g, ie = t["counts"]
+                tally_str = f"NOT GUILTY {ng} · GUILTY {g} · INSUFFICIENT EVIDENCE {ie}"
+            else:
+                tally_str = "vote counts not recorded"
+            source = t.get("reasons") or t.get("criticisms") or []
+            why = "; ".join(short(c.split(": ", 1)[-1], 90) for c in source[:2]) or "no juror reasons recorded [?]"
             connections.append({
                 "category": "[Direct Cause]",
-                "finding": f"Demo Day Court ({t['name']}) voted FAIL with 0 NOT GUILTY votes.",
-                "consequence": f"Simulated jurors rejected the demo due to simulated components and pitch disclosure gaps: {criticisms_summary}.",
-                "evidence": f"court/{t['name']}/verdict.md juror votes"
+                "finding": f"Demo Day Court ({t['name']}) decided FAIL ({tally_str}).",
+                "consequence": f"Jurors' reasons: {why}",
+                "evidence": f"court/{t['name']}/votes-raw.json"
             })
             break
 
     # 3. Pitch drill honesty penalty (Direct Cause)
     if pitch_drill and pitch_drill.get("false_claims"):
-        claims_str = ", ".join(f'"{c[:40]}"' for c in pitch_drill["false_claims"][:2])
-        honesty_val = pitch_drill.get("avg_honesty", 1.75)
+        claims_str = ", ".join(f'"{short(c, 60)}"' for c in pitch_drill["false_claims"][:2])
+        honesty_val = pitch_drill.get("avg_honesty")
+        honesty_str = f"Drill honesty averaged {honesty_val}/5." if honesty_val is not None else "No drill honesty score was recorded [?]."
         connections.append({
             "category": "[Direct Cause]",
-            "finding": f"Pitch drill detected unbuilt or overstated claims in deck/Q&A: {claims_str}.",
-            "consequence": f"Pitch honesty score penalized down to {honesty_val}/5.0 (discrepancy between slides and DEMO.md).",
+            "finding": f"The pitch claimed more than the product did: {claims_str}.",
+            "consequence": f"The pitch vs product check marked these false. {honesty_str}",
             "evidence": "PITCH.md Drill honesty evaluation"
         })
 
@@ -452,15 +489,15 @@ def find_causal_connections(assumptions, demo, plan_check_res, trials, pitch_dri
         if overloaded and unbuilt_feats:
             connections.append({
                 "category": "[Contributing Factor]",
-                "finding": f"Workload warning during planning ({overloaded[0][:60]}) while feature(s) like '{unbuilt_feats[0]}' were not implemented.",
-                "consequence": "High individual workload concentration is a plausible contributing factor to cutting or deferring tasks, though task prioritization may also explain the cut.",
+                "finding": f"Workload warning during planning ({short(overloaded[0], 70)}) while feature(s) like '{unbuilt_feats[0]}' were not implemented.",
+                "consequence": "A tight or overloaded plan is a plausible contributing factor to the cut, though prioritisation may also explain it.",
                 "evidence": "PLAN.md task load table + DEMO.md unbuilt status"
             })
         elif overloaded:
             connections.append({
                 "category": "[Correlation]",
-                "finding": f"Tight execution schedule recorded during planning: {overloaded[0][:60]}.",
-                "consequence": "Workload utilization was high, reducing buffer for unexpected bugs, though all scheduled critical path items completed.",
+                "finding": f"Tight execution schedule recorded during planning: {short(overloaded[0], 70)}",
+                "consequence": "Little buffer was left for bugs. The files don't show whether this affected the result.",
                 "evidence": "PLAN.md workload warnings"
             })
 
@@ -582,7 +619,7 @@ def generate_retro_markdown(folder_path, feedback=None):
             f"{demo_stats['mocked']} mocked/simulated; {demo_stats['shown']} shown in run"
         )
     else:
-        out.append("- **Demo Delivery:** [?] Not recorded (project ended before /hack:demo)")
+        out.append("- **Demo Delivery:** [?] Not recorded (project ended before /hack:verify --demo)")
     out.append("")
 
     # 2. Original Goals vs Actual Outcomes
@@ -590,9 +627,16 @@ def generate_retro_markdown(folder_path, feedback=None):
     out.append("| Goal | Intended (Brief / Plan) | Actual Outcome (Demo / Verdict) | Status |")
     out.append("|---|---|---|---|")
     if meta["problem"]:
-        problem_short = meta["problem"][:50]
-        solution_short = meta["solution"][:50] if meta["solution"] else "Prototype execution [V]"
-        status_goal = "Achieved (Core)" if "v2" in meta["core_ver"] or (demo_stats and demo_stats["tested"] > 0) else "In Progress [?]"
+        problem_short = short(meta["problem"], 60)
+        solution_short = short(meta["solution"], 60) if meta["solution"] else "[?] not recorded"
+        demo_trials = [t for t in court_trials if "demo" in t["name"].lower()]
+        last = (demo_trials or court_trials or [None])[-1]
+        if last and last["decision"] == "PASS":
+            status_goal = f"Supported by trial {last['name']} (PASS, simulated jury)"
+        elif last:
+            status_goal = f"Not proven: latest trial {last['name']} was {last['decision']}"
+        else:
+            status_goal = "[?] No trial recorded"
         out.append(f"| Solve primary user problem | {problem_short} | {solution_short} | {status_goal} |")
     else:
         out.append("| Solve primary user problem | Defined in BRIEF.md / STATE.md [?] | Documented in DEMO.md [?] | [?] Not recorded |")
@@ -601,13 +645,14 @@ def generate_retro_markdown(folder_path, feedback=None):
         out.append(
             f"| Deliver functional demo | Fully tested MVP journey | "
             f"{demo_stats['tested']}/{demo_stats['total_features']} tested ({demo_stats['mocked']} mocked) | "
-            f"{'Achieved' if demo_stats['tested'] == demo_stats['total_features'] and demo_stats['mocked'] == 0 else 'Partial [T]'} |"
+            f"{'Achieved' if demo_stats['tested'] == demo_stats['total_features'] and demo_stats['mocked'] == 0 else 'Partial'} "
+            f"{'[V]' if demo_stats['tested_v'] else ('[T]' if demo_stats['tested_t'] else '[?]')} |"
         )
     else:
         out.append("| Deliver functional demo | Functional prototype in PLAN.md | No DEMO.md generated | [?] Incomplete |")
 
     if assumptions_stats:
-        collapses_status = "Incomplete [V]" if assumptions_stats["collapses_untested"] > 0 else "Validated [V]"
+        collapses_status = "Incomplete" if assumptions_stats["collapses_untested"] > 0 else "All tested"
         out.append(f"| Validate killer assumptions | All 'collapses' assumptions tested | {assumptions_stats['collapses_untested']} 'collapses' assumptions left untested | {collapses_status} |")
     else:
         out.append("| Validate killer assumptions | Kill tests in ASSUMPTIONS.md | No ASSUMPTIONS.md recorded | [?] Unknown |")
@@ -631,23 +676,23 @@ def generate_retro_markdown(folder_path, feedback=None):
                     refinements.append(val)
     if not refinements and meta["decisions"]:
         for d in meta["decisions"]:
-            refinements.append(d.get("decision", "")[:60])
+            refinements.append(short(d.get("decision", ""), 70))
     if refinements:
         out.append(f"- **Pivots & Refinements:** {'; '.join(refinements[:2])}")
     else:
-        out.append("- **Pivots & Refinements:** No formal pivot recorded; core preserved through validation.")
+        out.append("- **Pivots & Refinements:** None recorded.")
 
     # Rejected Alternatives
     rejected = []
     if meta["decisions"]:
         for d in meta["decisions"]:
             rej = d.get("rejected (and why)", "")
-            if rej and rej != "—":
-                rejected.append(rej[:60])
+            if rej and rej.strip() not in ("—", "-") and not re.match(r"^\s*none\b", rej, re.I):
+                rejected.append(short(rej, 90))
     if meta["improve_candidates"]:
         for c in meta["improve_candidates"]:
             if c.get("accepted?", "").lower() in ("no", "drift"):
-                rejected.append(f"{c.get('change', '')[:40]} ({c.get('inside core / drift', '')})")
+                rejected.append(f"{short(c.get('change', ''), 60)} ({c.get('inside core / drift', '')})")
     if rejected:
         out.append(f"- **Rejected Alternatives:** {'; '.join(rejected[:3])}")
     else:
@@ -658,11 +703,11 @@ def generate_retro_markdown(folder_path, feedback=None):
     if meta["improve_candidates"]:
         for c in meta["improve_candidates"]:
             if c.get("accepted?", "").lower() == "yes" and c.get("inside core / drift", "").lower() == "inside":
-                inside_changes.append(c.get("change", "")[:50])
+                inside_changes.append(short(c.get("change", ""), 70))
     if inside_changes:
         out.append(f"- **Inside-Core Adjustments:** {'; '.join(inside_changes[:3])}")
     else:
-        out.append("- **Inside-Core Adjustments:** Maintained core journey without scope drift.")
+        out.append("- **Inside-Core Adjustments:** None recorded.")
     out.append("")
 
     # 4. Assumption & Evidence Analysis
@@ -698,10 +743,15 @@ def generate_retro_markdown(folder_path, feedback=None):
                 imp_str = "❌ Not built"
             test_str = ("✅ Tested [V]" if f["tested_v"] else ("✅ Tested [T]" if f["tested_t"] else "✅ Tested")) if f["tested"] else "⚠️ Untested"
             shown_str = ("Shown (partly)" if f["shown_partial"] else "Shown") if f["shown"] else "Not shown"
-            mock_str = "⚠ Mocked" if f["mocked"] else "Real (unmocked)"
-            out.append(f"| {f['feature'][:35]} | {f['planned']} | {imp_str} | {test_str} | {shown_str} | {mock_str} |")
+            if f["mocked"]:
+                mock_str = "⚠ Mocked"
+            elif not f["built"]:
+                mock_str = "— (nothing built)"
+            else:
+                mock_str = "Real"
+            out.append(f"| {short(f['feature'], 40)} | {f['planned']} | {imp_str} | {test_str} | {shown_str} | {mock_str} |")
     else:
-        out.append("- No DEMO.md ladder available to compare planned vs built features. Project ended before /hack:demo [?].")
+        out.append("- No DEMO.md ladder available to compare planned vs built features. Project ended before /hack:verify --demo [?].")
     out.append("")
 
     # 6. Team Execution Analysis
@@ -740,42 +790,58 @@ def generate_retro_markdown(folder_path, feedback=None):
         for c in connections:
             out.append(f"- **{c['category']} {c['finding']}** → *Consequence:* {c['consequence']} *(Evidence: {c['evidence']})*")
     else:
-        out.append("- 1. Writing pitch claims before running the demo check.")
-        out.append("- 2. Deferring user interviews until after code freeze.")
-        out.append("- 3. Overstating mock completeness in pitch disclosures.")
+        out.append("- [?] No mistakes could be identified from the project files. Add what the real judges said with `--feedback \"...\"`; nothing is invented here.")
     out.append("")
 
-    # 9. Engineering Lessons Learned
+    # 9. Lessons learned: only from evidence found above
     out.append("## 9. Lessons learned")
-    out.append("- **Evidence beats confidence:** Jurors and judges immediately detect when a team claims a feature is tested when it was merely mocked.")
-    out.append("- **Run the code first:** The Demo Day Court failure ladder forced transparency before judging, preventing embarrassing live failures.")
-    out.append("- **Test riskiest assumptions early:** If the idea collapses when a premise is false, spend the first 30 minutes verifying it before building.")
+    out.append("Each lesson is an `[AI]` reading of the evidence named next to it. No evidence, no lesson.")
+    lessons = []
+    has = lambda cat, word: any(c["category"] == cat and word in c["finding"] for c in connections)
+    if any("Killer assumption" in c["finding"] for c in connections):
+        lessons.append(("Test the premise before building on it",
+                        "the 'collapses' assumptions were still untested at the end", "ASSUMPTIONS.md"))
+    if has("[Direct Cause]", "Demo Day Court"):
+        lessons.append(("Judge the demo by what runs, not by what's planned",
+                        "the Demo Day Court failed the built product", "court/ demo trial"))
+    if has("[Direct Cause]", "pitch claimed"):
+        lessons.append(("Write the pitch from the demo ladder",
+                        "the pitch claimed features the product didn't have", "PITCH.md drill"))
+    if any(c["category"] in ("[Contributing Factor]", "[Correlation]") for c in connections):
+        lessons.append(("Leave slack on the critical path",
+                        "the plan check warned the schedule was tight or overloaded", "PLAN.md plan check"))
+    if lessons:
+        for title, why, ev in lessons:
+            out.append(f"- **{title}:** {why}. *(Evidence: {ev})*")
+    else:
+        out.append("- [?] Not enough recorded evidence to draw lessons. Add team feedback with `--feedback`.")
     out.append("")
 
-    # 10. Top Three Improvements
+    # 10. Top three improvements
     out.append("## 10. Top three improvements for the next hackathon")
     improvements = []
     if assumptions_stats and assumptions_stats["collapses_untested"] > 0:
-        improvements.append("Verify killers in Phase 6: Complete telephone/venue interviews before locking the plan; never carry untested 'collapses' assumptions into the demo.")
-    else:
-        improvements.append("Maintain rigorous evidence standards: Keep [V] and [T] evidence labels updated across all assumptions.")
-
+        improvements.append(("Test killer assumptions in phase 6",
+                             "Run the experiment cards (calls, venue interviews) before /hack:lock; don't carry an untested 'collapses' assumption into the demo.", True))
     if pitch_stats and pitch_stats.get("false_claims"):
-        improvements.append("Keep pitch claims synchronized with DEMO.md: Never allow deck headlines or Q&A answers to run ahead of tested implementation.")
-    else:
-        improvements.append("Synchronize pitch slides with the demo ladder: Ensure any simulated element is explicitly disclosed.")
-
+        improvements.append(("Keep pitch claims in step with DEMO.md",
+                             "Re-run /hack:verify --demo before the final deck, and take the built-vs-mocked answer from its ladder.", True))
     if plan_res and plan_res.get("warnings"):
-        improvements.append("Balance team workload at planning: Reallocate tasks from overloaded members during /hack:plan to ensure buffer for integration.")
-    else:
-        improvements.append("Preserve integration buffers: Reserve the final 20% of event time strictly for end-to-end integration and demo rehearsals.")
-
-    for i, imp in enumerate(improvements[:3], 1):
-        if ":" in imp:
-            parts = imp.split(":", 1)
-            out.append(f"{i}. **{parts[0].strip()}:**{parts[1]}")
-        else:
-            out.append(f"{i}. **{imp.strip()}**")
+        improvements.append(("Rebalance the plan early",
+                             "Act on the plan check's warnings during /hack:plan, not after code freeze.", True))
+    if demo_stats and demo_stats.get("not_implemented"):
+        improvements.append(("Cut or mock unbuilt features on time",
+                             "Decide at the demo check what gets cut or mocked, and say so in the pitch.", True))
+    generic = [("Keep evidence labels current", "Update [V]/[T] labels whenever an experiment finishes."),
+               ("Rehearse with the drill", "Run /hack:pitch --drill until honesty scores reach 4 or more."),
+               ("Protect integration time", "Keep the last part of the build window for end-to-end runs.")]
+    for title, text in generic:
+        if len(improvements) >= 3:
+            break
+        improvements.append((title, text, False))
+    for i, (title, text, from_data) in enumerate(improvements[:3], 1):
+        tag = "" if from_data else " *(general practice, not from this project's data)*"
+        out.append(f"{i}. **{title}:** {text}{tag}")
     out.append("")
 
     if feedback:

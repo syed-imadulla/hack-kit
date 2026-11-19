@@ -184,6 +184,7 @@ def process_file_content(content, filename):
 
     # Merge pending rows
     modified_lines = list(main_lines)
+    merge_log = []  # per pending section: notes and row keys, so nothing a teammate wrote is lost
     for sec in sections:
         author = sec["author"]
         ts = sec["timestamp"]
@@ -191,7 +192,12 @@ def process_file_content(content, filename):
 
         body_lines = [l.strip() for l in sec["body"].splitlines() if l.strip()]
         pending_rows = []
+        sec_log = {"label": attr_label, "notes": [], "added": [], "conflicts": []}
+        merge_log.append(sec_log)
         for l in body_lines:
+            if not l.startswith("|"):
+                sec_log["notes"].append(l)
+                continue
             if l.startswith("|"):
                 if DELIM_PATTERN.match(l):
                     continue
@@ -274,13 +280,16 @@ def process_file_content(content, filename):
                 tbl["row_indices"].append(insert_pos)
                 tbl["row_indices"].sort()
                 conflict_items.append(f"{p_cells[key_col]} (conflicts with main row; both preserved)")
+                sec_log["conflicts"].append(p_cells[key_col])
 
             else:
                 # Brand new row
                 new_cells = list(p_cells)
                 if has_seq_id:
-                    next_id = len(tbl["row_indices"]) + 1
-                    new_cells[0] = str(next_id)
+                    used = {parse_cells(modified_lines[idx])[0] for idx in tbl["row_indices"]}
+                    if not (new_cells[0].isdigit() and new_cells[0] not in used):
+                        nums = [int(u) for u in used if u.isdigit()]
+                        new_cells[0] = str(max(nums, default=0) + 1)
 
                 # Add attribution if table has source/updated/notes column
                 norm_h = [h.lower() for h in headers]
@@ -304,9 +313,32 @@ def process_file_content(content, filename):
                 tbl["row_indices"].sort()
                 added_count += 1
                 added_items.append(f"{new_cells[key_col]} (from {attr_label})")
+                sec_log["added"].append(new_cells[key_col])
 
     if errors:
         return content, {}, errors
+
+    # Record who added what, and keep every free-text note from the pending sections
+    log_lines = []
+    for lg in merge_log:
+        if not (lg["notes"] or lg["added"] or lg["conflicts"]):
+            continue
+        log_lines.append(f"### From {lg['label']}")
+        if lg["added"]:
+            log_lines.append("- Rows added: " + "; ".join(lg["added"]))
+        if lg["conflicts"]:
+            log_lines.append("- Conflicts flagged for the captain: " + "; ".join(lg["conflicts"]))
+        log_lines.extend(n if n.startswith(("-", "*", ">", "#")) else f"- {n}" for n in lg["notes"])
+        log_lines.append("")
+    if log_lines:
+        heading = "## Merged from teammates"
+        body = "\n".join(log_lines).rstrip()
+        text = "\n".join(modified_lines).rstrip()
+        if heading in text:
+            new_content = text + "\n\n" + body + "\n"
+        else:
+            new_content = text + "\n\n" + heading + "\n\n" + body + "\n"
+        modified_lines = new_content.splitlines()
 
     # Clean up trailing whitespace and remove the merged pending sections
     new_content = "\n".join(modified_lines).rstrip() + "\n"
@@ -325,6 +357,7 @@ def process_file_content(content, filename):
         "added_items": added_items,
         "conflict_items": conflict_items,
         "skipped_items": skipped_items,
+        "notes_kept": sum(len(lg["notes"]) for lg in merge_log),
         "authors": sorted(list(set(s["author"] for s in sections)))
     }
     return new_content, summary, []

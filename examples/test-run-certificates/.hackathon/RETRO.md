@@ -1,6 +1,6 @@
 # RETRO — Mock Social Good Hack (test run)
 
-> Summary: Post-hackathon retrospective · One trip, not three. · Generated 2026-11-19 20:03
+> Summary: Post-hackathon retrospective · One trip, not three. · Generated 2026-11-19 18:02
 
 ## 1. Executive summary
 - **Event:** Mock Social Good Hack (test run)
@@ -11,15 +11,15 @@
 ## 2. Original goals versus actual outcomes
 | Goal | Intended (Brief / Plan) | Actual Outcome (Demo / Verdict) | Status |
 |---|---|---|---|
-| Solve primary user problem | S2 repeat visits for certificates | One trip: spoken checklist + operator ready-to-sub | Achieved (Core) |
-| Deliver functional demo | Fully tested MVP journey | 7/9 tested (3 mocked) | Partial [T] |
-| Validate killer assumptions | All 'collapses' assumptions tested | 2 'collapses' assumptions left untested | Incomplete [V] |
+| Solve primary user problem | S2 repeat visits for certificates | One trip: spoken checklist + operator ready-to-submit check | Not proven: latest trial demo-1 was FAIL |
+| Deliver functional demo | Fully tested MVP journey | 7/9 tested (3 mocked) | Partial [V] |
+| Validate killer assumptions | All 'collapses' assumptions tested | 2 'collapses' assumptions left untested | Incomplete |
 
 ## 3. Idea evolution
 - **Initial Concept:** Problem: S2 repeat visits for certificates.
 - **Pivots & Refinements:** Chose S2 (certificates); Chose idea 13 (spoken checklist + operator scan check)
-- **Rejected Alternatives:** S1 farm prices (root cause may be debt/storage; existing ser; DigiLocker (no access), new portal (exists), policy change (; None rejected
-- **Inside-Core Adjustments:** Maintained core journey without scope drift.
+- **Rejected Alternatives:** S1 farm prices (root cause may be debt/storage; existing services), S3 reading (speech…; DigiLocker (no access), new portal (exists), policy change (not buildable); Waiting to test first
+- **Inside-Core Adjustments:** None recorded.
 
 ## 4. Assumption and evidence analysis
 - **Total Assumptions:** 10 (0 validated, 8 open, 2 testing, 0 rejected)
@@ -36,15 +36,15 @@ Summary metrics:
 
 | Feature | Planned | Implementation | Tested | Demo Presentation | Mock Status |
 |---|---|---|---|---|---|
-| Checklist per purpose | Build | Built | ✅ Tested [V] | Shown | Real (unmocked) |
-| Watched scan folder + auto-run | Build | ❌ Not built | ⚠️ Untested | Not shown | Real (unmocked) |
+| Checklist per purpose | Build | Built | ✅ Tested [V] | Shown | Real |
+| Watched scan folder + auto-run | Build | ❌ Not built | ⚠️ Untested | Not shown | — (nothing built) |
 | Document type + readability check | Build | Built | ✅ Tested [V] | Shown | ⚠ Mocked |
-| Name match (Kannada/English) | Build | Built | ✅ Tested [V] | Shown (partly) | Real (unmocked) |
-| Date validity rule | Build | Built | ✅ Tested [V] | Shown | Real (unmocked) |
+| Name match (Kannada/English) | Build | Built | ✅ Tested [V] | Shown (partly) | Real |
+| Date validity rule | Build | Built | ✅ Tested [V] | Shown | Real |
 | Spoken Kannada (TTS) | Build | Built | ✅ Tested [V] | Shown (partly) | ⚠ Mocked |
 | Missed-call callback | Mock | Planned mock | ⚠️ Untested | Not shown | ⚠ Mocked |
-| Flag log | Build | Built | ✅ Tested [V] | Shown | Real (unmocked) |
-| Aadhaar masking | Build | Built | ✅ Tested [V] | Shown | Real (unmocked) |
+| Flag log | Build | Built | ✅ Tested [V] | Shown | Real |
+| Aadhaar masking | Build | Built | ✅ Tested [V] | Shown | Real |
 
 ## 6. Team execution analysis
 - **Critical Path:** T3 → T4 → T5 → T7 → T12 (14.0 h)
@@ -75,17 +75,19 @@ Summary metrics:
 - **Pitch Drill Honesty Score:** 1.75 / 5.0
 
 ## 8. Biggest mistakes
-- **[Direct Cause] Killer assumption(s) "Document problems cause most rejections ...", "CSC operators will add a pre-check step..." remained unvalidated ([?] / [AI]) at trial.** → *Consequence:* Hack Court procedural rules strictly cap the verdict to REVISE (a solution cannot pass with unresolved collapses assumptions). *(Evidence: tally.py capping rule + ASSUMPTIONS.md)*
-- **[Direct Cause] Demo Day Court (demo-1) voted FAIL with 0 NOT GUILTY votes.** → *Consequence:* Simulated jurors rejected the demo due to simulated components and pitch disclosure gaps: Swap in real OCR (even Tesseract) for at least one; Record real Kannada TTS clips for each flag and pl. *(Evidence: court/demo-1/verdict.md juror votes)*
-- **[Direct Cause] Pitch drill detected unbuilt or overstated claims in deck/Q&A: "Q&A: "Built: folder watcher, operator sc".** → *Consequence:* Pitch honesty score penalized down to 1.75/5.0 (discrepancy between slides and DEMO.md). *(Evidence: PITCH.md Drill honesty evaluation)*
-- **[Contributing Factor] Workload warning during planning (Critical path is 14 h of 18 h to code freeze (78%): tight. S) while feature(s) like 'Watched scan folder + auto-run' were not implemented.** → *Consequence:* High individual workload concentration is a plausible contributing factor to cutting or deferring tasks, though task prioritization may also explain the cut. *(Evidence: PLAN.md task load table + DEMO.md unbuilt status)*
+- **[Direct Cause] Killer assumption(s) "Document problems cause most rejections (vs…", "CSC operators will add a pre-check step" were still untested when trial(s) improve-r1 ran.** → *Consequence:* Those trials would have passed, but the rule caps a PASS to REVISE while a collapses assumption is open. *(Evidence: tally.py on court/<trial>/votes-raw.json + ASSUMPTIONS.md)*
+- **[Direct Cause] Demo Day Court (demo-1) decided FAIL (NOT GUILTY 0 · GUILTY 7 · INSUFFICIENT EVIDENCE 0).** → *Consequence:* Jurors' reasons: My real documents are phone photos and Kannada-script papers. Reading them is faked with…; For me, the parts I would actually use, Kannada voice and the missed-call callback, are… *(Evidence: court/demo-1/votes-raw.json)*
+- **[Direct Cause] The pitch claimed more than the product did: "Q&A: "Built: folder watcher, operator screen, Kannada TTS"".** → *Consequence:* The pitch vs product check marked these false. Drill honesty averaged 1.75/5. *(Evidence: PITCH.md Drill honesty evaluation)*
+- **[Contributing Factor] Workload warning during planning (Critical path is 14 h of 18 h to code freeze (78%): tight. Start the…) while feature(s) like 'Watched scan folder + auto-run' were not implemented.** → *Consequence:* A tight or overloaded plan is a plausible contributing factor to the cut, though prioritisation may also explain it. *(Evidence: PLAN.md task load table + DEMO.md unbuilt status)*
 
 ## 9. Lessons learned
-- **Evidence beats confidence:** Jurors and judges immediately detect when a team claims a feature is tested when it was merely mocked.
-- **Run the code first:** The Demo Day Court failure ladder forced transparency before judging, preventing embarrassing live failures.
-- **Test riskiest assumptions early:** If the idea collapses when a premise is false, spend the first 30 minutes verifying it before building.
+Each lesson is an `[AI]` reading of the evidence named next to it. No evidence, no lesson.
+- **Test the premise before building on it:** the 'collapses' assumptions were still untested at the end. *(Evidence: ASSUMPTIONS.md)*
+- **Judge the demo by what runs, not by what's planned:** the Demo Day Court failed the built product. *(Evidence: court/ demo trial)*
+- **Write the pitch from the demo ladder:** the pitch claimed features the product didn't have. *(Evidence: PITCH.md drill)*
+- **Leave slack on the critical path:** the plan check warned the schedule was tight or overloaded. *(Evidence: PLAN.md plan check)*
 
 ## 10. Top three improvements for the next hackathon
-1. **Verify killers in Phase 6:** Complete telephone/venue interviews before locking the plan; never carry untested 'collapses' assumptions into the demo.
-2. **Keep pitch claims synchronized with DEMO.md:** Never allow deck headlines or Q&A answers to run ahead of tested implementation.
-3. **Balance team workload at planning:** Reallocate tasks from overloaded members during /hack:plan to ensure buffer for integration.
+1. **Test killer assumptions in phase 6:** Run the experiment cards (calls, venue interviews) before /hack:lock; don't carry an untested 'collapses' assumption into the demo.
+2. **Keep pitch claims in step with DEMO.md:** Re-run /hack:verify --demo before the final deck, and take the built-vs-mocked answer from its ladder.
+3. **Rebalance the plan early:** Act on the plan check's warnings during /hack:plan, not after code freeze.

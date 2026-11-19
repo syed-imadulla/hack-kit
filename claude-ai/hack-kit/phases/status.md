@@ -43,6 +43,6 @@ Work out the times from the current time. Mark any overdue freeze **OVERDUE**.
    python3 "<plugin>/scripts/merge.py" .hackathon
    ```
    Add `--dry-run` first if you want to preview the changes.
-   The script validates table structures, appends new rows with teammate attribution, skips exact duplicates, marks conflicting rows with `CONFLICT` tags so neither version is lost, and logs the merge in `STATE.md`.
+   The script validates table structures, appends new rows with teammate attribution, skips exact duplicates, marks conflicting rows with `CONFLICT` tags so neither version is lost, keeps every free-text note under `## Merged from teammates` (with who added which rows), and logs the merge in `STATE.md`.
 3. If conflicts were flagged, ask the captain (AskUserQuestion) which version to keep and edit the conflict rows accordingly.
 4. Remind the captain to commit and push.

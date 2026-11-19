@@ -100,3 +100,20 @@ Earlier in v1.1 development, `plan_check.py` testing also fixed 4 gaps: a false 
 ## Limits
 - Same limits as v1.0: no real team; Claude played the captain and the team in the drill.
 - The prototype was built in the workspace, not by a hackathon team, and OCR and voice were mocked.
+
+---
+
+# v1.2.2 review — a real Demo Day Court on the PDS example
+
+> Summary: the PDS Anna-Mitra example shipped with 7 trials whose 84 votes were written in one pass (82 NOT GUILTY). The reviewer ran the prototype, found 2 bugs, and ran a real quick Demo Day Court with separate subagents. It returned FAIL 0–7.
+
+| What | Result |
+|---|---|
+| Prototype run | Quota, offline dispense, verify-chain and tamper drill all worked [V]; dispense takes under 2 ms [V] |
+| Bug 1 | The same card could be dispensed 20 times in one month at one shop [V] |
+| Bug 2 | `--custom-rice 500` printed a 500 kg "100% FREE" receipt, 25× the quota [V] |
+| Mislabels | Voice line called "Real" but prints text only; backup video claimed but missing |
+| Demo Day Court 1 | Quick 7 with the government-clerk seat, `--open-collapses 3` → **FAIL**, 0 NG · 7 G · 0 IE, confidence 7.9 |
+| After the trial | Monthly entitlement guard added; 4 tests; both bugs now rejected. Not re-tried. |
+
+**Lesson for the kit:** one model writing all 12 votes produces confident, uniform agreement and misses what running the product reveals. Hack Court only works when each juror is a separate run and the evidence comes from actually running the product.

@@ -1,8 +1,8 @@
 # PDS Anna-Mitra (Fair Price Shop Assistance & Outage-Resilient Verification)
 
-> **Hack Kit v1.2 Real-World Showcase** · 24-hour Civic Hackathon Demonstration
+> **Hack Kit worked example** · a simulated 24-hour civic hackathon (no real team or field data)
 
-This directory contains a complete, end-to-end, educational worked example built with [Hack Kit](https://github.com/imadulla/hack-kit). It demonstrates how a team moves from an ordinary, flawed hackathon concept (*"a smartphone app with GPS truck tracking and queue webcams"*) to a defensible, evidence-backed public-service solution through Hack Kit's 14 phases.
+This directory contains a complete, end-to-end, educational worked example built with [Hack Kit](https://github.com/syed-imadulla/hack-kit). It demonstrates how a team moves from an ordinary, flawed hackathon concept (*"a smartphone app with GPS truck tracking and queue webcams"*) to a defensible, evidence-backed public-service solution through Hack Kit's 14 phases.
 
 ---
 
@@ -38,13 +38,23 @@ Under the National Food Security Act (NFSA), 2013, Central statutory entitlement
 
 ---
 
+## What the real Demo Day Court found
+
+The illustrative "demo" trial voted 12–0 NOT GUILTY. When the prototype was actually run during the v1.2.2 review, two bugs showed up: one card could be dispensed 20 times in the same month, and `--custom-rice 500` printed a receipt for 500 kg of rice "100% FREE". With that evidence, a real quick jury (separate subagents) voted **0–7, FAIL**.
+
+The fix (a monthly entitlement guard) and 4 tests were added afterwards, and both cases are now rejected. A re-trial hasn't been run. This is the loop Hack Kit is built for: run the product, let the jury find what's wrong, fix it, check again.
+
+---
+
 ## 3. Directory Layout
 
 - `.hackathon/`: Complete Hack Kit state and phase artifacts (Phases 1–14).
   - `STATE.md`: Real-time project tracking, phase progress, decisions log.
   - `EVIDENCE.md`: Source register classifying all data as `[V]`, `[T]`, `[AI]`, or `[?]`.
   - `STATEMENTS.md`, `PICK.md`, `USERS.md`, `IDEAS.md`, `ASSUMPTIONS.md`, `COMPETE.md`, `STRESS.md`, `IMPROVE.md`, `CORE.md`, `PLAN.md`, `DEMO.md`, `PITCH.md`, `BRIEF.md`, `RETRO.md`.
-  - `court/`: Simulated Hack Court trials and Demo Day Court ballots.
+  - `court/demo-1/`: the **real** Demo Day Court: 2 lawyers and 7 jurors, each a separate subagent, run during the v1.2.2 review. Result: **FAIL 0–7** (see above).
+  - `court-illustrative/`: 7 earlier trials kept as format examples only. Their votes were written in one pass by one model, not by separate jurors. Don't read them as evidence.
+  - `extras/`: 11 hand-written notes (threat model, architecture, scorecards). No `/hack:` command produces these.
 - `app/`: Working Python prototype (`pds_counter.py`, `crypto_core.py`).
 - `tests/`: Automated test suite testing quota math, offline logging, truncation, tampering detection, key rotation, non-monotonic clocks, and crash recovery (`test_pds_counter.py`, `test_security_stress.py`).
 
@@ -55,7 +65,7 @@ Under the National Food Security Act (NFSA), 2013, Central statutory entitlement
 ### Running the Test Suite
 ```bash
 python3 -m unittest discover -s examples/pds-anna-mitra/tests
-# Ran 28 tests in 0.016s · OK
+# Ran 32 tests · OK
 ```
 
 ### Initializing the Offline Terminal Database
@@ -73,7 +83,7 @@ python3 examples/pds-anna-mitra/app/pds_counter.py quota KA-BLR-PHH-1002
 python3 examples/pds-anna-mitra/app/pds_counter.py ivr-simulate KA-BLR-PHH-1002 --lang kn
 ```
 
-### Executing Fast Two-Tap Counter Dispense (<15ms)
+### Executing Fast Two-Tap Counter Dispense (measured: under 2 ms per record)
 ```bash
 python3 examples/pds-anna-mitra/app/pds_counter.py dispense KA-BLR-PHH-1002
 ```

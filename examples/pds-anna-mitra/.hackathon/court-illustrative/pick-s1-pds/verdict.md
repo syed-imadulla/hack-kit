@@ -1,5 +1,7 @@
 # VERDICT — Problem Trial: S1 Fair Price Shop Quota Uncertainty & ePOS Outages
 
+> ⚠ **Illustrative, not a real jury run.** All 12 votes were written in one pass by one model. See `../README.md`.
+
 > Summary: REVISE · NOT GUILTY 10 · GUILTY 1 · INSUFFICIENT EVIDENCE 1 · 12 of 12 valid votes · Capped by open collapses assumptions
 
 **DECISION: REVISE**

@@ -7,7 +7,7 @@
 From *"here are the problem statements"* to a well-explored, evidence-labelled, challenged and buildable hackathon idea, with an MVP plan, a pitch and one final PDF.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.2.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.2-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-18-orange)](#-commands)
@@ -56,7 +56,7 @@ Hack Kit turns those two hours into a guided process. Each `/hack:` command asks
 
 Already on 0.x? Update with `/plugin marketplace update hack-kit`. Old `.hackathon/` projects upgrade automatically; see [MIGRATION.md](MIGRATION.md).
 
-> 🧪 **Tested end to end:** v1.0 was run through all 14 phases on a mock 24 h hackathon, with 48 real juror subagents. The run found 11 problems, and all are fixed in v1.0.1. v1.1's Demo Day Court and drill were then tested on a real prototype, which found 4 more problems, all fixed in v1.1.0. Read the [test report](docs/TEST-RUN.md) or browse the [full test project](examples/test-run-certificates/.hackathon).
+> 🧪 **Tested end to end:** v1.0 was run through all 14 phases on a mock 24 h hackathon, with 48 real juror subagents. The run found 11 problems, and all are fixed in v1.0.1. v1.1's Demo Day Court and drill were then tested on a real prototype, which found 4 more problems, all fixed in v1.1.0. The v1.2.2 review then ran a real Demo Day Court on the PDS example's prototype, which failed it 0–7 and found 2 bugs. Read the [test report](docs/TEST-RUN.md) or browse the [full test project](examples/test-run-certificates/.hackathon).
 
 ---
 
@@ -263,7 +263,7 @@ Everything is saved in `.hackathon/` in your project. Commit it so the whole tea
 └── court/          full trial records + raw votes
 ```
 
-Worked examples: [`examples/test-run-certificates`](examples/test-run-certificates) (every file, plus real trial records) and [`examples/opd-saathi`](examples/opd-saathi).
+Worked examples: [`examples/test-run-certificates`](examples/test-run-certificates) (every file, plus real trial records), [`examples/pds-anna-mitra`](examples/pds-anna-mitra) (a working prototype and a real Demo Day Court; its earlier trials are labelled illustrative) and [`examples/opd-saathi`](examples/opd-saathi).
 
 Share the short version with mentors: `/hack:ship` also makes a **brief pack** (about 10–15 pages).
 
@@ -330,8 +330,9 @@ At the idea stage, judges reward a real problem that's clearly solved. If your r
 ## 🗓️ Roadmap
 
 - **v1.0, "Think deeper":** ideate, Hack Court 2.0, the improve loop, assumptions, evidence labels, automated checks.
-- **v1.1 (this release), "Build smarter":** full event profiles, Demo Day Court (`/hack:verify --demo`), team-aware plans, pitch drills, safe parallel work.
-- **v1.2, "Show it":** a complete example Idea Pack, a website idea-evolution demo, a post-event retro command.
+- **v1.1, "Build smarter":** full event profiles, Demo Day Court (`/hack:verify --demo`), team-aware plans, pitch drills, safe parallel work.
+- **v1.2 (this release), "Prove it":** `/hack:retro`, a merge script for teammates' pending work, the PDS Anna-Mitra worked example, and the FieldTrip website. v1.2.2 makes retro report only what the files show, makes merging lossless, and labels the example's one-pass trials as illustrative next to a real Demo Day Court.
+- **Next:** a run with a real team at a real event.
 
 ---
 
@@ -360,7 +361,7 @@ hack-kit/
 ├── claude-ai/          generated Claude app skill + one-paste prompt
 ├── prompts/            copy-ready prompts
 ├── docs/               website · GUIDE.md · TEST-RUN.md · skill zip
-└── examples/           test run (complete) · OPD Saathi sample
+└── examples/           test run (complete) · PDS Anna-Mitra · OPD Saathi sample
 ```
 </details>
 

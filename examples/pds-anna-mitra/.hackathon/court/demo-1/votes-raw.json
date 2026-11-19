@@ -1,0 +1,100 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "GUILTY",
+  "confidence": 8,
+  "evidence_strength": "strong",
+  "reason": "I keypad-phone Kenchaiah. The IVR is mocked and the 'Kannada voice' only prints text, so nothing reaches me before I walk. Repeat dispenses and a 500 kg 'free' receipt mean my grain can vanish to others.",
+  "weakest_assumption": "A1/A2: that wasted trips are mainly caused by stock not arriving, and that people like me will phone an IVR before setting out. Both untested.",
+  "missing_info": "Any real beneficiary trial: whether a Kannada call about stock or quota stopped even one wasted trip, and whether a dealer used the offline counter at a real shop.",
+  "fix": {
+   "change": "Block more than one dispense per card per month and cap at quota, then play real Kannada audio of stock status and quota to 5 villagers on keypad phones and count trips saved",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "GUILTY",
+  "confidence": 8,
+  "evidence_strength": "strong",
+  "reason": "Kenchaiah gets nothing tested: IVR mocked, Kannada voice prints text only yet labelled 'Real'. Counter accepts 20 repeat dispenses and 500 kg 'free' rice, so a dealer could still cheat him. Wasted trips remain unproven.",
+  "weakest_assumption": "A2: elderly keypad-phone users will dial an IVR before travelling, plus A1 that stock lag is the main cause of wasted trips. Both open [?].",
+  "missing_info": "Any test with a real Kannada-speaking keypad-phone beneficiary; actual Kannada audio output; proof that fewer trips happen; whether the backup video exists.",
+  "fix": {
+   "change": "Add once-per-card-per-month and quota-cap checks, relabel the voice line as text-only, then run a real Kannada audio/IVR or missed-call SMS trial with 5 elderly keypad-phone users.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "GUILTY",
+  "confidence": 8,
+  "evidence_strength": "strong",
+  "reason": "At my counter the same card got rice 20 times in one month, and one entry printed 500 kg free [V]. Inspectors would hold me responsible for that leakage. Offline dispense works, but these rules aren't real ones.",
+  "weakest_assumption": "A7: dealers will adopt an offline counter that lets them over-issue, when inspectors audit dealers for exactly that.",
+  "missing_info": "Any dealer actually running it in a morning rush with a queue and a dead network, plus proof that a beneficiary takes fewer wasted trips.",
+  "fix": {
+   "change": "Before printing a receipt, block a second dispense of the same card in the same month and any quantity above the entitlement. Add [V] tests for both, and relabel the voice line as text-only.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Government clerk",
+  "vote": "GUILTY",
+  "confidence": 8,
+  "evidence_strength": "strong",
+  "reason": "Tests show the same card was dispensed 20 times and a 500 kg 'free' receipt went through. I would answer for those errors. Nothing links it to Ahara, and the Kannada voice is mislabelled as real.",
+  "weakest_assumption": "A7: dealers and offices will adopt a separate offline counter alongside the mandated Ahara/ePOS portal without double data entry",
+  "missing_info": "How offline records sync into Ahara, who signs off and owns corrections when the ledger and portal disagree, and evidence that wasted trips actually drop",
+  "fix": {
+   "change": "Block a card from being dispensed twice in a month and cap custom quantities at the quota before printing a receipt. Show an export or sync to the Ahara record format. Relabel the voice line as text-only.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "GUILTY",
+  "confidence": 8,
+  "evidence_strength": "strong",
+  "reason": "Root cause (A1: why trips are wasted) is unverified. The offline counter fixes network outages, not stock lag or awareness. Unlimited repeat and 500 kg dispenses [V] break the 'rules are real' claim, so overcharging and leakage stay unsolved.",
+  "weakest_assumption": "A1: wasted trips are mainly caused by stock-arrival lag. If true, a dealer-side offline counter doesn't fix it, and the beneficiary-facing IVR that would is mocked.",
+  "missing_info": "Field evidence on which cause (stock lag, outage, quota ignorance) drives most wasted trips; any test with a real beneficiary or dealer; the backup video file.",
+  "fix": {
+   "change": "Enforce one dispense per card per month and the quota cap in the ledger, and show both rejections in the demo. Validate A1 with 5-10 beneficiary or dealer interviews, then present stock-arrival notice as the core feature.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "strong",
+  "reason": "Offline dispense, rules and audit are tested, but the ledger accepted 20 repeat dispenses of one card and a 500 kg free receipt [V]. The demo says the rules are 'real' while the core check fails. Problem link is unproven.",
+  "weakest_assumption": "A1: wasted trips come mainly from stock-arrival lag, so an offline counter cuts trips (open [?]). Nothing shows Kenchaiah makes fewer trips.",
+  "missing_info": "Whether the once-per-card-per-month check and the quota cap can be built and re-tested before freeze; any beneficiary or dealer validation; whether the backup video file exists.",
+  "fix": {
+   "change": "In the next 2 h: add a once-per-card-per-month guard and a cap of custom quantity at the entitlement in dispense, add tests, rerun the 20-repeat and 500 kg drills live, relabel the voice line as text-only, and record or drop the backup video.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Sceptic",
+  "vote": "GUILTY",
+  "confidence": 8,
+  "evidence_strength": "strong",
+  "reason": "Problem is only team-asserted; all three collapse assumptions untested. Measured tests show unlimited same-card repeats and 500 kg free receipts, contradicting 'rules are real'. Kannada voice falsely labelled Real; backup video unproven.",
+  "weakest_assumption": "A1: wasted trips are mainly caused by stock-arrival lag. Nothing shows how many beneficiaries are affected or that an offline counter removes even one trip.",
+  "missing_info": "Field evidence on trip causes and frequency (beneficiaries, dealers, inspector), dealer willingness to adopt, any real user test, and the backup video file.",
+  "fix": {
+   "change": "Add a once-per-card-per-month check and a quota cap to dispense, show the rejection live, relabel the voice line as text-only, and show interview data on the causes of wasted trips.",
+   "impact": "high",
+   "effort": "low"
+  }
+ }
+]

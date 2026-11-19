@@ -238,5 +238,41 @@ class TestPDSCounterIntegration(unittest.TestCase):
         self.assertEqual(cur.fetchone()["c"], initial_count)
 
 
+class TestMonthlyEntitlementGuard(unittest.TestCase):
+    """Added after Demo Day Court 1 found repeat and 500 kg dispenses were accepted."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.conn = get_db(Path(self.tmp.name) / "guard.db")
+        init_database(self.conn, dealer_id="FPS-TEST-TALUK-01")
+
+    def tearDown(self):
+        self.conn.close()
+        self.tmp.cleanup()
+
+    def test_second_full_dispense_same_month_is_blocked(self):
+        record_transaction(self.conn, "KA-BLR-PHH-1002", timestamp_override="2026-11-05T09:00:00Z")
+        with self.assertRaises(ValueError):
+            record_transaction(self.conn, "KA-BLR-PHH-1002", timestamp_override="2026-11-06T09:00:00Z")
+
+    def test_next_month_is_allowed(self):
+        record_transaction(self.conn, "KA-BLR-PHH-1002", timestamp_override="2026-11-05T09:00:00Z")
+        record_transaction(self.conn, "KA-BLR-PHH-1002", timestamp_override="2026-12-02T09:00:00Z")
+
+    def test_quantity_above_entitlement_is_blocked(self):
+        with self.assertRaises(ValueError):
+            record_transaction(self.conn, "KA-BLR-PHH-1002", custom_items={"rice_kg": 500.0},
+                               timestamp_override="2026-11-05T09:00:00Z")
+
+    def test_partial_drawals_up_to_the_limit_are_allowed(self):
+        record_transaction(self.conn, "KA-BLR-PHH-1002", custom_items={"rice_kg": 10.0},
+                           timestamp_override="2026-11-05T09:00:00Z")
+        record_transaction(self.conn, "KA-BLR-PHH-1002", custom_items={"rice_kg": 10.0},
+                           timestamp_override="2026-11-06T09:00:00Z")
+        with self.assertRaises(ValueError):
+            record_transaction(self.conn, "KA-BLR-PHH-1002", custom_items={"rice_kg": 1.0},
+                               timestamp_override="2026-11-07T09:00:00Z")
+
+
 if __name__ == "__main__":
     unittest.main()

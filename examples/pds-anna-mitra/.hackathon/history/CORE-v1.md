@@ -2,7 +2,7 @@
 
 > **Historical Snapshot**: Archived prior to Phase 8/9 Stress Testing and Architectural Hardening.
 > **Date**: 2026-11-03
-> **Status**: Superseded by `ARCHITECTURE-V2.md`
+> **Status**: Superseded by `extras/ARCHITECTURE-V2.md`
 
 ---
 

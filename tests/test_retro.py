@@ -206,8 +206,54 @@ class TestRetro(unittest.TestCase):
         self.assertIn("retrospective", r.stdout.lower())
 
 
+class TestRetroHonesty(unittest.TestCase):
+    """v1.2.2: retro may only report what the project files show."""
+
+    def test_no_stock_mistakes_or_lessons_for_empty_project(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            (folder / "STATE.md").write_text("# STATE — Empty\n\nSchema version: 2\n", encoding="utf-8")
+            md = generate_retro_markdown(folder)
+        self.assertNotIn("Writing pitch claims before running the demo check", md)
+        self.assertNotIn("Evidence beats confidence", md)
+        self.assertIn("No mistakes could be identified", md)
+        self.assertIn("Not enough recorded evidence to draw lessons", md)
+        self.assertEqual(md.count("general practice, not from this project's data"), 3)
+
+    def test_demo_fail_uses_real_counts(self):
+        md = generate_retro_markdown(CERT_EXAMPLE)
+        self.assertIn("NOT GUILTY 0 · GUILTY 7 · INSUFFICIENT EVIDENCE 0", md)
+        self.assertNotIn("due to simulated components", md)
+
+    def test_open_collapses_without_capped_trial_is_a_risk_not_a_cause(self):
+        assumptions = {"items": [{"assumption": "Users will call", "is_collapses": True, "status": "open"}]}
+        trials = [{"name": "verify", "decision": "FAIL", "criticisms": [], "counts": (2, 9, 1), "capped": False, "reasons": []}]
+        conns = find_causal_connections(assumptions, None, None, trials, None)
+        self.assertEqual(conns[0]["category"], "[Open risk]")
+        trials[0].update(decision="REVISE", capped=True)
+        conns = find_causal_connections(assumptions, None, None, trials, None)
+        self.assertEqual(conns[0]["category"], "[Direct Cause]")
+
+    def test_no_mid_word_truncation(self):
+        from retro import short
+        self.assertEqual(short("Record real Kannada TTS clips for each flag and play one", 40), "Record real Kannada TTS clips for each…")
+        self.assertEqual(short("short text", 40), "short text")
+
+    def test_unbuilt_feature_is_not_called_real(self):
+        md = generate_retro_markdown(CERT_EXAMPLE)
+        row = next(l for l in md.splitlines() if l.startswith("| Watched scan folder"))
+        self.assertNotIn("Real", row)
+
+    def test_missing_honesty_score_is_not_invented(self):
+        trials = []
+        drill = {"avg_score": None, "avg_honesty": None, "false_claims": ["Built: watcher"]}
+        conns = find_causal_connections(None, None, None, trials, drill)
+        self.assertNotIn("1.75", conns[0]["consequence"])
+        self.assertIn("No drill honesty score", conns[0]["consequence"])
+
+
 def run():
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestRetro)
+    suite = unittest.TestSuite([unittest.TestLoader().loadTestsFromTestCase(c) for c in (TestRetro, TestRetroHonesty)])
     res = unittest.TextTestRunner(verbosity=1).run(suite)
     return len(res.failures) + len(res.errors)
 

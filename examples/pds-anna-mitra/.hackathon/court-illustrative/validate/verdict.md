@@ -1,5 +1,7 @@
 # VERDICT — Validation Trial: Anna-Mitra Dual-Channel Foundation
 
+> ⚠ **Illustrative, not a real jury run.** All 12 votes were written in one pass by one model. See `../README.md`.
+
 > Summary: REVISE (capped by open collapses assumptions) · NOT GUILTY 12 · GUILTY 0 · INSUFFICIENT EVIDENCE 0 · 12 of 12 valid votes
 
 **DECISION: REVISE**

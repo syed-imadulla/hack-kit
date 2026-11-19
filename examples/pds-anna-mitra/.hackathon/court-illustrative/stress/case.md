@@ -11,5 +11,5 @@ Has Anna-Mitra Dual-Channel survived rigorous red-team attacks across beneficiar
    - Full-ledger rewrite attacks fail against pinned checkpoints (`test_full_ledger_rewrite_caught_by_checkpoint`).
    - Non-monotonic timestamps / clock rollbacks are rejected (`test_sequence_number_gap_or_rollback_detected`).
    - Multi-device duplicate card redemptions are flagged upon central sync (`test_multi_device_duplicate_card_drawal_detected`).
-2. **Failure Analysis & Threat Model (`STRESS-TEST.md`, `THREAT-MODEL.md`, `FAILURE-MATRIX.md`):** 22 scenarios evaluated across 5 domains.
+2. **Failure Analysis & Threat Model (`extras/STRESS-TEST.md`, `extras/THREAT-MODEL.md`, `extras/FAILURE-MATRIX.md`):** 22 scenarios evaluated across 5 domains.
 3. **Honest Limitations:** Explicit acknowledgment that disconnected devices cannot prevent split-brain double drawals in real time without network connectivity.

@@ -23,16 +23,16 @@ Last updated: 2026-11-19 21:30 IST
 |---|---|---|---|---|
 | 1 | start | done | 20:30 | Profile: civic, 24 h, mode: full |
 | 2 | decode | done | 20:35 | Statutory NFSA vs state scheme bounds established |
-| 3 | pick (trial) | done | 20:45 | S1 selected; verdict: REVISE (capped by 3 open collapses) |
+| 3 | pick (trial) | done | 20:45 | S1 selected; illustrative verdict: REVISE (capped by 3 open collapses) |
 | 4 | users | done | 20:48 | Personas: Lakshmi (beneficiary), Basavaraj (dealer), Ramesh (inspector) |
 | 5 | ideate | done | 20:55 | 10 ideas evaluated; RationTrack app rejected; Dual-Channel selected |
-| 6 | validate | done | 21:00 | 4 experiment cards created (EXP-01..04); verdict: REVISE (capped by 3 collapses) |
-| 7 | compete | done | 21:05 | Benchmarked vs Mera Ration, Ahara, and paper registers; verdict: REVISE |
-| 8 | stress | done | 21:10 | 22 failure scenarios analyzed; 8 security unit tests passing; verdict: REVISE |
-| 9 | improve | done | 21:18 | Hardened to v2: 2-tap UI, zero-PII IVR, key rotation, clock checks; verdict: REVISE |
+| 6 | validate | done | 21:00 | 4 experiment cards created (EXP-01..04); illustrative verdict: REVISE (capped by 3 collapses) |
+| 7 | compete | done | 21:05 | Benchmarked vs Mera Ration, Ahara, and paper registers; illustrative verdict: REVISE |
+| 8 | stress | done | 21:10 | 22 failure scenarios analyzed; 8 security unit tests passing; illustrative verdict: REVISE |
+| 9 | improve | done | 21:18 | Hardened to v2: 2-tap UI, zero-PII IVR, key rotation, clock checks; illustrative verdict: REVISE |
 | 10 | lock | done | 21:20 | Core locked: problem, personas, journey, motto, non-negotiables |
 | 11 | plan | done | 21:23 | Team workload balanced; critical path 16h / 18h to freeze verified |
-| 12 | verify (trial) | done | 21:26 | Working prototype complete; 19 tests passing; verdict: REVISE (capped) |
+| 12 | verify (trial) | done | 21:26 | Working prototype complete; 19 tests passing; illustrative verdict: REVISE (capped). Real Demo Day Court 1 (v1.2.2 review): FAIL 0–7; fix applied, 32 tests |
 | 13 | pitch | done | 21:28 | Slide deck, Q&A drill, and pitch vs product verification complete |
 | 14 | ship | done | 21:30 | Submission package complete: BRIEF, SUMMARY, VERDICT published |
 

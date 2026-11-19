@@ -237,6 +237,32 @@ def record_transaction(
         if last_ts and now_ts < last_ts:
             raise ValueError(f"Clock rollback violation: proposed timestamp {now_ts} is earlier than previous record timestamp {last_ts}.")
 
+        # Monthly entitlement guard (added after Demo Day Court 1): a card can't draw more
+        # than its entitlement in one calendar month at this shop, in one go or across repeats.
+        limits = {
+            "rice_kg": ent["central_nfsa"]["rice_kg"],
+            "wheat_kg": ent["central_nfsa"]["wheat_kg"],
+            "state_dal_kg": ent["state_addon"]["subsidized_dal_kg"],
+        }
+        unknown = set(items_payload) - set(limits)
+        if unknown:
+            raise ValueError(f"Unknown commodity: {', '.join(sorted(unknown))}.")
+        month = now_ts[:7]
+        drawn = {k: 0.0 for k in limits}
+        for row in conn.execute(
+            "SELECT items_json FROM offline_transactions WHERE card_id = ? AND substr(timestamp, 1, 7) = ?",
+            (card_id, month),
+        ):
+            for k, v in json.loads(row["items_json"]).items():
+                if k in drawn:
+                    drawn[k] += float(v)
+        for k, v in items_payload.items():
+            if drawn[k] + float(v) > limits[k] + 1e-9:
+                raise ValueError(
+                    f"Entitlement exceeded for {card_id} in {month}: {k} would be {drawn[k] + float(v):g}, "
+                    f"limit {limits[k]:g} (already drawn {drawn[k]:g})."
+                )
+
         receipt_hash = compute_receipt_hash(
             prev_hash, next_seq, now_ts, card_id, items_json, dealer_id
         )

@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.2.2 — 2026-11-19 · honesty fixes
+A review of v1.2 found places where the kit or its examples claimed more than the evidence showed. All are fixed.
+
+### Fixed
+- **`merge.py` no longer loses data.** Free-text notes in a teammate's pending section used to be dropped silently. They are now kept under `## Merged from teammates`, with who added which rows and which conflicts were flagged. A teammate's row number is kept when it's free (it used to be renumbered). 5 new tests.
+- **`retro.py` reports only what the files show.**
+  - "Lessons learned" are derived from the evidence it found, each with its source. With no evidence, it says so.
+  - With no detectable mistakes, it no longer prints 3 stock mistakes.
+  - An open "collapses" assumption is called a *direct cause* only when a trial was actually capped by it; otherwise it's an *open risk*.
+  - The Demo Day Court line uses the real vote counts and juror reasons (it was hard-coded to "0 NOT GUILTY").
+  - A missing drill honesty score is reported as missing (it defaulted to 1.75).
+  - Text is shortened at word boundaries, never mid-word.
+  - Unbuilt features are no longer labelled "Real".
+  - Goal status comes from the latest trial, not from "CORE is at v2".
+  - Generic advice is marked "general practice, not from this project's data". 6 new tests.
+- **PDS Anna-Mitra example made honest.**
+  - Its 7 trials were written in one pass by one model (82 of 84 votes NOT GUILTY). They are moved to `court-illustrative/` and labelled as format examples.
+  - A **real Demo Day Court** was run (2 lawyers and 7 jurors as separate subagents) on evidence from actually running the prototype. Result: **FAIL 0–7**. It found that one card could be dispensed 20 times a month and that a 500 kg "free" receipt could be printed.
+  - The prototype now has a monthly entitlement guard and 4 tests (32 total). A re-trial hasn't been run.
+  - The voice line is relabelled text-only, and the unverifiable backup-video claim is flagged.
+  - 11 hand-written files the kit never produces are moved to `.hackathon/extras/`.
+  - Broken `file:///` links and the wrong GitHub owner in the examples are fixed.
+- **Docs:** 7 internal AI working reports moved to `docs/internal/`. The README roadmap is updated. The website shows "Phase N of 14" (retro is "After the event") and describes `/hack:start` and `/hack:retro` accurately.
+
 ## 1.2.1 — 2026-11-19 · "FieldTrip"
 Website UI refresh with the FieldTrip vintage color system, Hack Court 2.0 two-column layout, and an interactive 15-phase workflow split-view dashboard.
 

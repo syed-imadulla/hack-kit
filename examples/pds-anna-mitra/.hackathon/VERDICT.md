@@ -1,5 +1,7 @@
 # VERDICT — PDS Anna-Mitra (Final Showcase Review)
 
+> ⚠ **Illustrative, not a real jury run.** The 12 votes summarised here were written in one pass by one model, not by separate juror subagents. The real Demo Day Court (`court/demo-1/`) returned **FAIL, 0–7**. See `court-illustrative/README.md`.
+
 > Summary: REVISE (capped by open collapses assumptions) · NOT GUILTY 12 · GUILTY 0 · INSUFFICIENT EVIDENCE 0 · 12 of 12 valid votes · Rubric estimate: 84/100
 
 **DECISION: REVISE (capped by 3 open collapses assumptions).**

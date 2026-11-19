@@ -39,7 +39,7 @@
 
 ## 3. High-Level Comparison & Scoring
 
-*Criteria evaluated on a 1–5 scale based on civic problem constraints (see `IDEA-SCORECARD.md` for complete breakdown):*
+*Criteria evaluated on a 1–5 scale based on civic problem constraints (see `extras/IDEA-SCORECARD.md` for complete breakdown):*
 
 | # | Idea | Beneficiary Access | Feasibility (24h) | Offline Resilience | Low Cost & Deploy | Dealer Adoption | Legal / Policy Fit | Total (/30) | Rank |
 |---|---|---|---|---|---|---|---|---|---|
