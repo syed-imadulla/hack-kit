@@ -1,11 +1,11 @@
 ---
-description: "Phase 9 · Plan the MVP as one complete journey with a wow moment: build/mock/cut, stack, roles, timeline, 90-second demo, AI test cases"
+description: "Phase 11 · Plan the MVP as one complete journey with a wow moment: build/mock/cut, stack, roles, timeline, 90-second demo, AI test cases"
 argument-hint: "[--quick]"
 ---
 
 # /hack:plan — One journey, built for real
 
-> **Phase 9 of 12** · Reads: `BRIEF.md`, `CORE.md` · Writes: `PLAN.md` · Next: `/hack:verify`
+> **Phase 11 of 14** · Reads: `BRIEF.md`, `CORE.md` · Writes: `PLAN.md` · Next: `/hack:verify`
 
 Arguments: $ARGUMENTS
 
@@ -51,7 +51,10 @@ Describe it in layers: who uses it → the brain → AI services → data and ex
 Hook (the problem in one line, plus a number) → persona → live journey → wow moment → safety or human check → impact (marked as targets) → the motto.
 Add a **backup plan**: a recorded video, seeded data and an offline mode.
 
-### 7. AI test cases
+### 7. Failure scenarios
+From STRESS.md, give each failure (no internet, API down, wrong AI answer, user gives up) a fallback and a backup demo path.
+
+### 8. AI test cases
 Write 8–12 inputs with the expected behaviour for each. Include a regional language, unclear input, wrong input, a safety-critical input and empty input. At least one test should expect a hand-over to a human.
 
 ## Output

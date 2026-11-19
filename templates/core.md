@@ -1,6 +1,8 @@
 # CORE — <idea name>
 
-> LOCKED: <date time, time zone>  — or —  > DRAFT
+> DRAFT  — or —  > LOCKED: <date time, time zone> · Version v<n>
+
+Version: v1
 
 > Summary: <one line: who it helps and how>.
 
@@ -36,3 +38,7 @@
 ## 11. Privacy basics (data, how long kept, who sees it)
 
 ## 12. Out of scope
+
+## 13. Open assumptions
+| Assumption | Label | Kill test | Status |
+|---|---|---|---|

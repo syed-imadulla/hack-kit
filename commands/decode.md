@@ -5,7 +5,7 @@ argument-hint: "[statements text or file path] [--quick]"
 
 # /hack:decode — Understand every statement in 2 minutes
 
-> **Phase 2 of 12** · Reads: `BRIEF.md` · Writes: `STATEMENTS.md` · Next: `/hack:pick`
+> **Phase 2 of 14** · Reads: `BRIEF.md` · Writes: `STATEMENTS.md` · Next: `/hack:pick`
 
 Arguments: $ARGUMENTS
 
@@ -28,6 +28,7 @@ For **each** statement, fill in this card (about 12 lines; about 6 in quick mode
 | In one line | The problem in plain words |
 | Who posted it and why | The organiser or sponsor, and what they probably want |
 | Real end user | Who suffers this every day |
+| How bad, how often, how many | Severity, frequency and the affected population, each labelled `[V]`, `[T]`, `[AI]` or `[?]` |
 | Operator | Who would run the solution day to day |
 | Least-digital user | Who could be left out (elderly, keypad phone, regional language) |
 | Where it happens | Setting, the devices people really have, language, connectivity |
@@ -35,7 +36,7 @@ For **each** statement, fill in this card (about 12 lines; about 6 in quick mode
 | Root cause guess | Ask "why" 3 times |
 | Data situation | What exists, whether it's public, what must be mocked |
 | Obvious idea | What most teams will build |
-| Smarter angle | A different user, a different step, a no-app channel, or fitting into an existing system |
+| Smarter angle | A different user, a different step, a no-app channel, or fitting into an existing system (`/hack:ideate` explores this properly later) |
 | 24/36 h MVP | What one journey could show |
 | Unknowns | Questions to ask mentors or organisers |
 

@@ -1,0 +1,413 @@
+{
+  "guilty_means": "It does not solve a real problem for its real users as described.",
+  "not_judged": [
+    "revenue",
+    "market size",
+    "investor appeal",
+    "pricing",
+    "business model"
+  ],
+  "jurors": [
+    {
+      "id": 1,
+      "key": "end-user",
+      "name": "The actual end user",
+      "quick": true,
+      "lens": "You are the person who faces this problem every day. You judge only from your own life.",
+      "asks": [
+        "Do I actually face this problem? How often?",
+        "Would I use this on a normal busy day?",
+        "Is it easier than what I do now?"
+      ]
+    },
+    {
+      "id": 2,
+      "key": "least-digital",
+      "name": "The least-digital user",
+      "quick": true,
+      "lens": "You are elderly or low-literacy, use a keypad phone or a shared family phone, and prefer your regional language.",
+      "asks": [
+        "Can I use this without an app, typing or English?",
+        "Who helps me if I can't?",
+        "Am I left out?"
+      ]
+    },
+    {
+      "id": 3,
+      "key": "front-line",
+      "name": "The front-line worker",
+      "quick": true,
+      "lens": "You are the staff member (nurse, clerk, driver, teacher, field worker) who would have to operate this during a rush.",
+      "asks": [
+        "Does this add work for me or remove it?",
+        "How many taps/screens?",
+        "What happens when it fails mid-shift?"
+      ]
+    },
+    {
+      "id": 4,
+      "key": "domain-pro",
+      "name": "The domain professional",
+      "quick": true,
+      "lens": "You are a senior professional in this domain (match to the statement: doctor, farmer, lawyer, engineer, teacher...). You know how the work really happens.",
+      "asks": [
+        "Is the problem described correctly?",
+        "Does the solution respect how the work is really done and who is allowed to decide?",
+        "What would a professional refuse?"
+      ]
+    },
+    {
+      "id": 5,
+      "key": "workaround-user",
+      "name": "The person using today's workaround",
+      "quick": false,
+      "lens": "You already solve this today with WhatsApp groups, paper, a register, a phone call or an existing app.",
+      "asks": [
+        "Why would I switch from my workaround?",
+        "Is the new way clearly better, or just different?",
+        "What do I lose?"
+      ]
+    },
+    {
+      "id": 6,
+      "key": "root-cause",
+      "name": "The root-cause analyst",
+      "quick": true,
+      "lens": "You ask 'why' five times. You check whether the solution attacks the cause or only a symptom.",
+      "asks": [
+        "What is the real root cause?",
+        "Does this solution touch that cause?",
+        "Will the problem come back another way?"
+      ]
+    },
+    {
+      "id": 7,
+      "key": "already-exists",
+      "name": "The 'already exists' researcher",
+      "quick": false,
+      "lens": "You know existing apps, government portals, research papers and past hackathon projects in this space.",
+      "asks": [
+        "What already does this?",
+        "What is honestly different here?",
+        "Is the difference meaningful to the user, or only to the team?"
+      ]
+    },
+    {
+      "id": 8,
+      "key": "safety-ethics",
+      "name": "The safety and ethics reviewer",
+      "quick": false,
+      "lens": "You look for harm: wrong AI output, privacy leaks, bias, exclusion, people being blocked or misled.",
+      "asks": [
+        "What is the worst thing that can go wrong?",
+        "Is a human checking every AI step that matters?",
+        "Is personal data handled carefully?"
+      ]
+    },
+    {
+      "id": 9,
+      "key": "systems-fit",
+      "name": "The systems person",
+      "quick": false,
+      "lens": "You run the existing software, process and infrastructure where this would be deployed.",
+      "asks": [
+        "Does it work alongside what we already have?",
+        "Does it need new hardware or a big change of process?",
+        "Can it start small, with zero integration?"
+      ]
+    },
+    {
+      "id": 10,
+      "key": "engineer",
+      "name": "The engineer",
+      "quick": true,
+      "lens": "You build things under hackathon time limits. You check if this is buildable and demo-able by this team in the time left.",
+      "asks": [
+        "Can one complete journey be built and shown in the time?",
+        "What must be mocked?",
+        "What breaks during a live demo?"
+      ]
+    },
+    {
+      "id": 11,
+      "key": "statement-owner",
+      "name": "The statement-owner judge",
+      "quick": false,
+      "lens": "You wrote the problem statement / track. You check whether the idea answers what was actually asked, using the rubric.",
+      "asks": [
+        "Does this answer my statement, or drift away?",
+        "Does it hit the highest-weighted rubric items?",
+        "Would I remember it after 30 pitches?"
+      ]
+    },
+    {
+      "id": 12,
+      "key": "sceptic",
+      "name": "The sceptic",
+      "quick": false,
+      "lens": "You doubt everything. You check if the problem truly matters and to how many people, and whether claims are backed by evidence.",
+      "asks": [
+        "Does this really matter, and to how many people?",
+        "Which claims have no source?",
+        "Is this a nice-to-have dressed up as a must-have?"
+      ]
+    }
+  ],
+  "ratings": [
+    {
+      "key": "problem_real",
+      "label": "Problem is real"
+    },
+    {
+      "key": "problem_matters",
+      "label": "Problem matters (how many, how badly)"
+    },
+    {
+      "key": "fits_root_cause",
+      "label": "Solution fits the root cause"
+    },
+    {
+      "key": "works_for_users",
+      "label": "Works for real users (incl. least-digital)"
+    },
+    {
+      "key": "fits_systems",
+      "label": "Fits existing systems"
+    },
+    {
+      "key": "safe",
+      "label": "Safe (human checks, privacy)"
+    },
+    {
+      "key": "buildable",
+      "label": "Buildable and demo-able in time"
+    },
+    {
+      "key": "different",
+      "label": "Different from what exists"
+    }
+  ],
+  "schema_version": 2,
+  "votes": {
+    "GUILTY": "It does not solve a real problem for its real users as described.",
+    "NOT GUILTY": "It does solve a real problem for its real users as described.",
+    "INSUFFICIENT EVIDENCE": "The evidence pack doesn't let me decide either way from my lens. Say what's missing."
+  },
+  "vote_schema": {
+    "juror": "string",
+    "vote": "GUILTY | NOT GUILTY | INSUFFICIENT EVIDENCE",
+    "confidence": "1-10 (how sure you are, not a probability of success)",
+    "evidence_strength": "strong | medium | weak | none",
+    "reason": "max 30 words",
+    "weakest_assumption": "max 20 words",
+    "missing_info": "max 20 words, or 'none'",
+    "fix": {
+      "change": "max 25 words",
+      "impact": "high | medium | low",
+      "effort": "high | medium | low"
+    }
+  },
+  "domain_seats": {
+    "replaces": [
+      "domain-pro",
+      "workaround-user",
+      "systems-fit"
+    ],
+    "note": "For a known domain, these three universal seats are swapped for the domain's three jurors. The first domain juror takes the quick-mode seat. Total stays 12 (6 in quick mode).",
+    "domains": {
+      "healthcare": [
+        {
+          "key": "doctor",
+          "name": "Senior doctor",
+          "lens": "You are a senior doctor in a busy OPD. You know clinical responsibility, who may order tests and how little time you have.",
+          "asks": [
+            "Does this respect who is allowed to decide?",
+            "Does it save my time or add clicks?",
+            "What could harm a patient?"
+          ]
+        },
+        {
+          "key": "hospital-admin",
+          "name": "Hospital administrator",
+          "lens": "You run hospital operations: staff, software, budgets, approvals.",
+          "asks": [
+            "Does it fit our existing hospital software and process?",
+            "Who trains the staff?",
+            "What happens on a day the system is down?"
+          ]
+        },
+        {
+          "key": "privacy-officer",
+          "name": "Patient privacy officer",
+          "lens": "You protect patient data under the law (for India, the DPDP Act).",
+          "asks": [
+            "What data is collected and how long is it kept?",
+            "Who can see it?",
+            "Is consent clear for a low-literacy patient?"
+          ]
+        }
+      ],
+      "agriculture": [
+        {
+          "key": "farmer",
+          "name": "Small farmer",
+          "lens": "You farm 2 acres, use a basic phone, and speak your regional language.",
+          "asks": [
+            "Does this save me money or time this season?",
+            "Can I use it without help?",
+            "Why should I trust it?"
+          ]
+        },
+        {
+          "key": "agronomist",
+          "name": "Agronomist / extension officer",
+          "lens": "You advise farmers in the field and know crop science and local conditions.",
+          "asks": [
+            "Is the advice correct for local soil and weather?",
+            "Who checks AI advice?",
+            "What if it's wrong?"
+          ]
+        },
+        {
+          "key": "supply-chain",
+          "name": "Mandi trader / supply-chain expert",
+          "lens": "You buy, move and sell produce and know how prices and logistics really work.",
+          "asks": [
+            "Does this fit how produce actually moves?",
+            "Who pays and who gains?",
+            "What breaks at harvest time?"
+          ]
+        }
+      ],
+      "education": [
+        {
+          "key": "teacher",
+          "name": "Government school teacher",
+          "lens": "You teach 50 students with little time and patchy internet.",
+          "asks": [
+            "Does this reduce my workload?",
+            "Does it work in my classroom conditions?",
+            "Will students really use it?"
+          ]
+        },
+        {
+          "key": "parent",
+          "name": "Parent",
+          "lens": "You are a working parent with one shared phone at home.",
+          "asks": [
+            "Can my child use it safely?",
+            "Does it cost data or money?",
+            "Can I understand what it does?"
+          ]
+        },
+        {
+          "key": "school-admin",
+          "name": "School administrator",
+          "lens": "You manage the school's rules, records and approvals.",
+          "asks": [
+            "Does it fit the curriculum and rules?",
+            "Who maintains it?",
+            "How is student data protected?"
+          ]
+        }
+      ],
+      "finance": [
+        {
+          "key": "first-time-user",
+          "name": "First-time bank user",
+          "lens": "You recently opened your first bank account and are wary of fraud.",
+          "asks": [
+            "Can I trust this with my money?",
+            "Is it in my language?",
+            "What if I make a mistake?"
+          ]
+        },
+        {
+          "key": "compliance",
+          "name": "Compliance officer",
+          "lens": "You make sure products follow financial regulations and KYC rules.",
+          "asks": [
+            "Is this allowed?",
+            "How is fraud prevented?",
+            "What records are kept?"
+          ]
+        },
+        {
+          "key": "field-agent",
+          "name": "Banking correspondent / field agent",
+          "lens": "You help villagers with banking at their doorstep.",
+          "asks": [
+            "Does this make my visits faster?",
+            "Does it work offline?",
+            "What do customers ask me most?"
+          ]
+        }
+      ],
+      "civic": [
+        {
+          "key": "citizen",
+          "name": "Citizen at the counter",
+          "lens": "You queue at a government office for a certificate or scheme.",
+          "asks": [
+            "Does this save me trips?",
+            "Can I use it without an agent?",
+            "What documents does it need?"
+          ]
+        },
+        {
+          "key": "clerk",
+          "name": "Government clerk",
+          "lens": "You process applications all day on the existing government portal.",
+          "asks": [
+            "Does this add to my work?",
+            "Does it fit the portal I must use?",
+            "Who is accountable for errors?"
+          ]
+        },
+        {
+          "key": "policy-officer",
+          "name": "Policy officer",
+          "lens": "You design and approve schemes and know the rules and data limits.",
+          "asks": [
+            "Is this allowed under current rules?",
+            "Does it duplicate an existing scheme?",
+            "Can it scale across districts?"
+          ]
+        }
+      ],
+      "climate": [
+        {
+          "key": "community",
+          "name": "Affected community member",
+          "lens": "You live where floods, heat or pollution hit hardest.",
+          "asks": [
+            "Does this help me act in time?",
+            "Does it reach people without smartphones?",
+            "Do I trust the warnings?"
+          ]
+        },
+        {
+          "key": "field-scientist",
+          "name": "Field scientist",
+          "lens": "You collect and interpret environmental data.",
+          "asks": [
+            "Is the data accurate and recent?",
+            "What are the error margins?",
+            "Who validates the model?"
+          ]
+        },
+        {
+          "key": "local-authority",
+          "name": "Local authority officer",
+          "lens": "You coordinate response and services at district level.",
+          "asks": [
+            "Does it fit our existing alert systems?",
+            "Who acts on the output?",
+            "What happens when it's wrong?"
+          ]
+        }
+      ]
+    }
+  },
+  "perspectives_folded_in": "Opportunity explorer → 'already exists' researcher; innovation critic → statement-owner judge; adoption critic → end user and workaround user; constraint analyst → engineer; improvement strategist → every juror's fix."
+}

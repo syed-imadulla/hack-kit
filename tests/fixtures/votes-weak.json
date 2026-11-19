@@ -1,0 +1,170 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Senior doctor",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Hospital administrator",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "'Already exists' researcher",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Safety and ethics reviewer",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Patient privacy officer",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "NOT GUILTY",
+  "confidence": 8,
+  "evidence_strength": "weak",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Statement-owner judge",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "medium",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Sceptic",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "medium",
+  "reason": "Sample reason for testing.",
+  "weakest_assumption": "Patients will use voice check-in.",
+  "missing_info": "none",
+  "fix": {
+   "change": "Demo the phone-call path.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ }
+]

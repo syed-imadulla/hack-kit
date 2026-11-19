@@ -1,15 +1,26 @@
 # VERDICT — <case name>
 
-**VERDICT: <GUILTY / NOT GUILTY / HUNG JURY>** (<x> of <n>, average confidence <y>/10)
+> Summary: <PASS / REVISE / FAIL / INCONCLUSIVE> · NOT GUILTY <x> · GUILTY <y> · INSUFFICIENT EVIDENCE <z> · <n> of <expected> valid votes
+
+**DECISION: <PASS / REVISE / FAIL / INCONCLUSIVE>**
 On trial: "<question>"
-GUILTY means: "It does not solve a real problem for its real users as described."
+Jury: <universal / healthcare / agriculture / …> seats · <full 12 / quick 6>
+Average confidence: <c>/10 (how sure jurors were, not a probability of success)
+
+> Simulated jurors are perspectives, not real users or experts. Use this verdict to decide what to test and fix, not as proof.
 
 ## Votes
-| # | Juror | Vote | Confidence | Reason |
-|---|---|---|---|---|
+| # | Juror | Vote | Conf | Evidence | Reason |
+|---|---|---|---|---|---|
+
+No vote or invalid: <none / list>. Raw votes: `votes-raw.json` (unedited). Retries: `trial-log.md`.
+
+## Contradictions between jurors
+| Jurors | Disagreement | Evidence favours |
+|---|---|---|
 
 ## Ratings /10
-| Item | Score | Why |
+| Item | Score | Why (labels) |
 |---|---|---|
 | Problem is real | | |
 | Problem matters | | |
@@ -20,19 +31,27 @@ GUILTY means: "It does not solve a real problem for its real users as described.
 | Buildable and demo-able | | |
 | Different from what exists | | |
 
-## Top 3 reasons it could fail
+## What's genuinely strong
 1.
-2.
-3.
 
-## Top 3 fixes (inside the core)
-1.
-2.
-3.
+## Weakest assumption
+<assumption> — label <[?]/[AI]/…> — kill test: <collapses / weakens / minor>
 
-## Quick venue check (30 min)
+## What we're overlooking
+-
+
+## An alternative approach (same problem, same user)
+-
+
+## Ranked improvements
+| # | Change | Impact | Effort | Priority | Raised by | Inside the core? | How to check it worked |
+|---|---|---|---|---|---|---|---|
+
+## Next experiment (30 min)
 Test:
 PASS if:
 FAIL if:
 
 ## If I were your team…
+
+**Next →** `/hack:improve` (REVISE/FAIL) · `/hack:assumptions` (INCONCLUSIVE) · continue (PASS)

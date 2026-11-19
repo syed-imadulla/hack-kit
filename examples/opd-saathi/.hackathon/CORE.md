@@ -1,6 +1,10 @@
 # CORE — OPD Saathi
 
-> LOCKED (example)
+> LOCKED: 2026-11-19 18:25 IST · Version v2 (example)
+
+> Summary: a patient-facing AI front desk for hospital OPDs: voice check-in and doctor-approved tests while patients wait.
+
+Version: v2
 
 ## 1. Name and motto
 **OPD Saathi.** Patients wait 2 hours to get 2 minutes. OPD Saathi makes those 2 hours count.
@@ -64,3 +68,9 @@ Audio deleted within 72 h. The hospital record is the official one.
 
 ## 12. Out of scope
 Diagnosis, prescribing, emergency triage, filling the case sheet.
+
+## 13. Open assumptions
+| Assumption | Label | Kill test | Status |
+|---|---|---|---|
+| Patients can describe symptoms by voice in a noisy OPD | [?] | collapses | testing |
+| Hospitals allow WhatsApp or calls for check-in | [?] | weakens | open |

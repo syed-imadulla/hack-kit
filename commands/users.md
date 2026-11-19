@@ -5,7 +5,7 @@ argument-hint: "[--quick]"
 
 # /hack:users — Think as every real user
 
-> **Phase 4 of 12** · Reads: `BRIEF.md`, `PICK.md` · Writes: `USERS.md` · Next: `/hack:validate`
+> **Phase 4 of 14** · Reads: `BRIEF.md`, `PICK.md` · Writes: `USERS.md`, `ASSUMPTIONS.md` · Next: `/hack:ideate`
 
 Arguments: $ARGUMENTS
 
@@ -31,6 +31,7 @@ Use AskUserQuestion:
 | What makes them adopt | It saves *them* time, needs no new skills, or someone they trust asks them to |
 | Device and channel | Smartphone, keypad phone, shared phone or none; WhatsApp, call, SMS or counter |
 | Power to block it | Yes or no, and how |
+| Evidence | Label each line `[V]`, `[T]`, `[AI]` or `[?]`. Personas are `[AI]` unless the team has met such people |
 
 ### 3. Write the framing
 - **POV:** "[User] needs a way to [need] because [insight]."
@@ -44,8 +45,10 @@ Use AskUserQuestion:
 Ask (AskUserQuestion) which motto to use, or let the team type their own.
 
 ## Output
-Write `.hackathon/USERS.md` from `templates/users.md`. In STATE.md, tick "users" and set the motto.
+- `.hackathon/USERS.md` from `templates/users.md`.
+- Add every untested belief about users (devices, language, willingness, who decides) to `ASSUMPTIONS.md` (source "users"), with a kill test.
+- In STATE.md, tick "users" and set the motto.
 
 ## Finish
 Give 3 lines: the persona, the POV and the motto.
-**Next → `/hack:validate`.** It can run in parallel with `/hack:compete` on another teammate's machine.
+**Next → `/hack:ideate`.** It explores different ways to solve the problem for this user.

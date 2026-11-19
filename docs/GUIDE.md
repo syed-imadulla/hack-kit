@@ -24,18 +24,19 @@ This is the playbook behind the commands. Read it once before your first event.
 |---|---|---|
 | 0:00 | `/hack:start` (or before statements) | Captain |
 | 0:05 | `/hack:decode` | Captain |
-| 0:20 | `/hack:pick` → captain decides | Everyone |
+| 0:20 | `/hack:pick` → captain chooses the problem | Everyone |
 | 0:35 | `/hack:users` | Captain + pitcher |
-| 0:45 | `/hack:validate` ‖ `/hack:compete` ‖ venue chats | Split the team |
-| 1:10 | `/hack:stress` | Everyone |
-| ~1:30 | `/hack:lock` → **idea freeze** 🔒 | Captain |
-| 1:40 | `/hack:plan` | Builders |
-| 2:00 | `/hack:verify` | Captain |
-| 2:15 → code freeze | Build the one journey | Builders |
+| 0:45 | `/hack:ideate` → captain chooses the idea | Everyone |
+| 0:55 | `/hack:validate` ‖ `/hack:compete` ‖ test the riskiest assumption with real people | Split the team |
+| 1:15 | `/hack:stress` → `/hack:improve` | Everyone |
+| ~1:40 | `/hack:lock` → **idea freeze** 🔒 | Captain |
+| 1:50 | `/hack:plan` | Builders |
+| 2:10 | `/hack:verify` (→ `/hack:improve` if REVISE) | Captain |
+| 2:30 → code freeze | Build the one journey | Builders |
 | Code freeze (3–4 h before judging) | Record the backup demo | Builder |
 | Before judging | `/hack:pitch` → `/hack:ship` | Pitcher |
 
-For a 36 h event, double the time for phases 1–8 and spend it on real conversations.
+For a 12 h event, quick mode turns on automatically: fewer ideas, one improve round, and the idea is locked in about 45 minutes. For 36 h+, spend the extra time on real conversations and experiments.
 
 ### Working as a team
 - Put `.hackathon/` in your shared git repo. It's the single source of truth.
@@ -53,29 +54,57 @@ Write it down in `/hack:validate`. Three real conversations beat thirty AI guess
 
 ---
 
-## The trial, explained
+## Evidence labels
+
+| Label | Means |
+|---|---|
+| `[V]` | Verified: a source that was opened and read, or a measured result |
+| `[T]` | Team-provided: something you said, or venue notes you typed |
+| `[AI]` | AI inference: a reasonable guess, never a fact |
+| `[?]` | Unknown |
+
+Only `[V]` and `[T]` can validate an assumption. In your deck, state only `[V]` and `[T]` claims as facts; present the rest as estimates or targets.
+
+---
+
+## Hack Court 2.0, explained
 
 | Part | Who | What |
 |---|---|---|
-| Case file | Clerk (main Claude) | ~120 words: problem, users, solution, constraints |
+| Evidence pack | Clerk (main Claude) | ~200 words: problem, users, solution, constraints, labelled evidence, top assumptions |
 | Prosecution | Subagent | Strongest case that it does **not** solve a real problem |
 | Defense | Subagent | Strongest case that it **does** |
-| Jury | 12 separate subagents | GUILTY / NOT GUILTY, confidence, reason, fix |
-| Judge | Main Claude | Counts only real votes, then gives ratings, fixes and a venue check |
+| Jury | 12 separate subagents (3 domain seats for known domains) | GUILTY / NOT GUILTY / INSUFFICIENT EVIDENCE, with confidence, evidence strength, weakest assumption, missing info and a rated fix |
+| Count | `scripts/tally.py` | Checks every reply and re-runs broken ones; counts only valid votes |
+| Judge | Main Claude | PASS / REVISE / FAIL / INCONCLUSIVE, contradictions, ratings, ranked improvements, next experiment |
 
 **GUILTY** means "it does not solve a real problem for its real users as described". Business viability is **never** judged.
 
 ### Reading a verdict
-| Result | What to do |
+| Decision | What to do |
 |---|---|
-| NOT GUILTY with 9 or more votes | Go. Apply the top fix. |
-| NOT GUILTY with 7–8 votes | Go, but fix the lowest rating first. |
-| HUNG JURY (6–6) | Run the 30-minute venue check, then decide. |
-| GUILTY | Read the top 3 reasons. Fix inside the core, or choose the next candidate. |
+| **PASS** | Go. Apply the top P0 improvement if it's cheap. |
+| **REVISE** | Run `/hack:improve`: accept the top changes, get CORE v2, re-check. |
+| **FAIL** | Run `/hack:improve` once. If it still fails, the captain decides: rethink the idea in `/hack:ideate`, or pick the next problem. |
+| **INCONCLUSIVE** | Not enough evidence. Run `/hack:assumptions`, do the next experiment, then trial again. |
+
+Remember: jurors are simulated perspectives, and confidence isn't a probability of success.
+
+---
+
+## The improve loop
+
+`/hack:improve` turns criticism into a better version:
+1. It collects the top fixes from the latest verdict (or the stress test).
+2. For each change, it shows which weakness it fixes, the new risk it adds, and the evidence still needed.
+3. You accept or reject each change. Anything that changes the problem or main user is marked **DRIFT** and needs the captain's OK.
+4. The old CORE goes to `history/`, the new version is compared side by side, and a quick trial re-checks it.
+5. It stops at PASS, after 2 rounds, or when time runs out.
 
 ---
 
 ## After lock: staying on track
+- Lock protects the problem, the main user, the core journey and the motto. Smaller improvements still go through `/hack:improve`, and get logged.
 - Every new idea goes on a "later" list unless the captain approves it.
 - Before adding a feature, ask: "Does the demo journey need this?"
 - When a reviewer or mentor raises a doubt, fix it **inside** the core instead of switching ideas.
@@ -93,7 +122,7 @@ Write it down in `/hack:validate`. Three real conversations beat thirty AI guess
 
 ## Mistakes we made (so you don't)
 From building OPD Saathi:
-1. **Drifting from the core.** Fixing feedback by adding new ideas instead of improving the original.
+1. **Drifting from the core.** Fixing feedback by adding new ideas instead of improving the original. (`/hack:improve`'s guardrail exists because of this.)
 2. **Adding hardware** (a kiosk) that most real sites don't have.
 3. **Unrealistic approvals** that ignored how authority really works on the ground.
 4. **Overclaiming:** numbers like "saves 133 staff-hours" with no source.

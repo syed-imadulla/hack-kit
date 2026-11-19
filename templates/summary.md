@@ -6,7 +6,8 @@
 |---|---|
 | Event / track | |
 | Team | |
-| Verdict | <NOT GUILTY x/12> · rubric <n>/100 |
+| Latest decision | <PASS / REVISE / …> · NG <x> · G <y> · IE <z> · rubric estimate <n>/100 |
+| Idea | CORE v<n> · <direction from IDEAS> |
 
 ## Problem
 <2 lines> — <top number> ([source](link))
@@ -27,6 +28,10 @@
 
 ## Top ratings
 | Item | /10 |
+|---|---|
+
+## Open assumptions (collapses / weakens)
+| Assumption | Status |
 |---|---|
 
 ## Next steps

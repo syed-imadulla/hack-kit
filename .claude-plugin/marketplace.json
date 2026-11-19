@@ -5,15 +5,15 @@
     "url": "https://github.com/syed-imadulla"
   },
   "metadata": {
-    "description": "Hack Kit: from problem statements to a locked, validated, buildable hackathon idea.",
-    "version": "0.3.1"
+    "description": "Hack Kit — Think deeper. Challenge harder. Build smarter.",
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "hack",
       "source": "./",
-      "description": "Hackathon ideation kit with /hack: commands and a problem-focused courtroom trial.",
-      "version": "0.3.1"
+      "description": "Hackathon thinking kit: /hack: commands, structured ideation, assumption tracking, Hack Court 2.0 and an improve loop.",
+      "version": "1.0.0"
     }
   ]
 }

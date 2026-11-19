@@ -17,5 +17,11 @@ Short prompts teammates can paste into any chat when they are working in paralle
 ## Mom-Test venue questions
 > Write 6 interview questions about <problem> for <user type> that ask about their past behaviour, not opinions about my idea. Keep it under 5 minutes.
 
+## Explore directions
+> For this problem and user, give me 2 solution ideas for each direction: user shift, process shift, access shift, integration shift, prevention shift, technology shift. Then answer: what would it look like with no AI, no app, no internet, or solving only 10% exceptionally well? Score the ideas on user value, originality and buildability in 24 h, and mark the obvious one. Problem and user: <paste>
+
+## Find our assumptions
+> List everything this idea assumes but hasn't proven (user behaviour, devices, access, data, rules, adoption). For each one, give the importance, a kill test ("if false, does the idea collapse?"), the fastest real-world test, and a pass/fail rule. Label each [V] verified, [T] from us, [AI] your inference or [?] unknown. Idea: <paste>
+
 ## Quick trial
-> Put this idea on trial. Prosecution: 3 points it does NOT solve a real problem for real users. Defense: 3 points it does. Then 6 jurors (end user, least-digital user, front-line worker, domain professional, root-cause analyst, engineer) each vote GUILTY/NOT GUILTY with confidence 1–10, reason and fix. Then a verdict, ratings /10 and top 3 fixes. No business or revenue arguments. Idea: <paste>
+> Put this idea on trial. Label every claim [V], [T], [AI] or [?]. Prosecution: 3 points it does NOT solve a real problem for real users. Defense: 3 points it does. Then 6 jurors (end user, least-digital user, front-line worker, domain professional, root-cause analyst, engineer) each vote GUILTY, NOT GUILTY or INSUFFICIENT EVIDENCE, with confidence 1–10, the weakest assumption and one fix rated for impact and effort. Then a decision (PASS / REVISE / FAIL / INCONCLUSIVE), ratings /10, ranked improvements and the next 30-minute experiment. No business or revenue arguments. Jurors are simulated perspectives. Idea: <paste>

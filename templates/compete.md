@@ -20,6 +20,15 @@
 Yes / Partly / No / Not found.
 *Not found = not seen in public material, not proof it doesn't exist.*
 
+## What exists, what it fails to solve, what remains
+- Exists:
+- Fails to solve (for the user):
+- Opportunity left:
+
+## Differentiation statement (user value, not technology)
+
+> Different technology isn't innovation.
+
 ## Closest competitor and honest difference
 
 ## Where we are weaker

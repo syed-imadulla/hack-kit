@@ -1,11 +1,11 @@
 ---
-description: "Phase 11 · Deck outline within the slide limit, one-line pitch, form answers and judge Q&A"
+description: "Phase 13 · Deck outline within the slide limit, one-line pitch, form answers and judge Q&A"
 argument-hint: "[slide limit] [--quick]"
 ---
 
 # /hack:pitch — Say it so judges remember it
 
-> **Phase 11 of 12** · Reads: everything · Writes: `PITCH.md` · Next: `/hack:ship`
+> **Phase 13 of 14** · Reads: everything · Writes: `PITCH.md` · Next: `/hack:ship`
 
 Arguments: $ARGUMENTS
 
@@ -40,7 +40,7 @@ Default 7-slide flow:
 6. Tech stack and architecture (a clean diagram with MVP tags)
 7. Impact (marked as targets), the pilot plan and the motto
 
-Rules: no heavy text, readable fonts, every number sourced or marked as a target.
+Rules: no heavy text, readable fonts. Only `[V]` and `[T]` claims are stated as facts; `[AI]` items become estimates or targets. Drop the labels on the slides, but keep the sources.
 
 ### 4. Form answers
 Answer each form question within its word limit. Lead with the strongest point for that question, in simple English.

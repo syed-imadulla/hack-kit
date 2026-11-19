@@ -1,11 +1,13 @@
 ---
 name: hack-kit
-description: Shared rules for every /hack: command. Use at a hackathon when problem statements or themes are given and a team needs to pick one, understand real users, validate, design a simple feasible solution, plan the MVP and prepare the pitch.
+description: Shared rules for every /hack: command. Use at a hackathon when problem statements or themes are given and a team needs to pick a problem, explore ideas, test assumptions, challenge and improve the solution, plan the MVP and prepare the pitch. Think deeper. Challenge harder. Build smarter.
 ---
 
 # Hack Kit — shared rules
 
-Hack Kit takes a team from "here are the problem statements" to "locked, validated, buildable idea + MVP plan + pitch + one final PDF". Every `/hack:` command follows these rules. Read this file once per session, before running any command.
+**Think deeper. Challenge harder. Build smarter.**
+
+Hack Kit takes a team from "here are the problem statements" to a well-explored, evidence-labelled, challenged, improved and buildable idea, an MVP plan, a pitch and one final PDF. Every `/hack:` command follows these rules. Read this file once per session, before running any command.
 
 ---
 
@@ -22,8 +24,9 @@ In this file and in the commands, `<plugin>` means that root.
 | What | Where |
 |---|---|
 | Templates | `<plugin>/templates/<name>.md` |
-| Juror list | `<plugin>/skills/hack-court/jurors.json` |
+| Juror list and domain seats | `<plugin>/skills/hack-court/jurors.json` |
 | Trial rules | `<plugin>/skills/hack-court/SKILL.md` |
+| Vote counter | `<plugin>/scripts/tally.py` |
 | PDF compiler | `<plugin>/scripts/compile.py` |
 
 ---
@@ -31,10 +34,11 @@ In this file and in the commands, `<plugin>` means that root.
 ## 2. State lives in `.hackathon/`
 
 - All work is saved in a `.hackathon/` folder in the current project. Never keep an important decision only in chat.
-- **Before** a command: read `.hackathon/STATE.md` and the files listed under "Reads".
-- **After** a command: update `STATE.md` (phase checklist, decisions log, next command).
+- **Before** a command: read `.hackathon/STATE.md` and only the files listed under "Reads". Don't load everything.
+- **After** a command: update `STATE.md`: the phase table, the decisions log (including what was rejected and why), pending items, "Last updated" and the next command.
+- Never delete a team's content. When a file is replaced by a new version, move the old one to `.hackathon/history/<NAME>-v<n>.md` first.
 - If `.hackathon/` doesn't exist and the command isn't `/hack:start`, `/hack:help` or `/hack:court`, say so and offer to run `/hack:start`.
-- Each output file is built from the template with the same name (for example, `CORE.md` comes from `templates/core.md`).
+- Each output file comes from the template with the same name (for example, `CORE.md` comes from `templates/core.md`).
 
 ### File map
 
@@ -42,39 +46,73 @@ In this file and in the commands, `<plugin>` means that root.
 |---|---|---|---|---|
 | 1 | `/hack:start` | — | `BRIEF.md`, `STATE.md` | brief, state |
 | 2 | `/hack:decode` | BRIEF | `STATEMENTS.md` | statements |
-| 3 | `/hack:pick` | BRIEF, STATEMENTS | `PICK.md` + `court/` | scoring, verdict |
-| 4 | `/hack:users` | BRIEF, PICK | `USERS.md` | users |
-| 5 | `/hack:validate` | PICK, USERS | `EVIDENCE.md` | evidence |
-| 6 | `/hack:compete` | PICK, USERS | `COMPETE.md` | compete |
-| 7 | `/hack:stress` | USERS, EVIDENCE, COMPETE | `STRESS.md`, draft `CORE.md` | stress, core |
-| 8 | `/hack:lock` | all above | `CORE.md` (locked) | core |
-| 9 | `/hack:plan` | BRIEF, CORE | `PLAN.md` | plan |
-| 10 | `/hack:verify` | BRIEF, EVIDENCE, COMPETE, CORE, PLAN | `VERDICT.md` + `court/` | verdict |
-| 11 | `/hack:pitch` | everything | `PITCH.md` | pitch |
-| 12 | `/hack:ship` | everything | `SUMMARY.md`, `FINAL.md/.html/.pdf` | summary |
-| — | `/hack:status`, `/hack:help`, `/hack:court` | STATE | `court/<case>/` | verdict |
+| 3 | `/hack:pick` | BRIEF, STATEMENTS | `PICK.md`, `court/` | scoring, verdict |
+| 4 | `/hack:users` | BRIEF, PICK | `USERS.md`, `ASSUMPTIONS.md` | users, assumptions |
+| 5 | `/hack:ideate` | BRIEF, PICK, USERS | `IDEAS.md`, `ASSUMPTIONS.md` | ideas |
+| 6 | `/hack:validate` | IDEAS, USERS, ASSUMPTIONS | `EVIDENCE.md`, `ASSUMPTIONS.md` | evidence |
+| 7 | `/hack:compete` | IDEAS, USERS | `COMPETE.md` | compete |
+| 8 | `/hack:stress` | IDEAS, EVIDENCE, COMPETE, ASSUMPTIONS | `STRESS.md`, draft `CORE.md` | stress, core |
+| 9 | `/hack:improve` | CORE, latest verdict or STRESS, ASSUMPTIONS | `IMPROVE.md`, `CORE.md` (new version) | improve |
+| 10 | `/hack:lock` | all above | `CORE.md` (locked) | core |
+| 11 | `/hack:plan` | BRIEF, CORE | `PLAN.md` | plan |
+| 12 | `/hack:verify` | BRIEF, EVIDENCE, COMPETE, CORE, PLAN, ASSUMPTIONS | `VERDICT.md`, `court/` | verdict |
+| 13 | `/hack:pitch` | everything | `PITCH.md` | pitch |
+| 14 | `/hack:ship` | everything | `SUMMARY.md`, `FINAL.md/.html/.pdf` | summary |
+| any | `/hack:assumptions` | ASSUMPTIONS, EVIDENCE | `ASSUMPTIONS.md` | assumptions |
+| any | `/hack:court <thing>` | as needed | `court/<case>/` | verdict |
+| any | `/hack:status`, `/hack:help` | STATE | — | — |
 
-Phases 5 and 6 can run in parallel on different teammates' machines. Merge their files into the shared repo afterwards.
+`/hack:improve` can also run after any trial (`/hack:pick`, `/hack:verify`, `/hack:court`). Phases 6 and 7 can run in parallel on different teammates' machines (see section 9).
+
+### STATE.md schema (version 2)
+`STATE.md` must contain: `Schema version: 2`, `Last updated` (date, time and time zone), the event table, the mode and event length, a phase table (each phase: done / skipped / next / not started), a decisions log (time, decision, why, by, and what was rejected), the locked items, pending items, and the current version of `CORE.md`.
+
+### Upgrading older projects
+If `STATE.md` has no `Schema version` line, it's a v1 project. Upgrade it in place:
+1. Copy the old file to `.hackathon/history/STATE-v1.md`.
+2. Add the missing sections from `templates/state.md`. Keep every existing value and log entry.
+3. If `PICK-VERDICT.md` exists and `PICK.md` doesn't, copy it to `PICK.md`.
+4. If there's no `ASSUMPTIONS.md`, create it from `templates/assumptions.md` and seed it from `USERS.md`, `STRESS.md` and `CORE.md` if they exist.
+5. Log "Upgraded to schema 2" in the decisions log, and tell the user in one line.
 
 ### File conventions
 - Every output file starts with a title line (`# CORE — <idea name>`) and a one-line `> Summary:` under it.
-- Sources go inline as `[short name](link)`. Unchecked claims carry the tag `UNVERIFIED`.
-- Targets carry the tag `(target)`. Mocked parts carry the tag `(mocked)`.
+- Sources go inline as `[short name](link)`, with the date the source was published or read.
+- Targets carry `(target)`. Mocked parts carry `(mocked)`.
 - Dates and times include the time zone.
 
 ---
 
-## 3. Asking questions
+## 3. Evidence labels
+
+Every claim that matters (a number, a user behaviour, a fact about a competitor, an assumption) carries one label:
+
+| Label | Means | Example |
+|---|---|---|
+| `[V]` | **Verified.** A source Claude opened and read (link + date), or a result the team measured | `[V] 111 min average OPD wait ([study](link), 2023)` |
+| `[T]` | **Team-provided.** The team said it or typed venue notes | `[T] 3 of 4 patients we met had keypad phones` |
+| `[AI]` | **AI inference.** Claude's reasoning or estimate. Never presented as fact | `[AI] Nurses probably spend 2 min per check-in` |
+| `[?]` | **Unknown.** Needed, but nobody knows yet | `[?] Will the hospital allow WhatsApp?` |
+
+Rules:
+- Only `[V]` and `[T]` can support a "validated" status. `[AI]` can suggest; it can't prove.
+- A label only goes up (`[?]` → `[AI]` → `[T]`/`[V]`) when new evidence is added, and the log says what was added.
+- Never invent interviews, quotes, test results or juror votes.
+- In decks and form answers, drop the labels but keep only `[V]` and `[T]` claims as facts. Present `[AI]` items as estimates or targets.
+
+---
+
+## 4. Asking questions
 
 - When the team's answer changes the result, **ask**. Use the AskUserQuestion tool with 2–4 short options (the user can always type their own answer).
-- Ask at most 4 questions at once, and ask **before** the expensive step.
+- Ask at most 4 questions at once (2 in quick mode), and ask **before** the expensive step.
 - Prefill options from `.hackathon/` files, so the team mostly just confirms.
 - If the team says "you decide", decide, and write the reason in the STATE.md decisions log.
 - If AskUserQuestion isn't available, ask in plain text with numbered options.
 
 ---
 
-## 4. The 13 principles
+## 5. The 17 principles
 
 1. **Read the brief like a judge.** Rubric weights decide everything. Score against the real rubric, not your own taste.
 2. **Pick a problem, not a technology.** "We want to use AI" is not a problem.
@@ -82,43 +120,60 @@ Phases 5 and 6 can run in parallel on different teammates' machines. Merge their
 4. **Prove it's real** with sourced numbers, real complaints, a local example and quick chats at the venue.
 5. **Check what already exists** and position the idea honestly. "Nobody has done this" is almost always false.
 6. **Stress-test in place of a domain expert.** Role-play the expert and the sceptic, then confirm with 2–3 real people.
-7. **Lock the core:** motto, persona, journey, USPs. After lock, fixes go *inside* the core. No new ideas.
-8. **Fit with existing systems.** No new hardware, nothing the customer doesn't already have. Work alongside their current software and process.
+7. **Lock the core.** The problem, the main user, the core journey and the motto are protected after lock. Solution details can still improve through `/hack:improve`.
+8. **Fit with existing systems.** No new hardware, nothing the customer doesn't already have.
 9. **Keep it simple for the user:** no app download, no typing, works on the simplest device they have.
 10. **AI suggests, humans decide.** Safety-critical checks use fixed rules, not AI. Every AI step has a human check and a fallback.
-11. **One complete journey for the MVP,** with one wow moment. Mock the rest and label it as mocked.
-12. **No unsourced numbers.** Every number has a link or is marked `UNVERIFIED`. Targets are labelled as targets.
+11. **One complete journey for the MVP,** with one wow moment. Every feature needs a reason. Mock the rest and label it.
+12. **No unsourced numbers.** Every number is labelled. Targets are labelled as targets.
 13. **Simple, everyday English.** Short sentences. Explain it the way you'd tell a friend.
+14. **Evidence before confidence.** Label every claim. A confident AI answer is still `[AI]`.
+15. **Test the riskiest assumption first.** If it being false would collapse the idea, test it before anything else.
+16. **Different technology isn't innovation.** Differentiate by what's better *for the user*, not by which model you used.
+17. **Keep the decision history.** Record what was chosen, what was rejected, and why.
 
 ---
 
-## 5. The judging rule
+## 6. The judging rule
 
 Hack Kit judges **whether the problem is real and whether the solution truly solves it for real users**. It does **not** judge business viability, market size, revenue or investor appeal. Business points appear only in `/hack:pitch`, and only if the rubric asks for them.
 
 ---
 
-## 6. Modes
+## 7. Modes and the time guard
+
+Set in `/hack:start` and stored in STATE.md. **Quick** is on when `--quick` is passed, or when the whole event is under 12 hours.
 
 | | Full | Quick |
 |---|---|---|
-| Turned on by | default | `--quick` in arguments, or under 12 h for the whole event (STATE.md) |
 | Output length | normal | about half |
 | Questions per command | up to 4 | up to 2 |
 | Jurors per trial | 12 | 6 |
 | Points per side | 5 | 3 |
 | Web research | yes | only for top claims |
 
-### Time guide
-| Event length | Phases 1–8 (idea locked) | Phases 9–11 |
+### Time guard: what the new thinking steps cost
+| Step | Full (24 h+) | Quick or 12 h event |
 |---|---|---|
-| 24 h | 60–80 min | ~40 min |
-| 36 h | ~2 h | ~1 h |
-| 48 h+ | ~3 h (more real validation) | ~1.5 h |
+| `/hack:ideate` | 6 directions × 2 ideas + constraint removal (~15 min) | 3 directions × 1 idea, no combinations (~5 min) |
+| `/hack:assumptions` | all assumptions, kill test on each | top 5 only |
+| `/hack:validate` experiments | up to 3 experiment cards | 1 card (the riskiest assumption) |
+| `/hack:improve` | up to 2 rounds, quick re-trial each round | 1 round, re-trial only if the team asks |
+| Trials in `/hack:pick` | up to 3 | up to 2, or `--no-trial` |
+
+If time left (STATE.md) is less than the planned time for the remaining thinking phases, say so and offer the quick version of the next command.
+
+### Time guide
+| Event length | Phases 1–10 (idea locked) | Phases 11–13 |
+|---|---|---|
+| 12 h | ~45 min (quick) | ~30 min |
+| 24 h | 80–100 min | ~40 min |
+| 36 h | ~2.5 h | ~1 h |
+| 48 h+ | ~3.5 h (more real validation) | ~1.5 h |
 
 ---
 
-## 7. Mistakes to block
+## 8. Mistakes to block
 
 Warn the team **as soon as** you see one of these:
 
@@ -129,24 +184,34 @@ Warn the team **as soon as** you see one of these:
 | 3 | The least-digital user is ignored | Excludes the people who suffer most |
 | 4 | AI makes a safety-critical decision alone | Unsafe, and judges catch it |
 | 5 | "No competitors" | Shows no research was done |
-| 6 | Numbers without sources, or targets shown as results | Credibility loss |
-| 7 | Feature creep after lock; drifting from the motto | Half-built demo, muddled pitch |
+| 6 | Numbers without labels, or targets shown as results | Credibility loss |
+| 7 | Feature creep after lock; drifting from the problem or main user | Half-built demo, muddled pitch |
 | 8 | MVP has many half-features instead of one full journey | Nothing works end to end |
 | 9 | Demo depends on live internet or APIs with no backup recording | Demo-day failure |
 | 10 | Slides with heavy text, or more slides than the limit | Lost marks on presentation |
+| 11 | Treating `[AI]` claims or AI juror votes as proof | False confidence |
+| 12 | Only one idea ever considered | The obvious idea is what most teams build |
 
 ---
 
-## 8. Honesty
+## 9. Parallel work
+
+- When teammates run `/hack:validate` and `/hack:compete` on different machines, each writes only its own file (`EVIDENCE.md` or `COMPETE.md`). Updates to `ASSUMPTIONS.md` go in a section headed `## Pending from <name>`.
+- Only the captain's machine updates `STATE.md`. Merge through git.
+- `/hack:status` flags conflicts: a file changed by two people, or pending sections that haven't been merged.
+
+---
+
+## 10. Honesty
 
 - Open every source you cite. If a fetch fails, say so and don't guess what the page says.
 - Label mocked parts as mocked, and never claim results that haven't been measured.
-- If research tools aren't available, say so and mark the claims `UNVERIFIED`.
-- Never invent juror votes, interview notes or quotes.
+- If research tools aren't available, say so and mark the claims `[?]` or `[AI]`.
+- Simulated jurors, experts and users are perspectives, not real people. Say so whenever their output is shown.
 
 ---
 
-## 9. Writing style
+## 11. Writing style
 
 - Simple Indian English is fine. Short lines. Use tables for comparisons.
 - Avoid buzzwords like "revolutionary", "seamless", "leverage" and "cutting-edge".

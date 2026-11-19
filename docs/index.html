@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Hack Kit — from problem statements to a locked, buildable hackathon idea</title>
-<meta name="description" content="Hack Kit is a Claude Code plugin and Claude skill that takes hackathon teams from problem statements to a validated idea, MVP plan, pitch and one final PDF, with a 12-juror courtroom trial.">
-<meta property="og:title" content="Hack Kit — hackathon ideation with a courtroom trial">
-<meta property="og:description" content="Decode, pick, validate, lock, plan, verify, pitch, ship. 15 /hack: commands for Claude.">
+<title>Hack Kit — Think deeper. Challenge harder. Build smarter.</title>
+<meta name="description" content="Hack Kit is a Claude Code plugin and Claude skill that helps hackathon teams think deeper, challenge harder and build smarter: explore ideas, track assumptions, put ideas on trial in a 12-juror Hack Court, improve them, and ship one final PDF.">
+<meta property="og:title" content="Hack Kit — Think deeper. Challenge harder. Build smarter.">
+<meta property="og:description" content="Decode, pick, ideate, validate, challenge in Hack Court, improve, lock, plan, pitch, ship. 18 /hack: commands for Claude.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23b0522f'/%3E%3Ctext x='32' y='42' font-size='28' text-anchor='middle' fill='%23fbf5e8' font-family='Georgia' font-weight='700'%3EH%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -35,9 +35,10 @@
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams</span>
-      <h1>From problem statements to a <em>locked, buildable</em> idea.</h1>
-      <p class="lead">Fifteen <code>/hack:</code> commands walk your team from "here are the statements" to a validated idea, MVP plan, pitch and one final PDF. At two key moments, your idea goes on trial in front of 12 independent AI jurors.</p>
+      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.0</span>
+      <h1>Think <em>deeper</em>.<br>Challenge <em>harder</em>.<br>Build <em>smarter</em>.</h1>
+      <p class="lead">Eighteen <code>/hack:</code> commands take your team from "here are the statements" to an idea that's been explored, tested, challenged in Hack Court and improved, then to an MVP plan, a pitch and one final PDF.</p>
+      <p class="sr-only">Think deeper. Challenge harder. Build smarter.</p>
       <div class="terminal" aria-label="Install commands">
         <button class="copy" data-copy="/plugin marketplace add syed-imadulla/hack-kit&#10;/plugin install hack@hack-kit">copy</button>
         <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -53,14 +54,14 @@
     <div class="stage" id="heroStage" aria-hidden="true">
       <div class="orbit"></div><div class="orbit two"></div>
       <div class="ticket t1">/hack:decode</div>
-      <div class="ticket t2">⚖️ NOT GUILTY 9/12</div>
-      <div class="ticket t3">🔒 core locked</div>
+      <div class="ticket t2">⚖️ PASS · 9 of 12</div>
+      <div class="ticket t3">💡 6 directions</div>
       <div class="tilt" id="heroTilt">
         <div class="cube">
           <div class="face f1"><span class="ico">🔍</span><b>/hack:decode</b><span>understand every statement</span></div>
-          <div class="face f2"><span class="ico">⚖️</span><b>/hack:pick</b><span>trial the top ideas</span></div>
-          <div class="face f3"><span class="ico">🧭</span><b>/hack:users</b><span>think as real users</span></div>
-          <div class="face f4"><span class="ico">🔒</span><b>/hack:lock</b><span>freeze the core</span></div>
+          <div class="face f2"><span class="ico">⚖️</span><b>/hack:court</b><span>challenge it</span></div>
+          <div class="face f3"><span class="ico">💡</span><b>/hack:ideate</b><span>explore different ideas</span></div>
+          <div class="face f4"><span class="ico">↺</span><b>/hack:improve</b><span>make it better</span></div>
           <div class="face f5"><b class="cream">HACK KIT</b></div>
           <div class="face f6"></div>
         </div>
@@ -83,8 +84,8 @@
     <div class="grid4">
       <article class="card reveal tiltable"><span class="n">01</span><h3>The cool problem</h3><p>Teams pick what <span class="strike">sounds exciting</span>, not what the rubric rewards. Hack Kit scores statements on the real rubric weights.</p></article>
       <article class="card reveal tiltable"><span class="n">02</span><h3>The imaginary user</h3><p>They forget the elderly person with a keypad phone. Every Hack Kit command thinks as the least-digital user.</p></article>
-      <article class="card reveal tiltable"><span class="n">03</span><h3>"No competitors"</h3><p>That claim kills credibility in the Q&amp;A. <code>/hack:compete</code> finds what exists and positions you honestly.</p></article>
-      <article class="card reveal tiltable"><span class="n">04</span><h3>The moving idea</h3><p>The idea changes after every piece of feedback. <code>/hack:lock</code> freezes the core, and later fixes go inside it.</p></article>
+      <article class="card reveal tiltable"><span class="n">03</span><h3>The first idea</h3><p>Most teams build the first idea they think of. <code>/hack:ideate</code> explores six genuinely different directions before anyone commits.</p></article>
+      <article class="card reveal tiltable"><span class="n">04</span><h3>Guesses as facts</h3><p>Nobody tests the belief the idea rests on. Every claim gets a label, and <code>/hack:assumptions</code> finds what to test first.</p></article>
     </div>
     <div class="verdict-note reveal">
       <span class="big">⚖️</span>
@@ -97,7 +98,7 @@
 <section id="flow" class="band">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">The flow · 12 phases, 3 acts</span>
+      <span class="eyebrow">The flow · 14 phases, 3 acts</span>
       <h2>Press play, or click any <em>station</em>.</h2>
       <p class="lead">Each command asks the questions that matter, saves its work in <code>.hackathon/</code>, and tells you what to run next.</p>
     </div>
@@ -125,22 +126,22 @@
       <p class="ring-hint" id="ringHint">drag to spin · hold to fan out · tap a card to flip</p>
     </div>
     <div>
-      <span class="eyebrow">The trial · inside /hack:pick and /hack:verify</span>
+      <span class="eyebrow">Hack Court 2.0 · inside /hack:pick, /hack:verify and /hack:court</span>
       <h2 class="court-h">Twelve jurors. <em class="mustard">One question.</em></h2>
       <p class="lead">"Does this solve a real problem for its real users?" Each juror is a separate subagent who can't see the others' votes.</p>
       <ol class="steps" id="trialSteps">
-        <li><span><b>Case file.</b> About 120 words on the problem, users, solution and constraints.</span></li>
+        <li><span><b>Evidence pack.</b> Every claim labelled: verified, team-provided, AI inference or unknown.</span></li>
         <li><span><b>Prosecution.</b> The strongest case that it does <em>not</em> solve a real problem.</span></li>
         <li><span><b>Defense.</b> The strongest case that it does.</span></li>
-        <li><span><b>Jury.</b> 12 jurors vote GUILTY or NOT GUILTY, each with a confidence, a reason and a fix.</span></li>
-        <li><span><b>Judge.</b> Counts only real votes, then gives ratings out of 10, the top fixes and a 30-minute venue check.</span></li>
+        <li><span><b>Jury.</b> 12 jurors vote GUILTY, NOT GUILTY or INSUFFICIENT EVIDENCE, each with a weakest assumption and a rated fix.</span></li>
+        <li><span><b>Judge.</b> PASS, REVISE, FAIL or INCONCLUSIVE, with ranked improvements and the next experiment. Then <code>/hack:improve</code>.</span></li>
       </ol>
       <div class="score">
         <button class="btn rust" id="runTrial">⚖️ Run a demo trial</button>
-        <span class="tally" id="tally" aria-live="polite"><span class="ng">0 NOT GUILTY</span> · <span class="g">0 GUILTY</span></span>
+        <span class="tally" id="tally" aria-live="polite"><span class="ng">0 NOT GUILTY</span> · <span class="g">0 GUILTY</span> · <span class="ie">0 INSUFFICIENT</span></span>
       </div>
       <div class="ratings" id="ratings" aria-label="Demo ratings"></div>
-      <p class="demo-note">Demo with sample votes for a sample idea ("voice check-in for hospital OPD patients"). The real trial runs inside Claude Code.</p>
+      <p class="demo-note">Demo with sample votes for a sample idea ("voice check-in for hospital OPD patients"), using the healthcare domain seats. The real trial runs inside Claude Code. Jurors are simulated perspectives, and confidence isn't a probability of success.</p>
     </div>
   </div>
 </section>
@@ -157,7 +158,8 @@
       <ul class="list-check">
         <li>Stop and resume any time. Each command reads <code>STATE.md</code> first.</li>
         <li>Each output file comes from a template with the same name.</li>
-        <li>Every number is sourced or marked <code>UNVERIFIED</code>. Targets are labelled as targets.</li>
+        <li>Every claim is labelled <code>[V]</code> verified, <code>[T]</code> team-provided, <code>[AI]</code> inference or <code>[?]</code> unknown. Only real evidence can validate an assumption.</li>
+        <li>Nothing is lost: earlier versions go to <code>history/</code>, and rejected ideas are logged with the reason.</li>
         <li><code>/hack:ship</code> compiles it all into <b>FINAL.pdf</b>, with a cover, contents and page numbers.</li>
       </ul>
     </div>
@@ -220,7 +222,7 @@
 <section id="rules">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">13 rules every command follows</span>
+      <span class="eyebrow">17 rules every command follows</span>
       <h2>Hover or tap to <em>flip</em>.</h2>
     </div>
     <div class="rules" id="rulesGrid"></div>
@@ -248,8 +250,9 @@
       <h2>Frequently <em>asked</em>.</h2>
     </div>
     <div class="reveal">
-      <details><summary>Will it pick the idea for us?</summary><p>No. It scores, runs trials and recommends, but the team captain decides. Every big choice is a question to your team.</p></details>
-      <details><summary>How much usage does a trial cost?</summary><p>A full trial uses about 15 subagent calls: 2 lawyers, 12 jurors and any retries. Quick mode (<code>--quick</code>) uses about 9.</p></details>
+      <details><summary>Will it pick the idea for us?</summary><p>No. <code>/hack:ideate</code> shows the trade-offs and the captain decides. Every big choice is a question to your team.</p></details>
+      <details><summary>Can we trust the verdict?</summary><p>Use it to decide what to test and fix, not as proof. Jurors are simulated perspectives, confidence isn't a probability, and only verified or team-provided evidence counts as real. Real validation comes from the experiments you run.</p></details>
+      <details><summary>How much usage does a trial cost?</summary><p>A full trial uses about 15 subagent calls: 2 lawyers, 12 jurors and any retries. Quick mode (<code>--quick</code>) uses about 9. Each <code>/hack:improve</code> round runs one quick re-trial.</p></details>
       <details><summary>Does it need web access?</summary><p>The research steps (decode, validate, compete) work best with web search. Without it, Hack Kit still runs, but marks claims <code>UNVERIFIED</code> and tells you what to look up.</p></details>
       <details><summary>What do I need for the PDF?</summary><p>Python 3, plus Chrome/Chromium, Playwright, or pandoc with a PDF engine. If none of these is available, open <code>FINAL.html</code> and use Print → Save as PDF.</p></details>
       <details><summary>Why no business or market judging?</summary><p>At the idea stage, judges reward a real problem that's clearly solved. If your rubric asks for business points, <code>/hack:pitch</code> covers them.</p></details>

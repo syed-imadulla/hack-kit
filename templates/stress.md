@@ -17,9 +17,23 @@
 ### Admin or systems owner
 1.
 
-## Fix table
-| # | Doubt | Raised by | Severity | Smallest fix that keeps the core | Changes core? | Accepted? |
+## Failure scenarios
+| Scenario | What happens | Fallback |
+|---|---|---|
+| No internet | | |
+| API down | | |
+| Wrong AI answer | | |
+| User gives up halfway | | |
+
+## Doubt table
+| # | Doubt | Raised by | Label | Severity | Smallest fix that keeps the core | Changes core? |
 |---|---|---|---|---|---|---|
+
+(Fixes are applied with the team in `/hack:improve`.)
+
+## New assumptions added
+| Assumption | Kill test |
+|---|---|
 
 ## Real-people check
 | Person | Doubt shown | What they said | Effect |

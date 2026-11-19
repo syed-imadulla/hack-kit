@@ -18,51 +18,59 @@
   var PHASES = [
     { act: "find", cmd: "start", icon: "📜", title: "Read the brief like a judge",
       tag: "Before anyone falls in love with an idea.",
-      does: ["Fetches or reads the brief and pulls out the rubric, rules and deliverables", "Translates the top 3 rubric items into plain words", "Sets quick or full mode, the captain, and the freeze times"],
-      asks: ["Rubric & weights", "Slide limit", "Time left", "Team skills"], writes: ["BRIEF.md", "STATE.md"], time: "5 min" },
+      does: ["Fetches or reads the brief and pulls out the rubric, rules and deliverables", "Captures event length, domain, team skills and resources", "Sets quick or full mode, the time guard, the captain and freeze times"],
+      asks: ["Rubric & weights", "Event length", "Time left", "Team skills"], writes: ["BRIEF.md", "STATE.md"], time: "5 min" },
     { act: "find", cmd: "decode", icon: "🔍", title: "Understand every statement",
-      tag: "In 2 minutes each, with the angle 70% of teams miss.",
-      does: ["Real problem, end user, operator, least-digital user", "Hidden constraints: language, offline, devices, existing systems", "Root cause (3 whys), data situation", "Obvious idea vs smarter angle"],
+      tag: "In 2 minutes each, with the angle most teams miss.",
+      does: ["Real problem, severity, frequency and who's affected", "End user, operator and least-digital user", "Hidden constraints and the root cause", "Obvious idea vs smarter angle"],
       asks: ["Paste statements", "Organiser hints", "Drop any now?"], writes: ["STATEMENTS.md"], time: "15 min" },
-    { act: "find", cmd: "pick", icon: "⚖️", trial: true, title: "Choose the statement worth your weekend",
+    { act: "find", cmd: "pick", icon: "⚖️", trial: true, title: "Choose the problem worth your weekend",
       tag: "Rubric-weighted scoring, red flags, then a trial.",
-      does: ["Scores every statement on 8 weighted criteria", "Flags hardware, data, safety and 'already solved' risks", "Runs a courtroom trial on the top 2–3", "Recommends one, and the captain decides"],
+      does: ["Scores statements on 8 weighted criteria, with certainty marks", "Flags hardware, data, safety and 'already solved' risks", "Runs Hack Court on the top 2–3 problems", "The captain decides; rejected options are logged"],
       asks: ["Confirm shortlist", "Final pick"], writes: ["PICK.md", "court/"], time: "15 min" },
     { act: "shape", cmd: "users", icon: "🧭", title: "Think as every real user",
       tag: "Especially the one most likely to be left out.",
-      does: ["One card per stakeholder: today, worst step, refusals, adoption trigger", "POV statement, How-Might-We, job story", "Persona with a day in their life", "Contrast motto options"],
-      asks: ["Who are the users?", "Personal experience?", "Pick the motto"], writes: ["USERS.md"], time: "10 min" },
+      does: ["One card per stakeholder: today, worst step, refusals, adoption trigger", "POV, How-Might-We, job story and persona", "Contrast motto options", "Untested beliefs about users go to ASSUMPTIONS.md"],
+      asks: ["Who are the users?", "Personal experience?", "Pick the motto"], writes: ["USERS.md", "ASSUMPTIONS.md"], time: "10 min" },
+    { act: "shape", cmd: "ideate", icon: "💡", title: "Think deeper before you commit",
+      tag: "Six genuinely different directions, not fifty random ideas.",
+      does: ["Five Whys and today's workaround", "User, process, access, integration, prevention and technology shifts", "Constraint removal: no AI? no app? solve 10% exceptionally well?", "Scores the trade-offs; the team picks; rejected ideas are logged"],
+      asks: ["Pick one", "Combine two", "Your own idea"], writes: ["IDEAS.md", "ASSUMPTIONS.md"], time: "15 min" },
     { act: "shape", cmd: "validate", icon: "📰", title: "Prove it's real",
-      tag: "Three layers of evidence, every source opened.",
-      does: ["Sourced numbers from government data, papers and reports", "Real complaints from news, forums and app reviews", "A local example near the event", "A 5-minute Mom-Test venue interview script"],
-      asks: ["Talked to anyone yet?", "Add venue notes"], writes: ["EVIDENCE.md"], time: "20 min", parallel: true },
+      tag: "Labelled evidence and real experiments.",
+      does: ["Sources opened and labelled [V]; everything else stays [AI] or [?]", "Real complaints and a local example", "Experiment cards for the riskiest assumptions", "A 5-minute Mom-Test venue interview script"],
+      asks: ["Talked to anyone yet?", "Add results"], writes: ["EVIDENCE.md", "ASSUMPTIONS.md"], time: "20 min", parallel: true },
     { act: "shape", cmd: "compete", icon: "🗺️", title: "Know what already exists",
       tag: "Honest positioning. Never 'no competitors'.",
-      does: ["6–10 existing solutions, including government portals and past hackathon projects", "Gap table on what matters to the user", "Coexistence levels L0–L3 with existing systems", "A one-line positioning statement"],
+      does: ["6–10 existing solutions, including government portals and past projects", "What exists, what it fails to solve, what's left", "A differentiation statement based on user value", "Coexistence levels L0–L3"],
       asks: ["Known competitors?", "System to work alongside?"], writes: ["COMPETE.md"], time: "20 min", parallel: true },
     { act: "shape", cmd: "stress", icon: "🥊", title: "Attack it before the judges do",
       tag: "Stands in for the domain expert you don't have.",
-      does: ["Role-plays the expert, front-line worker, least-digital user, sceptic and admin", "Fix table: the smallest fix that keeps the core", "Warns when a fix drifts from the idea"],
-      asks: ["Which fixes to accept?"], writes: ["STRESS.md", "CORE.md (draft)"], time: "15 min" },
+      does: ["Drafts CORE v1 from the chosen idea", "Role-plays the expert, front-line worker, least-digital user, sceptic and admin", "Failure scenarios: no internet, API down, wrong AI answer", "A doubt table with the smallest fix for each"],
+      asks: ["Real-people check?"], writes: ["STRESS.md", "CORE.md v1"], time: "15 min" },
+    { act: "shape", cmd: "improve", icon: "↺", title: "Challenge harder, then make it better",
+      tag: "Criticism only counts if the idea improves.",
+      does: ["Turns doubts or a verdict into concrete changes, with reasons", "Guardrail: the problem and main user never change", "The team accepts or rejects each change", "CORE v1 → v2, compared, then a quick re-trial"],
+      asks: ["Which changes to accept?"], writes: ["IMPROVE.md", "CORE.md v2"], time: "15 min" },
     { act: "shape", cmd: "lock", icon: "🔒", title: "Freeze the core",
-      tag: "One idea the whole team can repeat word for word.",
-      does: ["Motto, positioning, persona before and after, end-to-end journey", "Who does what, 4–6 USPs tied to user pains", "AI vs rules vs humans table", "Mistakes check, then LOCKED"],
+      tag: "Problem, user, journey and motto are protected.",
+      does: ["Completes CORE.md: journey, who does what, USPs, AI vs rules vs humans", "Warns about any open 'collapses' assumption", "Mistakes check, then LOCKED", "Details can still improve through /hack:improve"],
       asks: ["Lock it?"], writes: ["CORE.md 🔒"], time: "10 min" },
     { act: "build", cmd: "plan", icon: "🛠️", title: "One journey, built for real",
       tag: "One wow moment. Mock the rest and say so.",
-      does: ["Build / Mock / Cut for every feature", "Stack with a reason and a fallback for each layer", "Hour-by-hour plan and freeze times", "90-second demo script and 8–12 AI test cases"],
+      does: ["Build / Mock / Cut for every feature", "Stack with a reason and a fallback for each layer", "Failure scenarios with backup demo paths", "90-second demo script and AI test cases"],
       asks: ["Fastest stack", "Hours left", "Sponsor API", "Roles"], writes: ["PLAN.md"], time: "20 min" },
     { act: "build", cmd: "verify", icon: "⚖️", trial: true, title: "Put the solution on trial",
-      tag: "Find the weak spots while there's still time to fix them.",
-      does: ["Courtroom trial of the planned solution", "Rubric score out of 100, as a strict judge would give it", "Mistakes check and claims check", "Ranked fixes, applied inside the core"],
-      asks: ["Which fixes to apply?"], writes: ["VERDICT.md", "court/"], time: "15 min" },
+      tag: "Find the weak spots while there's still time.",
+      does: ["Hack Court on the planned solution", "Rubric estimate out of 100", "Mistakes, claims and assumptions checks", "REVISE or FAIL → back to /hack:improve"],
+      asks: ["Improve now?"], writes: ["VERDICT.md", "court/"], time: "15 min" },
     { act: "build", cmd: "pitch", icon: "🎤", title: "Say it so judges remember it",
-      tag: "Within the slide limit, every number sourced.",
-      does: ["One-line pitch and an opening line for the top rubric item", "Deck outline: a full-sentence headline per slide", "Form answers within word limits", "12–15 likely judge questions, with answers"],
+      tag: "Within the slide limit; only real evidence as facts.",
+      does: ["One-line pitch and an opening line for the top rubric item", "Deck outline with a full-sentence headline per slide", "Form answers within word limits", "12–15 likely judge questions, with answers"],
       asks: ["Slide limit", "Pitch length", "Form questions"], writes: ["PITCH.md"], time: "25 min" },
     { act: "build", cmd: "ship", icon: "📄", title: "One Idea Pack",
       tag: "Everything compiled into one document.",
-      does: ["Writes a one-page SUMMARY.md", "Joins every file, with a cover and contents", "Outputs FINAL.md, FINAL.html and FINAL.pdf"],
+      does: ["A one-page SUMMARY.md", "Joins every file, with a cover and contents", "Outputs FINAL.md, FINAL.html and FINAL.pdf"],
       asks: ["PDF, Markdown or both?"], writes: ["SUMMARY.md", "FINAL.pdf"], time: "5 min" }
   ];
   var ACTS = { find: "🔍 Find it", shape: "🧭 Shape it", build: "🚀 Build & sell it" };
@@ -71,12 +79,12 @@
     ["🧑", "Actual end user", "NG", "I'd check in by voice while waiting anyway."],
     ["👵", "Least-digital user", "NG", "A normal phone call works for me."],
     ["🩺", "Front-line worker", "G", "Entering vitals by token adds a step in rush hour."],
-    ["👩‍⚕️", "Domain professional", "NG", "The doctor still approves every test."],
-    ["📒", "Workaround user", "G", "My paper file already works for me."],
+    ["👨‍⚕️", "Senior doctor", "NG", "I still approve every test. My time is saved."],
+    ["🏥", "Hospital administrator", "IE", "Can't tell if it fits our software. Need the integration plan."],
     ["🔎", "Root-cause analyst", "NG", "It hits report-only return visits."],
-    ["📚", "'Already exists' researcher", "NG", "The voice check-in in the patient's own words is new."],
+    ["📚", "'Already exists' researcher", "NG", "Voice check-in in the patient's own words is new."],
     ["🛡️", "Safety reviewer", "NG", "Red flags use fixed rules, not AI."],
-    ["🖥️", "Systems person", "NG", "Works with only a token number (L0)."],
+    ["🔐", "Patient privacy officer", "NG", "Audio deleted in 72 h; consent is spoken."],
     ["⚙️", "Engineer", "NG", "One journey is buildable in 24 h."],
     ["🏛️", "Statement owner", "NG", "It answers the track directly."],
     ["🤨", "Sceptic", "G", "The impact numbers are still targets."]
@@ -91,41 +99,40 @@
     ["Prove it's real", "Sourced numbers, real complaints, a local example, and chats at the venue."],
     ["Check what exists", "\"Nobody has done this\" is almost always false. Position honestly."],
     ["Stress-test it", "Role-play the domain expert and the sceptic, then confirm with 2–3 real people."],
-    ["Lock the core", "Motto, persona, journey, USPs. After lock, fixes go inside the core."],
+    ["Lock the core", "Problem, user, journey and motto are protected. Details can still improve."],
     ["Fit existing systems", "No new hardware. Work alongside the software and process people already have."],
     ["Simple for the user", "No app download, no typing, works on the simplest device they own."],
     ["AI suggests, humans decide", "Safety-critical checks use fixed rules. Every AI step has a human check."],
-    ["One full journey", "The MVP is one complete journey with one wow moment. Mock the rest and say so."],
-    ["No unsourced numbers", "Every number has a link or is marked UNVERIFIED. Targets are labelled as targets."],
-    ["Simple English", "Short sentences. Explain it the way you'd tell a friend."]
+    ["One full journey", "The MVP is one complete journey with one wow moment. Every feature needs a reason."],
+    ["No unlabelled numbers", "Every number carries a label. Targets are labelled as targets."],
+    ["Simple English", "Short sentences. Explain it the way you'd tell a friend."],
+    ["Evidence before confidence", "A confident AI answer is still [AI]. Only verified or team evidence counts as proof."],
+    ["Riskiest assumption first", "If it being false would collapse the idea, test it before anything else."],
+    ["Tech isn't innovation", "Swapping in a newer model isn't a difference. Be better for the user."],
+    ["Keep the history", "Record what was chosen, what was rejected, and why."]
   ];
-
   var TIMELINE = [
     ["0:00", "/hack:start", "Fill in the brief, ideally before the statements drop."],
     ["0:05", "/hack:decode", "Paste the statements and decode every one."],
-    ["0:20", "/hack:pick", "Score and trial the top ideas. The captain decides."],
-    ["0:35", "/hack:users", "Persona, POV and motto."],
-    ["0:45", "validate ‖ compete", "Split the team, and go talk to real people at the venue."],
-    ["1:10", "/hack:stress", "Attack the idea and fix it inside the core."],
-    ["~1:30", "/hack:lock 🔒", "Idea freeze. From here, you build.", true],
-    ["1:40", "/hack:plan → /hack:verify", "One journey, then a trial of the solution."],
+    ["0:20", "/hack:pick", "Choose the problem with a trial. The captain decides."],
+    ["0:35", "/hack:users → /hack:ideate", "Persona and motto, then six different directions. Pick one."],
+    ["0:55", "validate ‖ compete", "Split the team, and test the riskiest assumption with real people."],
+    ["1:15", "/hack:stress → /hack:improve", "Attack the idea, then make CORE v2 with the team."],
+    ["~1:40", "/hack:lock 🔒", "Idea freeze. From here, you build.", true],
+    ["1:50", "/hack:plan → /hack:verify", "One journey, then a trial of the solution."],
     ["−4 h", "Code freeze", "Record the backup demo video.", true],
     ["Before judging", "/hack:pitch → /hack:ship", "Deck, Q&A and FINAL.pdf."]
   ];
-
   var TREE = [
-    ["d", ".hackathon/"], ["f", "├── STATE.md", "phase checklist, decisions"], ["f", "├── BRIEF.md", "rubric, limits, team"],
-    ["f", "├── STATEMENTS.md", "every statement decoded"], ["f", "├── PICK.md", "scores + trial"], ["f", "├── USERS.md", "persona, motto"],
-    ["f", "├── EVIDENCE.md", "sources, venue notes"], ["f", "├── COMPETE.md", "gap table"], ["f", "├── STRESS.md", "doubts + fixes"],
-    ["f", "├── CORE.md", "🔒 the locked idea", true], ["f", "├── PLAN.md", "MVP, demo script"], ["f", "├── VERDICT.md", "trial + rubric score"],
-    ["f", "├── PITCH.md", "deck + Q&A"], ["f", "├── SUMMARY.md", "one page"], ["f", "├── FINAL.pdf", "📄 everything", true], ["d", "└── court/", "full trial records"]
+    ["d", ".hackathon/"], ["f", "├── STATE.md", "phases, decisions, locked items"], ["f", "├── BRIEF.md", "rubric, limits, team"],
+    ["f", "├── STATEMENTS.md", "every statement decoded"], ["f", "├── PICK.md", "chosen problem + trial"], ["f", "├── USERS.md", "persona, motto"],
+    ["f", "├── IDEAS.md", "💡 directions, scores, rejected", true], ["f", "├── ASSUMPTIONS.md", "kill test, status", true],
+    ["f", "├── EVIDENCE.md", "labelled evidence, experiments"], ["f", "├── COMPETE.md", "differentiation"], ["f", "├── STRESS.md", "doubts, failure scenarios"],
+    ["f", "├── IMPROVE.md", "↺ v1 → v2", true], ["f", "├── CORE.md", "🔒 the locked idea", true], ["f", "├── PLAN.md", "MVP, demo script"],
+    ["f", "├── VERDICT.md", "trial + rubric estimate"], ["f", "├── PITCH.md", "deck + Q&A"], ["f", "├── FINAL.pdf", "📄 everything", true],
+    ["d", "├── history/", "earlier versions"], ["d", "└── court/", "trials + raw votes"]
   ];
-
-  var PROMPT = "You are my hackathon ideation partner. Run the Hack Kit process with me, one phase at a time, and keep a running \"Idea Pack\" summary after each phase.\n\n" +
-    "Phases: start (brief, rubric, team, time) → decode (each statement: real problem, end user, least-digital user, hidden constraints, root cause, obvious idea vs smarter angle) → pick (weighted scoring + red flags + trial of top 2–3) → users (stakeholder views, POV, HMW, persona, motto) → validate (sourced facts, real complaints, venue interview script) → compete (existing solutions, gap table, coexistence with existing systems) → stress (role-play domain expert and sceptic, smallest fixes inside the core) → lock (freeze motto, journey, USPs, AI-vs-rules-vs-humans table) → plan (one-journey MVP, build/mock/cut, stack, demo script, AI test cases) → verify (trial of the solution + rubric score + claims check) → pitch (deck outline within slide limit, form answers, judge Q&A) → ship (one final document).\n\n" +
-    "Rules: judge only whether the problem is real and the solution solves it for real users — never business viability. No unsourced numbers. AI suggests, humans decide. No app, no typing, works for the least-digital user. After lock, fixes stay inside the core. Ask me questions with numbered options when my answer matters. Simple English.\n\n" +
-    "Trial = case file → prosecution 5 points → defense 5 points → 12 jurors (end user, least-digital user, front-line worker, domain professional, workaround user, root-cause analyst, already-exists researcher, safety reviewer, systems person, engineer, statement owner, sceptic) each voting GUILTY/NOT GUILTY with confidence 1–10, reason and fix → judge gives verdict, ratings /10, top 3 fail reasons, top 3 fixes, a 30-minute venue check, and \"If I were your team…\". GUILTY means \"it does not solve a real problem for its real users\".\n\n" +
-    "Start with phase \"start\": ask me about the event.";
+  var PROMPT = "You are my hackathon thinking partner. Think deeper, challenge harder, build smarter. Run the Hack Kit process with me one phase at a time, and keep a running \"Idea Pack\" summary after each phase.\n\nPhases: start (brief, rubric, event length, team, time) → decode (each statement: real problem, severity, end user, least-digital user, hidden constraints, root cause) → pick (choose the problem: weighted scoring + red flags + trial of the top 2–3) → users (stakeholder views, POV, persona, motto) → ideate (6 directions: user, process, access, integration, prevention and technology shift, plus constraint removal like \"no AI / no app / solve 10% exceptionally well\"; score the trade-offs and let me pick) → validate (labelled evidence, real complaints, experiment cards for the riskiest assumptions, a venue interview script) → compete (what exists, what it fails to solve, a differentiation statement based on user value) → stress (role-play the domain expert, front-line worker, least-digital user, sceptic and admin; failure scenarios) → improve (turn feedback into a better version, with reasons, without changing the problem or main user; I approve each change) → lock (protect the problem, user, journey and motto) → plan (one-journey MVP, build/mock/cut, stack, fallbacks, demo script) → verify (trial of the solution + rubric estimate + claims check) → pitch (deck outline within the slide limit, form answers, judge Q&A) → ship (one final document). Anytime: assumptions (what we believe but haven't proven; kill test: \"if this is false, does the idea collapse?\").\n\nRules: label every claim [V] verified source, [T] from me/team, [AI] your inference, or [?] unknown. Only [V] and [T] can validate an assumption, and never invent interviews or results. Judge only whether the problem is real and the solution solves it for real users, never business viability. AI suggests, humans decide. No app, no typing, works for the least-digital user. Different technology isn't innovation. Keep a log of rejected ideas and why. Ask me questions with numbered options when my answer matters. Simple English.\n\nTrial = labelled evidence pack → prosecution 5 points → defense 5 points → 12 jurors (end user, least-digital user, front-line worker, domain professional, workaround user, root-cause analyst, already-exists researcher, safety reviewer, systems person, engineer, statement owner, sceptic; for a known domain, swap 3 for domain experts). Each juror votes GUILTY, NOT GUILTY or INSUFFICIENT EVIDENCE, with confidence 1–10, evidence strength, reason, weakest assumption, missing info, and one fix rated for impact and effort. The judge decides: INCONCLUSIVE if under 2/3 valid votes or 1/3+ insufficient; FAIL if GUILTY outnumbers NOT GUILTY; PASS if NOT GUILTY is at least 75% of decisive votes with mostly solid evidence; otherwise REVISE. Then give contradictions, ratings /10, what's strong, the weakest assumption, what we're overlooking, an alternative approach, ranked improvements, and the next 30-minute experiment. Jurors are simulated perspectives, not real people.\n\nStart with phase \"start\": ask me about the event.";
 
   /* ---------------- UTIL ---------------- */
   var toastEl = $("#toast"), toastT;
@@ -223,7 +230,7 @@
     rail.style.width = ((current + 1) / PHASES.length * 100) + "%";
     panel.textContent = "";
     var main = el("div");
-    var ph = el("div", "phase", "Phase " + (current + 1) + " of 12 · " + ACTS[p.act].replace(/^\S+\s/, "") + " · ~" + p.time);
+    var ph = el("div", "phase", "Phase " + (current + 1) + " of " + PHASES.length + " · " + ACTS[p.act].replace(/^\S+\s/, "") + " · ~" + p.time);
     main.appendChild(ph);
     var h = el("h3"); h.appendChild(document.createTextNode(p.icon + " " + p.title + " "));
     main.appendChild(h);
@@ -283,8 +290,8 @@
     f.appendChild(el("span", "no", "JUROR " + (i + 1)));
     f.appendChild(el("span", "av", d[0]));
     f.appendChild(el("span", "nm", d[1]));
-    var b = el("div", "jcard back " + (d[2] === "NG" ? "ng" : "g"));
-    b.appendChild(el("span", "stamp", d[2] === "NG" ? "NOT GUILTY" : "GUILTY"));
+    var b = el("div", "jcard back " + (d[2] === "NG" ? "ng" : d[2] === "G" ? "g" : "ie"));
+    b.appendChild(el("span", "stamp", d[2] === "NG" ? "NOT GUILTY" : d[2] === "G" ? "GUILTY" : "INSUFFICIENT EVIDENCE"));
     b.appendChild(el("span", "why", d[3]));
     inner.appendChild(f); inner.appendChild(b); j.appendChild(inner);
     ring.appendChild(j); jurorEls.push(j);
@@ -382,36 +389,40 @@
   });
 
   var steps = $$("#trialSteps li"), tally = $("#tally"), verdict = $("#verdict"), runBtn = $("#runTrial");
-  function setTally(ng, g) {
+  function setTally(ng, g, ie) {
     tally.textContent = "";
-    tally.appendChild(el("span", "ng", ng + " NOT GUILTY")); tally.appendChild(document.createTextNode(" · ")); tally.appendChild(el("span", "g", g + " GUILTY"));
+    tally.appendChild(el("span", "ng", ng + " NOT GUILTY")); tally.appendChild(document.createTextNode(" · "));
+    tally.appendChild(el("span", "g", g + " GUILTY")); tally.appendChild(document.createTextNode(" · "));
+    tally.appendChild(el("span", "ie", (ie || 0) + " INSUFFICIENT"));
   }
   function resetTrial() {
     steps.forEach(function (s) { s.classList.remove("lit"); });
     jurorEls.forEach(function (j) { j.classList.remove("flipped"); });
     bars.forEach(function (b) { b[0].style.width = "0"; b[1].textContent = "–"; });
-    verdict.classList.remove("show"); setTally(0, 0);
+    verdict.classList.remove("show"); setTally(0, 0, 0);
   }
   runBtn.addEventListener("click", function () {
     if (running) return; running = true; runBtn.disabled = true; resetTrial();
     RS.paused = true;
-    var t = 0, gap = reduce ? 60 : 700, ng = 0, g = 0;
+    var t = 0, gap = reduce ? 60 : 700, ng = 0, g = 0, ie = 0;
     steps.slice(0, 3).forEach(function (s, k) { setTimeout(function () { s.classList.add("lit"); }, t + k * gap); });
     t += 3 * gap;
     setTimeout(function () { steps[3].classList.add("lit"); RS.paused = false; }, t);
     JURORS.forEach(function (d, i) {
       setTimeout(function () {
         jurorEls[i].classList.add("flipped");
-        if (d[2] === "NG") ng++; else g++;
-        setTally(ng, g);
+        if (d[2] === "NG") ng++; else if (d[2] === "G") g++; else ie++;
+        setTally(ng, g, ie);
       }, t + 200 + i * (reduce ? 30 : 380));
     });
     t += 200 + JURORS.length * (reduce ? 30 : 380) + 400;
     setTimeout(function () {
       steps[4].classList.add("lit"); RS.paused = true;
       verdict.textContent = "";
-      verdict.appendChild(document.createTextNode("NOT GUILTY"));
-      verdict.appendChild(el("small", null, ng + " of 12 · avg confidence 7.3/10"));
+      var decisive = ng + g;
+      var decision = (ie * 3 >= JURORS.length) ? "INCONCLUSIVE" : (g > ng) ? "FAIL" : (decisive && ng / decisive >= 0.75) ? "PASS" : "REVISE";
+      verdict.appendChild(document.createTextNode(decision));
+      verdict.appendChild(el("small", null, "NG " + ng + " · G " + g + " · IE " + ie + " · avg confidence 7.1/10"));
       verdict.classList.add("show");
       bars.forEach(function (b, k) { setTimeout(function () { b[0].style.width = (b[2] * 10) + "%"; b[1].textContent = b[2]; }, k * 90); });
     }, t);

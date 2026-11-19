@@ -1,17 +1,29 @@
 # EVIDENCE — <idea name>
 
-> Summary: <n> verified facts, <n> real voices, <n> venue chats. <n> UNVERIFIED.
+> Summary: [V] <n> · [T] <n> · [AI] <n> · [?] <n> · <n> experiments (<n> done)
 
-## Top 3 facts for the pitch
+## Top 3 facts for the pitch ([V] or [T] only)
 1. <fact> — [source](link)
 2.
 3.
 
 ## Evidence table
-| # | Claim | Number / short quote | Source (link) | Date | Strength | Status |
-|---|---|---|---|---|---|---|
+| # | Claim | Label | Number / short quote | Source (link) | Date | Reliability | Supports assumption |
+|---|---|---|---|---|---|---|---|
 
-Status: VERIFIED (opened and read) / UNVERIFIED.
+Labels: [V] verified (source opened) · [T] team-provided · [AI] AI inference · [?] unknown. Reliability: high · medium · low.
+
+## Experiment cards
+### Experiment 1: <assumption #>
+| | |
+|---|---|
+| Hypothesis | |
+| Who | |
+| Procedure (under 30 min) | |
+| Pass if | |
+| Fail if | |
+| Observations (team only) | |
+| Conclusion | validated / rejected / unclear |
 
 ## Venue interview script (5 min, Mom-Test style)
 1. "Tell me about the last time you …"
@@ -21,8 +33,8 @@ Status: VERIFIED (opened and read) / UNVERIFIED.
 5. (Only at the end) one-line idea → "What would stop you from using this?"
 
 ## Venue notes
-| Person type | What they said | Supports / weakens | Assumption affected |
-|---|---|---|---|
+| Person type | What they said | Said or did? | Supports / weakens | Assumption affected |
+|---|---|---|---|---|
 
 ## Assumptions still unproven
 -
