@@ -35,3 +35,4 @@ Next → /hack:<command> — <why, in one line>
 - Show skipped phases as ⏭ with their reason.
 - **Conflicts:** flag `## Pending from <name>` sections in ASSUMPTIONS.md that haven't been merged, and files changed by more than one person since the last STATE update (if git is available).
 - If time is short (by the time guard in the skill), suggest the quick version of the next command.
+- If Python is available, run `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/lint_project.py" .hackathon` and add its warnings (broken tables, untested "collapses" assumptions, unlabelled numbers) to **Risks**.

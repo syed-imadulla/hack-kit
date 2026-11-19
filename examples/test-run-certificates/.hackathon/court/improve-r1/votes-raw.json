@@ -1,0 +1,86 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Wasted trips and a 21-day restart after rejection are real to me [V]. Hearing the checklist in Kannada before I travel helps, even if the counter check gets skipped.",
+  "weakest_assumption": "That documents cause most rejections; if field verification or eligibility causes most, my trip still gets wasted.",
+  "missing_info": "How many rejections are document-caused, and whether busy operators actually run the check.",
+  "fix": {
+   "change": "Lead with the missed-call Kannada checklist plus a family SMS; make the counter check add-on and say exactly which document to fix.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "A missed call with a Kannada voice checklist and an operator reading a Kannada sentence aloud mean I need no app, no typing and no English. A rejection really does cost me 21 days [V].",
+  "weakest_assumption": "That a busy operator will actually run an optional check and explain the flag to me patiently.",
+  "missing_info": "Not tested with elderly callers or operators. Is the voice menu usable without pressing keypad digits?",
+  "fix": {
+   "change": "Test the missed-call voice flow and operator read-aloud with five elderly Kannada speakers on keypad phones. Make spoken-answer input work, not only keypad menus.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "It reuses my existing scans and never blocks me, but it is still an extra drag-and-review step at the counter. Willingness, the 30 s speed and failure behaviour are all untested.",
+  "weakest_assumption": "A busy operator will run an optional, non-binding check on every applicant during a rush.",
+  "missing_info": "Timed counter trial: real taps, seconds per applicant, behaviour when the scan or check fails mid-shift.",
+  "fix": {
+   "change": "Auto-run the check on the scan folder the operator already saves to, so there is no drag step; if it fails, fall back to a printed checklist.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Government clerk",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "medium",
+  "reason": "Verified: rejections force full reapplication and 21-day waits; unreadable/mismatch/incomplete statuses exist. Advisory check uses existing scans, operator decides. But adds a step, untested.",
+  "weakest_assumption": "Busy operators will actually drag scans into a separate tool outside the portal for every application.",
+  "missing_info": "Share of rejections caused by documents; timed operator trial at a real counter.",
+  "fix": {
+   "change": "Log each check's flags and the operator's decision so accountability stays with the operator; time ten real counter runs to prove under 30 seconds.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "Missed-call checklist and pre-check address upstream causes of document rejections: not knowing what to bring and poor scans. The no-revival rule [V] persists, and document share is [?].",
+  "weakest_assumption": "Document errors, not eligibility or field verification, cause most rejections.",
+  "missing_info": "Breakdown of rejection reasons from operators or Seva Sindhu rejection logs.",
+  "fix": {
+   "change": "Interview 5 CSC operators and tally their last 20 rejections by reason, to confirm document causes dominate before building further.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "medium",
+  "reason": "One journey fits in 22h: a hand-entered income checklist plus a counter check on seeded scans is doable. Rejection cost [V] is real; telephony and Kannada OCR are the demo risks.",
+  "weakest_assumption": "OCR and name matching on real Kannada and English scans work reliably in under 30 seconds",
+  "missing_info": "Real sample scans; whether a telephony and SMS provider account is ready",
+  "fix": {
+   "change": "Cut scope to the counter check and demo it on 3 seeded scan sets (clean, blurry, name mismatch); fake the missed call with a recorded Kannada clip",
+   "impact": "high",
+   "effort": "low"
+  }
+ }
+]

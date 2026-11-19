@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.1 — 2026-11-19 · test-run fixes
+All 11 problems found in the first end-to-end test run ([docs/TEST-RUN.md](docs/TEST-RUN.md)) are fixed.
+
+- `/hack:pick` adds an **evidence boost**: open the 2 strongest sources per shortlisted statement before the trial. Unopened search snippets are `[AI]`.
+- Decision rule: INCONCLUSIVE only when abstentions are **more than** 1/3; PASS needs 75% NOT GUILTY of **all** valid votes; a PASS is **capped to REVISE** while a "collapses" assumption is untested (`tally.py --open-collapses`).
+- Domain seats no longer duplicate the end user (civic: clerk, policy officer, NGO advocate; agriculture: agronomist, trader, FPO leader; education: literacy specialist, parent, school admin; finance: compliance, fraud analyst, literacy trainer; climate: field scientist, local authority, response volunteer).
+- The sceptic always sits on the quick jury (7 seats).
+- Evidence packs include existing solutions; the team's own plans are always `[T]`.
+- `/hack:improve` compares with the stress doubts when there's no earlier solution trial, and stops when the remaining P0s are experiments.
+- New brief pack (`compile.py --brief`) and `scripts/lint_project.py` (run by `/hack:status`).
+- New example: `examples/test-run-certificates`, the full test project with real trial records. Its votes are now test fixtures.
+
 ## 1.0.0 — 2026-11-19 · "Think deeper"
 **Think deeper. Challenge harder. Build smarter.** Shaped by independent reviews of v0.3.
 

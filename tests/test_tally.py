@@ -21,6 +21,8 @@ def run():
         ("inconclusive", 12, "INCONCLUSIVE"),
         ("weak", 12, "REVISE"),
         ("invalid", 12, "PASS"),
+        ("quick-two-abstain", 6, "REVISE"),      # real test run: 4 NG, 2 IE → promising, not inconclusive
+        ("quick-snippets-only", 6, "INCONCLUSIVE"),  # real test run: unopened sources → 5 IE
     ]
     failures = 0
     for name, expected, want in cases:
@@ -36,6 +38,8 @@ def run():
         (tally(load("pass")[:7], 12)["decision"] == "INCONCLUSIVE", "too few votes is INCONCLUSIVE"),
         (tally(load("pass")[:6], 6)["decision"] == "PASS", "quick jury of 6 counts against 6"),
         (tally([], 12)["average_confidence"] is None, "no votes gives no average"),
+        (tally(load("pass"), 12, open_collapses=2)["decision"] == "REVISE", "PASS is capped to REVISE while a collapses assumption is open"),
+        (tally(load("fail"), 12, open_collapses=2)["decision"] == "FAIL", "the cap never makes a verdict more lenient"),
     ]
     for ok, label in checks:
         failures += not ok

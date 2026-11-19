@@ -144,7 +144,7 @@
       "id": 12,
       "key": "sceptic",
       "name": "The sceptic",
-      "quick": false,
+      "quick": true,
       "lens": "You doubt everything. You check if the problem truly matters and to how many people, and whether claims are backed by evidence.",
       "asks": [
         "Does this really matter, and to how many people?",
@@ -213,7 +213,7 @@
       "workaround-user",
       "systems-fit"
     ],
-    "note": "For a known domain, these three universal seats are swapped for the domain's three jurors. The first domain juror takes the quick-mode seat. Total stays 12 (6 in quick mode).",
+    "note": "For a known domain, these three universal seats are swapped for the domain's three jurors. The first domain juror (an expert) takes the quick-mode seat. Domain seats are experts the universal jury lacks: never a second end user, least-digital user or front-line worker. Total stays 12 (7 in quick mode).",
     "domains": {
       "healthcare": [
         {
@@ -249,16 +249,6 @@
       ],
       "agriculture": [
         {
-          "key": "farmer",
-          "name": "Small farmer",
-          "lens": "You farm 2 acres, use a basic phone, and speak your regional language.",
-          "asks": [
-            "Does this save me money or time this season?",
-            "Can I use it without help?",
-            "Why should I trust it?"
-          ]
-        },
-        {
           "key": "agronomist",
           "name": "Agronomist / extension officer",
           "lens": "You advise farmers in the field and know crop science and local conditions.",
@@ -277,17 +267,27 @@
             "Who pays and who gains?",
             "What breaks at harvest time?"
           ]
+        },
+        {
+          "key": "fpo-leader",
+          "name": "Farmer collective (FPO) leader",
+          "lens": "You run a farmer producer organisation and negotiate for hundreds of member farmers.",
+          "asks": [
+            "Would members trust and use this?",
+            "Does it strengthen or bypass collective selling?",
+            "What happens when the advice is wrong?"
+          ]
         }
       ],
       "education": [
         {
-          "key": "teacher",
-          "name": "Government school teacher",
-          "lens": "You teach 50 students with little time and patchy internet.",
+          "key": "literacy-specialist",
+          "name": "Foundational literacy specialist",
+          "lens": "You train teachers in early reading and know how children learn to read in Indian languages.",
           "asks": [
-            "Does this reduce my workload?",
-            "Does it work in my classroom conditions?",
-            "Will students really use it?"
+            "Does this match how reading is actually taught and assessed?",
+            "Is the measure valid for young children?",
+            "Could it label a child wrongly?"
           ]
         },
         {
@@ -313,16 +313,6 @@
       ],
       "finance": [
         {
-          "key": "first-time-user",
-          "name": "First-time bank user",
-          "lens": "You recently opened your first bank account and are wary of fraud.",
-          "asks": [
-            "Can I trust this with my money?",
-            "Is it in my language?",
-            "What if I make a mistake?"
-          ]
-        },
-        {
           "key": "compliance",
           "name": "Compliance officer",
           "lens": "You make sure products follow financial regulations and KYC rules.",
@@ -333,27 +323,27 @@
           ]
         },
         {
-          "key": "field-agent",
-          "name": "Banking correspondent / field agent",
-          "lens": "You help villagers with banking at their doorstep.",
+          "key": "fraud-analyst",
+          "name": "Fraud analyst",
+          "lens": "You investigate scams that target new and low-literacy account holders.",
           "asks": [
-            "Does this make my visits faster?",
-            "Does it work offline?",
-            "What do customers ask me most?"
+            "How could a scammer misuse or copy this?",
+            "Does it teach users safe habits?",
+            "What data could leak?"
+          ]
+        },
+        {
+          "key": "literacy-trainer",
+          "name": "Financial literacy trainer",
+          "lens": "You run money-skills sessions for women's self-help groups and first-time users.",
+          "asks": [
+            "Will people understand it without training?",
+            "Does it build confidence or confusion?",
+            "Is it in their language?"
           ]
         }
       ],
       "civic": [
-        {
-          "key": "citizen",
-          "name": "Citizen at the counter",
-          "lens": "You queue at a government office for a certificate or scheme.",
-          "asks": [
-            "Does this save me trips?",
-            "Can I use it without an agent?",
-            "What documents does it need?"
-          ]
-        },
         {
           "key": "clerk",
           "name": "Government clerk",
@@ -373,19 +363,19 @@
             "Does it duplicate an existing scheme?",
             "Can it scale across districts?"
           ]
+        },
+        {
+          "key": "citizen-advocate",
+          "name": "Citizen advocate (NGO)",
+          "lens": "You help poor applicants through government processes every week and see where they get stuck.",
+          "asks": [
+            "Where do applicants really fail?",
+            "Does this reach people who never visit an office?",
+            "Could it create a new middleman?"
+          ]
         }
       ],
       "climate": [
-        {
-          "key": "community",
-          "name": "Affected community member",
-          "lens": "You live where floods, heat or pollution hit hardest.",
-          "asks": [
-            "Does this help me act in time?",
-            "Does it reach people without smartphones?",
-            "Do I trust the warnings?"
-          ]
-        },
         {
           "key": "field-scientist",
           "name": "Field scientist",
@@ -404,6 +394,16 @@
             "Does it fit our existing alert systems?",
             "Who acts on the output?",
             "What happens when it's wrong?"
+          ]
+        },
+        {
+          "key": "response-volunteer",
+          "name": "Disaster response volunteer",
+          "lens": "You help evacuate and supply communities during floods and heatwaves.",
+          "asks": [
+            "Does the warning reach people in time to act?",
+            "What do people actually do with it?",
+            "What fails when power and network go down?"
           ]
         }
       ]

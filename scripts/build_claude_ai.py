@@ -119,7 +119,7 @@ Print first: *"Simulated jury in one chat. It's less independent than the Claude
 4. **Jury:** voice each juror separately, from their own lens only. Each gives one JSON line:
    `{{"juror", "vote": "GUILTY | NOT GUILTY | INSUFFICIENT EVIDENCE", "confidence": 1-10, "evidence_strength": "strong|medium|weak|none", "reason", "weakest_assumption", "missing_info", "fix": {{"change", "impact", "effort"}}}}`
 
-   Jurors (★ = quick mode):
+   Jurors (★ = quick mode, 7 seats):
 {jurors}
 
    **Domain seats:** for a known domain, swap {replaces} for:
@@ -129,12 +129,12 @@ Print first: *"Simulated jury in one chat. It's less independent than the Claude
 5. **Judge:**
    - **Count** the votes, and list the contradictions between jurors.
    - **Decide:**
-     - **INCONCLUSIVE** if fewer than 2/3 of jurors voted validly, or INSUFFICIENT EVIDENCE is 1/3 or more of votes;
+     - **INCONCLUSIVE** if fewer than 2/3 of jurors voted validly, or INSUFFICIENT EVIDENCE is more than 1/3 of votes;
      - **FAIL** if GUILTY outnumbers NOT GUILTY;
-     - **PASS** if NOT GUILTY is at least 75% of decisive votes and fewer than half rest on weak or no evidence;
+     - **PASS** if NOT GUILTY is at least 75% of all valid votes and fewer than half rest on weak or no evidence;
      - **REVISE** otherwise.
 
-     The judge may only move the decision one step stricter, with a reason.
+     **Cap:** while any "collapses" assumption is still [?] or [AI], a PASS becomes REVISE. The judge may also move the decision one step stricter for a safety risk, with a reason.
    - **Then give:**
      - ratings out of 10 ({ratings});
      - what's genuinely strong;

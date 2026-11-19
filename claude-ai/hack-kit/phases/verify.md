@@ -14,7 +14,7 @@ Find out, before the judges do, whether the planned solution really solves the p
 
 ### 1. Trial
 Run the `hack-court` skill.
-- **Evidence pack:** the CORE.md journey, the PLAN.md MVP scope (built vs mocked), the top `[V]` and `[T]` facts from EVIDENCE.md, and the top 3 open assumptions.
+- **Evidence pack:** the CORE.md journey, the PLAN.md MVP scope (built vs mocked, labelled `[T]`), the top `[V]` and `[T]` facts from EVIDENCE.md, the closest competitor and honest difference from COMPETE.md, and the top 3 open assumptions.
 - **On trial:** "Does this solution, as planned, solve the real problem for its real users?"
 - Use quick mode if `--quick` was passed or STATE.md says quick. Tell the user the cost before starting.
 
@@ -35,6 +35,8 @@ List every number and claim in CORE.md and PLAN.md and mark each one:
 Every ❌ must end up sourced, relabelled as a target or an estimate, or removed.
 
 ### 5. Assumptions check
+If the decision is INCONCLUSIVE or capped, the next experiment comes **before** more building or pitching.
+
 List the open "collapses" and "weakens" assumptions. For each one, say whether the demo depends on it, and what the team should say if a judge asks.
 
 ## Output

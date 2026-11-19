@@ -1,0 +1,86 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Repeat trips after rejection are real and costly for me [V]: rejected means reapply. A counter check that tells me in Kannada what to bring would save a day's work.",
+  "weakest_assumption": "That document mismatches, not Tahsildar discretion, cause most of my rejections.",
+  "missing_info": "Share of rejections caused by documents, and whether my CSC operator would actually run the check.",
+  "fix": {
+   "change": "Interview 5-10 CSC operators and rejected applicants this week; count rejection causes and test the check flow with one operator at the counter.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Operator-run at the counter I already visit, no app or typing for me, Kannada/Hindi explanation. Rejection means full reapplication [V], so saving a trip matters.",
+  "weakest_assumption": "Busy CSC operators will actually photograph and pre-check every document for elderly applicants.",
+  "missing_info": "Whether explanations are spoken aloud, and share of rejections caused by documents.",
+  "fix": {
+   "change": "Speak the missing-document list aloud in the regional language and print or SMS a simple slip the family can read later.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "Rejections that force a reapply are real [V]. But for me it's a second system with no portal link, extra photos per document, and no plan for when it fails mid-rush.",
+  "weakest_assumption": "Busy operators will photograph every document again on a separate tool during queue rush.",
+  "missing_info": "Taps/seconds per application, operator interviews, offline or failure fallback, how often document problems cause rejections.",
+  "fix": {
+   "change": "Use the documents the operator already scans for upload, give a one-screen pass/flag result in under 30 seconds, and fall back to a printed checklist when offline.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Citizen at the counter",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Official Odisha FAQ confirms rejection means reapplying and another trip; telling me what documents are missing in my language before submission directly saves visits.",
+  "weakest_assumption": "Document problems, not Tahsildar verification or eligibility, cause most of my repeat visits.",
+  "missing_info": "Share of rejections due to documents; whether CSC operators will actually run the pre-check.",
+  "fix": {
+   "change": "Show a plain spoken Kannada/Hindi checklist of required documents per certificate before I leave home, usable without the operator.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "Pre-check addresses document-error rejections, a plausible cause, but the cause split versus officer discretion and eligibility is unknown. Rejections from unclear rules or discretion would continue.",
+  "weakest_assumption": "Document problems, not Tahsildar verification or eligibility, cause most rejections and repeat visits.",
+  "missing_info": "Breakdown of rejection reasons by frequency from operators or officials; operator interviews on why applications fail.",
+  "fix": {
+   "change": "Interview 3-5 CSC operators or tally real rejection reasons today; narrow scope to the top catchable cause (e.g., income certificate mismatches).",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Rejections force full reapplication [V]. One journey (income certificate, one state, photo to checklist to Kannada explanation) is buildable in 23h with operator in loop; live OCR is risky.",
+  "weakest_assumption": "Phone-photo OCR plus Aadhaar name match works reliably on a live stage demo.",
+  "missing_info": "Actual Seva Sindhu income certificate checklist and real sample documents for testing.",
+  "fix": {
+   "change": "Scope to Karnataka income certificate only; hardcode checklist; pre-test curated sample docs, with a recorded fallback video for demo.",
+   "impact": "high",
+   "effort": "low"
+  }
+ }
+]

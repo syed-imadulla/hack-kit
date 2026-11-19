@@ -95,6 +95,7 @@ Every claim that matters (a number, a user behaviour, a fact about a competitor,
 | `[?]` | **Unknown.** Needed, but nobody knows yet | `[?] Will the hospital allow WhatsApp?` |
 
 Rules:
+- A search-result snippet you didn't open is `[AI]` (write "snippet, not opened"). It becomes `[V]` only after you open the page.
 - Only `[V]` and `[T]` can support a "validated" status. `[AI]` can suggest; it can't prove.
 - A label only goes up (`[?]` → `[AI]` → `[T]`/`[V]`) when new evidence is added, and the log says what was added.
 - Never invent interviews, quotes, test results or juror votes.
@@ -148,7 +149,7 @@ Set in `/hack:start` and stored in STATE.md. **Quick** is on when `--quick` is p
 |---|---|---|
 | Output length | normal | about half |
 | Questions per command | up to 4 | up to 2 |
-| Jurors per trial | 12 | 6 |
+| Jurors per trial | 12 | 7 |
 | Points per side | 5 | 3 |
 | Web research | yes | only for top claims |
 

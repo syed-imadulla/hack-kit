@@ -42,12 +42,17 @@ For each flag, say whether it lowers the score or removes the statement.
 ### 3. Shortlist
 Ask (AskUserQuestion) to confirm the shortlist: the top 3 (top 2 in quick mode), or the team's own choice. For each, write a **one-paragraph case**: the problem, the user, and one rough direction (from the smarter angle in STATEMENTS.md).
 
-### 4. Trial
+### 4. Evidence boost (before the trial)
+For each shortlisted statement, **open the 2 strongest sources** behind its "problem is real" claim, preferring official or research sources, and relabel those claims `[V]`. Leave everything else as `[AI]` or `[?]`. Skip this only if web tools aren't available, and say so.
+
+Why: in testing, a jury given only unopened search snippets voted INSUFFICIENT EVIDENCE almost unanimously. Ten minutes of opening sources turned that into a decision.
+
+### 5. Trial
 Unless `--no-trial` was passed, run the `hack-court` skill once per shortlisted statement.
 - **On trial:** "Is this problem real and worth solving here, and can this team solve it for its real users in the time?"
 - Use quick mode if `--quick` was passed or STATE.md says quick. Tell the user the cost first.
 
-### 5. Recommend and decide
+### 6. Recommend and decide
 | Statement | Score | Certainty | Decision (PASS/REVISE/FAIL/INCONCLUSIVE) | Weakest assumption | Best fix |
 
 Recommend one with 3 reasons. Then the **captain decides** (AskUserQuestion, with the statements as options).

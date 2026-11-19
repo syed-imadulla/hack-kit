@@ -74,7 +74,7 @@ Only `[V]` and `[T]` can validate an assumption. In your deck, state only `[V]` 
 | Evidence pack | Clerk (main Claude) | ~200 words: problem, users, solution, constraints, labelled evidence, top assumptions |
 | Prosecution | Subagent | Strongest case that it does **not** solve a real problem |
 | Defense | Subagent | Strongest case that it **does** |
-| Jury | 12 separate subagents (3 domain seats for known domains) | GUILTY / NOT GUILTY / INSUFFICIENT EVIDENCE, with confidence, evidence strength, weakest assumption, missing info and a rated fix |
+| Jury | 12 separate subagents (3 domain seats for known domains; 7 in quick mode, always including the sceptic) | GUILTY / NOT GUILTY / INSUFFICIENT EVIDENCE, with confidence, evidence strength, weakest assumption, missing info and a rated fix |
 | Count | `scripts/tally.py` | Checks every reply and re-runs broken ones; counts only valid votes |
 | Judge | Main Claude | PASS / REVISE / FAIL / INCONCLUSIVE, contradictions, ratings, ranked improvements, next experiment |
 
@@ -84,7 +84,7 @@ Only `[V]` and `[T]` can validate an assumption. In your deck, state only `[V]` 
 | Decision | What to do |
 |---|---|
 | **PASS** | Go. Apply the top P0 improvement if it's cheap. |
-| **REVISE** | Run `/hack:improve`: accept the top changes, get CORE v2, re-check. |
+| **REVISE** | Run `/hack:improve`: accept the top changes, get CORE v2, re-check. If it says "capped", the votes passed but a killer assumption is untested: run that experiment first. |
 | **FAIL** | Run `/hack:improve` once. If it still fails, the captain decides: rethink the idea in `/hack:ideate`, or pick the next problem. |
 | **INCONCLUSIVE** | Not enough evidence. Run `/hack:assumptions`, do the next experiment, then trial again. |
 

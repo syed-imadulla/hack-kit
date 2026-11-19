@@ -18,7 +18,9 @@ List the files in `.hackathon/`. If CORE.md, PLAN.md or PITCH.md is missing, ask
 - **Run the missing command first**
 
 ### 2. Format
-If the arguments don't say, ask: PDF, Markdown, or both (the default is both).
+If the arguments don't say, ask:
+- PDF, Markdown, or both (the default is both);
+- **Full pack** (every file, often 25–35 pages) or **brief pack** (`--brief`: SUMMARY, CORE, ASSUMPTIONS, PLAN, VERDICT, PITCH, about 10 pages, best for mentors and judges). The default is both.
 
 ### 3. One-page summary
 Write `.hackathon/SUMMARY.md` from `templates/summary.md`, covering:
@@ -34,7 +36,9 @@ Write `.hackathon/SUMMARY.md` from `templates/summary.md`, covering:
 
 ### 4. Compile
 ```bash
-python3 "<plugin>/scripts/compile.py" .hackathon        # add --md-only for no PDF
+python3 "<plugin>/scripts/compile.py" .hackathon            # full pack → FINAL.*
+python3 "<plugin>/scripts/compile.py" .hackathon --brief    # brief pack → BRIEF.*
+# add --md-only for no PDF
 ```
 If `${CLAUDE_PLUGIN_ROOT}` isn't set in the shell, use the plugin root found as described in the skill.
 

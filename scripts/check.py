@@ -98,14 +98,18 @@ def check_jurors():
     jur = j["jurors"]
     keys = [x["key"] for x in jur]
     ok(len(jur) == 12 and len(set(keys)) == 12, "12 jurors with unique keys")
-    ok(sum(x["quick"] for x in jur) == 6, "6 quick-mode jurors")
+    ok(sum(x["quick"] for x in jur) == 7, "7 quick-mode jurors")
+    ok(next(x for x in jur if x["key"] == "sceptic")["quick"], "the sceptic sits on the quick jury")
     ok(all(x.get("name") and x.get("lens") and len(x.get("asks", [])) >= 2 for x in jur), "every juror has name, lens and questions")
     ok(len(j["ratings"]) == 8, "8 rating items")
     rep = j["domain_seats"]["replaces"]
     ok(len(rep) == 3 and all(k in keys for k in rep), "domain seats replace 3 existing jurors")
     ok(any(next(x for x in jur if x["key"] == k)["quick"] for k in rep), "one replaced seat is a quick-mode seat")
+    banned = ("end user", "citizen at the counter", "small farmer", "first-time", "affected community")
     for d, seats in j["domain_seats"]["domains"].items():
         ok(len(seats) == 3 and all(s.get("name") and s.get("lens") and s.get("asks") for s in seats), f"domain '{d}' has 3 complete jurors")
+        dup = [s["name"] for s in seats if any(b in s["name"].lower() for b in banned)]
+        ok(not dup, f"domain '{d}' doesn't duplicate the end user{' (' + ', '.join(dup) + ')' if dup else ''}")
     ok(set(j["votes"]) == {"GUILTY", "NOT GUILTY", "INSUFFICIENT EVIDENCE"}, "three vote options defined")
     agent = read("agents/hack-juror.md")
     ok("INSUFFICIENT EVIDENCE" in agent and "evidence_strength" in agent, "juror agent uses the v2 vote format")

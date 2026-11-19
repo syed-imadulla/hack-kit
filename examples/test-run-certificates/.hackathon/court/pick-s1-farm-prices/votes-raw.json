@@ -1,0 +1,86 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "I do sell blind to traders at harvest [V]; a voice call on my keypad phone is easier than asking around. But debt often forces my sale anyway.",
+  "weakest_assumption": "Knowing a better price 40 km away lets me actually go there or hold.",
+  "missing_info": "Whether farmers like me changed where or when they sold after hearing prices.",
+  "fix": {
+   "change": "Lead with today's fair price to bargain with the local trader at the farm gate; treat hold/sell and distant mandis as secondary, flag stale data.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Distress sales are verified. A voice call in my own language on my keypad phone needs no app, typing or English, and FPO staff can help. That access fit is still unproven.",
+  "weakest_assumption": "Speech recognition understands my dialect and village names, and I trust a machine voice's hold/sell advice.",
+  "missing_info": "Which regional languages and dialects are supported; call cost; whether it was tested with older keypad-phone farmers.",
+  "fix": {
+   "change": "Use a free missed-call callback with a keypad menu fallback (press 1 for wheat), and let me hand the call over to a named FPO person.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 6,
+  "evidence_strength": "weak",
+  "reason": "The problem is verified real, but the staff role is only [?]. Nothing shows whether this saves FPO staff work, or what we do when Agmarknet data is stale.",
+  "weakest_assumption": "FPO staff can check prices and 'hold or sell' advice without it adding to their workload",
+  "missing_info": "Staff's current price-query workload, and the fallback when data is missing or stale mid-season",
+  "fix": {
+   "change": "Add a simple staff view: flagged stale prices, a one-tap override to enter a local mandi rate, and a call log so farmers aren't misled.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Small farmer",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "medium",
+  "reason": "Distress sales and losses are verified, and a voice call on my keypad phone works without help. Debt, storage, and stale prices may still limit what I gain.",
+  "weakest_assumption": "Knowing the price changes where or when I sell, or helps me bargain with the trader.",
+  "missing_info": "How fresh Agmarknet prices are for my nearby mandis, and whether farmers like me used the price to get more money.",
+  "fix": {
+   "change": "Say the date of each price out loud, drop the 'hold' advice when data is stale, and give the FPO contact for checking.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Distress sale is verified. But it is unknown whether information asymmetry is the main cause or whether debt and storage are. A price hotline only fixes the information part.",
+  "weakest_assumption": "Knowing the price changes when and where a cash-strapped farmer with no storage can sell.",
+  "missing_info": "Share of distress sales caused by price ignorance rather than debt, storage or trader lock-in.",
+  "fix": {
+   "change": "Turn 'hold or sell' into a bargaining tool: a fair-price benchmark against trader offers, plus routing to FPO collective selling or storage when holding isn't possible.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Problem is verified real; one voice journey (call, say crop and village, hear prices) is buildable in 23h with this team if telephony and data are partly mocked.",
+  "weakest_assumption": "Regional-language speech recognition of crop and village names works reliably over a live phone call.",
+  "missing_info": "Which telephony provider and STT support the target language; whether Agmarknet API responds reliably during demo.",
+  "fix": {
+   "change": "Cache an Agmarknet snapshot for 2-3 crops and districts, show a data-date stamp, pre-record a fallback call, and limit to one language.",
+   "impact": "high",
+   "effort": "low"
+  }
+ }
+]

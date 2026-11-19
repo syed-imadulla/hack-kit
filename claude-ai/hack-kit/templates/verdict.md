@@ -2,9 +2,9 @@
 
 > Summary: <PASS / REVISE / FAIL / INCONCLUSIVE> · NOT GUILTY <x> · GUILTY <y> · INSUFFICIENT EVIDENCE <z> · <n> of <expected> valid votes
 
-**DECISION: <PASS / REVISE / FAIL / INCONCLUSIVE>**
+**DECISION: <PASS / REVISE / FAIL / INCONCLUSIVE>** <(PASS by votes, capped until … is tested)>
 On trial: "<question>"
-Jury: <universal / healthcare / agriculture / …> seats · <full 12 / quick 6>
+Jury: <universal / healthcare / agriculture / …> seats · <full 12 / quick 7>
 Average confidence: <c>/10 (how sure jurors were, not a probability of success)
 
 > Simulated jurors are perspectives, not real users or experts. Use this verdict to decide what to test and fix, not as proof.

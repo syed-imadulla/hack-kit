@@ -7,7 +7,7 @@
 From *"here are the problem statements"* to a well-explored, evidence-labelled, challenged and buildable hackathon idea, with an MVP plan, a pitch and one final PDF.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-18-orange)](#-commands)
@@ -55,6 +55,8 @@ Hack Kit turns those two hours into a guided process. Each `/hack:` command asks
 ```
 
 Already on 0.x? Update with `/plugin marketplace update hack-kit`. Old `.hackathon/` projects upgrade automatically; see [MIGRATION.md](MIGRATION.md).
+
+> 🧪 **Tested end to end:** v1.0 was run through all 14 phases on a mock 24 h hackathon, with 48 real juror subagents. The run found 11 problems, and all are fixed in v1.0.1. Read the [test report](docs/TEST-RUN.md) or browse the [full test project](examples/test-run-certificates/.hackathon).
 
 ---
 
@@ -123,7 +125,7 @@ flowchart LR
 | `/hack:status` | Phase table, CORE version, latest decision, open assumptions, time to each freeze |
 | `/hack:help` | Command map and quick start |
 
-**Flag:** add `--quick` to any command for a faster version: 6 jurors, fewer ideas, one improve round. Quick mode turns on automatically for events under 12 hours.
+**Flag:** add `--quick` to any command for a faster version: 7 jurors, fewer ideas, one improve round. Quick mode turns on automatically for events under 12 hours.
 
 ---
 
@@ -170,10 +172,10 @@ Raw votes are saved unedited. `scripts/tally.py` checks every reply, so a broken
 
 | Decision | Rule |
 |---|---|
-| **INCONCLUSIVE** | fewer than 2/3 valid votes, or 1/3+ say INSUFFICIENT EVIDENCE |
+| **INCONCLUSIVE** | fewer than 2/3 valid votes, or more than 1/3 say INSUFFICIENT EVIDENCE |
 | **FAIL** | GUILTY outnumbers NOT GUILTY |
-| **PASS** | NOT GUILTY ≥ 75% of decisive votes, and evidence isn't mostly weak |
-| **REVISE** | anything else |
+| **PASS** | NOT GUILTY ≥ 75% of all valid votes, and evidence isn't mostly weak |
+| **REVISE** | anything else, **or** a PASS while a "collapses" assumption is still untested |
 
 The judge can only move the decision **stricter**, never more lenient. The verdict adds:
 - contradictions between jurors;
@@ -200,7 +202,7 @@ The judge can only move the decision **stricter**, never more lenient. The verdi
 | 9 | Systems person | Does it fit what we already run? |
 | 10 ★ | Engineer | Can it be built and demoed in time? |
 | 11 | Statement-owner judge | Does it answer what was asked? |
-| 12 | Sceptic | Does this really matter, and to how many people? |
+| 12 ★ | Sceptic | Does this really matter, and to how many people? |
 
 **Domain seats:** for healthcare, agriculture, education, finance, civic and climate problems, seats 4, 5 and 9 become three domain jurors. For healthcare, that's a senior doctor, a hospital administrator and a patient privacy officer. The jury stays at 12, so the cost doesn't change.
 
@@ -258,7 +260,9 @@ Everything is saved in `.hackathon/` in your project. Commit it so the whole tea
 └── court/          full trial records + raw votes
 ```
 
-See a worked example in [`examples/opd-saathi`](examples/opd-saathi).
+Worked examples: [`examples/test-run-certificates`](examples/test-run-certificates) (every file, plus real trial records) and [`examples/opd-saathi`](examples/opd-saathi).
+
+Share the short version with mentors: `/hack:ship` also makes a **brief pack** (about 10–15 pages).
 
 ---
 
@@ -285,7 +289,7 @@ About 80–100 minutes to a locked idea for a 24-hour event, and about 45 minute
 <details>
 <summary><b>How much usage does a trial cost?</b></summary>
 
-A full trial uses about 15 subagent calls (2 lawyers + 12 jurors + retries). Quick mode uses about 9. `/hack:improve` runs one quick re-trial per round.
+A full trial uses about 15 subagent calls (2 lawyers + 12 jurors + retries). Quick mode uses about 10. `/hack:improve` runs one quick re-trial per round.
 </details>
 
 <details>
@@ -331,6 +335,7 @@ At the idea stage, judges reward a real problem that's clearly solved. If your r
 ## 📚 More
 
 - [`docs/GUIDE.md`](docs/GUIDE.md): the full playbook (before, during and after the event)
+- [`docs/TEST-RUN.md`](docs/TEST-RUN.md): the first end-to-end test run, with timings and fixes
 - [`MIGRATION.md`](MIGRATION.md): upgrading from 0.x
 - [`CHANGELOG.md`](CHANGELOG.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
@@ -347,12 +352,12 @@ hack-kit/
 │   ├── hack-kit/       shared rules (the source of truth)
 │   └── hack-court/     trial protocol + jurors.json (with domain seats)
 ├── templates/          one template per output file
-├── scripts/            check.py · tally.py · compile.py · build_claude_ai.py
+├── scripts/            check.py · tally.py · compile.py · lint_project.py · build_claude_ai.py
 ├── tests/              vote-counter tests and fixtures
 ├── claude-ai/          generated Claude app skill + one-paste prompt
 ├── prompts/            copy-ready prompts
-├── docs/               website · GUIDE.md · skill zip
-└── examples/           OPD Saathi sample
+├── docs/               website · GUIDE.md · TEST-RUN.md · skill zip
+└── examples/           test run (complete) · OPD Saathi sample
 ```
 </details>
 

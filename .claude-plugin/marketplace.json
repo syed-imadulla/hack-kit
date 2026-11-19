@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Hack Kit — Think deeper. Challenge harder. Build smarter.",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "hack",
       "source": "./",
       "description": "Hackathon thinking kit: /hack: commands, structured ideation, assumption tracking, Hack Court 2.0 and an improve loop.",
-      "version": "1.0.0"
+      "version": "1.0.1"
     }
   ]
 }

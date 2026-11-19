@@ -24,4 +24,4 @@ Output exactly N numbered points:
 1. **Claim:** [label] <one line>
    **Why it matters to a real user:** <one line>
 
-Start each point with an evidence label: [V] (a source you opened, with link and date), [T] (from the team's notes in the case), [AI] (your reasoning) or [?] (unknown). Never upgrade a label from the case. Prefer points backed by [V] or [T].
+Start each point with an evidence label: [V] (a source you opened, with link and date), [T] (from the team's notes in the case), [AI] (your reasoning) or [?] (unknown). Never upgrade a label from the case. The team's own plans, scope and build status are [T], never [V]. Prefer points backed by [V] or [T].

@@ -51,14 +51,15 @@ Ask (AskUserQuestion, multiSelect) which changes to accept. Ask about every DRIF
 | Same problem and main user? | yes / no | |
 
 ### 6. Re-check
-Unless `--no-retrial` was passed, run a **quick trial** of the new version with the `hack-court` skill (6 jurors), and compare the decision and ratings with the previous trial. In quick mode, re-try only if the team asks.
+Unless `--no-retrial` was passed, run a **quick trial** of the new version with the `hack-court` skill (7 jurors), and compare the decision and ratings with the previous solution trial. If there's no earlier solution trial (the usual case right after `/hack:stress`), this re-trial is the first one: compare its weakest points with the stress doubts instead. In quick mode, re-try only if the team asks.
 
 ### 7. Stop rule
 Stop and suggest moving on when any of these is true:
 - the decision is PASS;
 - 2 improvement rounds are done (1 in quick mode);
 - the time guard in the skill says there's no time for another round;
-- the remaining fixes are low impact.
+- the remaining fixes are low impact;
+- the remaining P0 items are experiments, not design changes. Another round can't fix an untested assumption, so send the team to `/hack:validate`.
 
 Otherwise, offer one more round.
 

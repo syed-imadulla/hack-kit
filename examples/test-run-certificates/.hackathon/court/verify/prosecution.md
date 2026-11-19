@@ -1,0 +1,10 @@
+1. **Claim:** [?] There's no evidence that document problems cause most rejections. The plan's own key assumption is marked as one that collapses, and experiment 1 hasn't run.
+   **Why it matters to a real user:** If most rejections come from a Tahsildar decision or "not eligible", the applicant still loses the trip after a "looks complete" screen gave them false confidence.
+2. **Claim:** [V] The listed rejection reasons include Tahsildar rejection and not eligible. A scan can't catch either, so the check treats the symptom (bad scans and paperwork), not the root cause (eligibility and the official's judgment).
+   **Why it matters to a real user:** A first-time applicant whose income is over the limit still waits 21 days for a rejection that can't be revived, and pays for a second trip anyway.
+3. **Claim:** [?] Whether operators will run the check is untested (experiment 2 is only planned), and this assumption is also marked as collapsing.
+   **Why it matters to a real user:** The elderly applicant depends entirely on the CSC operator. If the operator skips a 30-second step to keep the queue moving, the applicant gets nothing, and the tool adds work for the very person it relies on.
+4. **Claim:** [AI] "Under 30 s" and "name matching works across Kannada/English scripts" rest only on an AI claim. The rules-based matching could easily raise false "possible issue" flags on variant spellings, or miss real mismatches.
+   **Why it matters to a real user:** A low-literacy applicant told aloud "possible issue, please check" can't judge whether it's real. A false flag sends them home for nothing; a missed mismatch still ends in rejection.
+5. **Claim:** [V] The tool doesn't reach the portal, and the pre-visit help that would save the first trip is mocked: the missed-call checklist is a recorded clip, SMS is mocked, and there's no real telephony or DigiLocker. Only the income certificate is covered.
+   **Why it matters to a real user:** An applicant who comes without income proof only finds out at the counter, which is still a wasted trip. Anyone applying for a different certificate gets no help.

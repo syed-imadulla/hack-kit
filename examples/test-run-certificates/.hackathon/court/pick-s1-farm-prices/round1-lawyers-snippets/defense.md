@@ -1,0 +1,6 @@
+1. **Claim:** [AI] The problem is real but not yet verified. The case's unopened journal and news snippets tie smallholder distress selling and below-MSP sales to gaps in market access and information.
+   **Why it matters to a real user:** A 1–2 acre farmer who sells one harvest at a poor price loses a big share of the season's income, so even a small price improvement matters.
+2. **Claim:** [AI] An inbound voice call with regional-language speech works on a keypad phone, with no reading, app or data plan. It fits the least-digital user better than an app or an SMS table.
+   **Why it matters to a real user:** An older farmer can say "tomato, my village" in their own language and hear nearby mandi prices net of travel cost, without asking a commission agent who has a stake in the answer.
+3. **Claim:** [AI] A thin demo is buildable in 23 h with this team: telephony, speech-to-text, an Agmarknet lookup for a few crops and districts, and text-to-speech. Saying the data date ("prices as of …") and keeping "hold or sell" a cautious hint keeps it honest. Data freshness [?] and behaviour change [?] stay unproven.
+   **Why it matters to a real user:** The farmer gets a dated price they can judge rather than false certainty, and FPO staff can point members to one number instead of phoning around, with call logs showing where data is stale or missing.

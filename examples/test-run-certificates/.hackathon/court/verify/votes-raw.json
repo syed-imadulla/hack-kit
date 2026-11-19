@@ -1,0 +1,170 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "Repeat trips and unrevivable rejections are real [V], and a spoken Kannada check helps me. But nobody knows if document errors cause most rejections, or if operators will run it.",
+  "weakest_assumption": "The CSC operator will actually run the check on a busy, crowded counter day.",
+  "missing_info": "Share of rejections caused by documents; whether operators adopt it (experiments 1 and 2).",
+  "fix": {
+   "change": "Run experiments 1 and 2 today with real operators and rejection records; also flag likely ineligibility (income over limit) before submission.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "medium",
+  "reason": "No app, typing or English needed: the operator scans and a Kannada sentence is played aloud. But the pre-visit missed call is mocked, and it depends on the operator being willing.",
+  "weakest_assumption": "That the operator will actually run the check and explain the flag to me, even with a long queue.",
+  "missing_info": "Whether a real missed call works on a keypad phone; whether the voice can be replayed or explained by a person.",
+  "fix": {
+   "change": "Make one real missed-call checklist line in Kannada work, and let the operator replay the spoken flag with a simple 'bring this document' instruction.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "Scanning into a watched folder adds almost no taps and one screen, but nobody has tested operator willingness, the 30 s speed claim, or false-flag rates during a rush.",
+  "weakest_assumption": "Operators will wait for, trust and act on flags while a queue builds.",
+  "missing_info": "Timed run at a real CSC counter: seconds per applicant, false-flag rate, behaviour when the check fails",
+  "fix": {
+   "change": "Run experiment 2 at a live counter: time each check, count false flags, and add a visible 'check unavailable, proceed manually' fallback.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Government clerk",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 6,
+  "evidence_strength": "weak",
+  "reason": "Repeat rejections are real [V], and logging plus operator-decides helps with accountability. But whether operators will take on the extra step, and whether it fits the portal, is untested [?].",
+  "weakest_assumption": "Operators will run an extra off-portal check on every application without the queue slowing.",
+  "missing_info": "Operator time per application and false-flag rate, measured on real counters (experiment 2).",
+  "fix": {
+   "change": "Time the check with real operators on real scans, and show the flag log can be exported to back up the operator's portal remarks.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Policy officer",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "medium",
+  "reason": "Real, verified pain: rejections can't be revived and the trip repeats. An advisory pre-check that never says 'approved' and needs no portal fits the rules. Coverage is still unknown.",
+  "weakest_assumption": "Document problems, not eligibility or Tahsildar judgment, cause most rejections.",
+  "missing_info": "Rejection-cause breakdown by district; whether existing Seva Sindhu/CSC checklists already do this.",
+  "fix": {
+   "change": "Get a district rejection-reason breakdown and an operator sign-off; drive checklists from configurable per-certificate rules so other districts can adopt them.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 6,
+  "evidence_strength": "weak",
+  "reason": "Pre-submission checks plausibly fix the document-error cause [V], but nobody knows whether documents drive most rejections [?]. Eligibility and Tahsildar rejections stay untouched. Experiment 1 hasn't run.",
+  "weakest_assumption": "Document problems, not eligibility or official judgment, cause most rejections and repeat trips.",
+  "missing_info": "Breakdown of rejection reasons from operators or Tahsildar records (experiment 1 results).",
+  "fix": {
+   "change": "Run experiment 1 first. Add a rules-based eligibility pre-check (income threshold, purpose) so 'looks complete' also warns about likely not-eligible cases.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "'Already exists' researcher",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 5,
+  "evidence_strength": "weak",
+  "reason": "[AI] Checklists already exist on portals and helplines, and KYC OCR tools exist. The real difference is an offline Kannada pre-check at the counter, but its value depends on unknown rejection shares.",
+  "weakest_assumption": "[?] Document defects, not eligibility or Tahsildar judgment, cause most rejections, so the scan pre-check matters.",
+  "missing_info": "Rejection-cause breakdown; whether the portal or operators already pre-check scans; no prior-art scan in the case.",
+  "fix": {
+   "change": "Drop the mocked checklist call, which duplicates existing lists. Run experiment 1 and list existing tools so the operator-side Kannada pre-check stands as the clear difference.",
+   "impact": "medium",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Safety and ethics reviewer",
+  "vote": "NOT GUILTY",
+  "confidence": 5,
+  "evidence_strength": "medium",
+  "reason": "Human operator decides every flag, it never says 'approved', every decision is logged, scans stay in memory, Aadhaar masked. Real rejection harm [V]. But false-confidence risk remains.",
+  "weakest_assumption": "Operators actually run the check and treat the flags carefully rather than skipping them or trusting them blindly.",
+  "missing_info": "False-flag and miss rates of cross-script name matching; share of rejections caused by documents.",
+  "fix": {
+   "change": "Have 'looks complete' also say aloud that eligibility and the Tahsildar's decision aren't checked, and test name matching on real Kannada/English spelling variants.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Citizen advocate (NGO)",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 6,
+  "evidence_strength": "weak",
+  "reason": "Rejections can't be revived [V], and the targeted failure types exist [V]. Their share is [?], operator uptake is [?], and outreach to people who never visit an office is mocked.",
+  "weakest_assumption": "Document problems cause most rejections, and busy operators will run and act on the check.",
+  "missing_info": "Rejection reason frequencies from operators; whether applicants mainly fail before arriving, from missing documents.",
+  "fix": {
+   "change": "Make the pre-visit missed-call checklist real (purpose to documents, eligibility/income limit warning), so it reaches applicants before travel and isn't left to an operator.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Watcher-to-screen-to-TTS journey for one certificate is buildable in 22h by four people; the mocks are honest. Cross-script name matching and live scan readability are the risky parts of the demo.",
+  "weakest_assumption": "Rules-based Kannada/English name matching works reliably on real scanned documents within 30 s.",
+  "missing_info": "Whether OCR/readability and name matching have been tested on real Kannada scans yet",
+  "fix": {
+   "change": "Pre-test with a fixed set of real sample scans (one good, two flawed), keep a recorded backup demo, and cache TTS clips offline.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Statement-owner judge",
+  "vote": "NOT GUILTY",
+  "confidence": 6,
+  "evidence_strength": "medium",
+  "reason": "Answers my statement directly: catches missing or wrong documents before submission, where rejections can't be revived [V]. A pre-visit checklist covers repeat trips. Kannada TTS is memorable.",
+  "weakest_assumption": "That documents cause most rejections. It's [?], and if it's false, impact collapses.",
+  "missing_info": "Results of experiments 1 and 2: share of rejections caused by documents, and whether operators will run the check",
+  "fix": {
+   "change": "Run experiment 1 and open the pitch with the real share of document-caused rejections, plus one live demo of a mismatch the tool catches",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Sceptic",
+  "vote": "INSUFFICIENT EVIDENCE",
+  "confidence": 6,
+  "evidence_strength": "weak",
+  "reason": "Repeat trips after unrevivable rejection are verified, but nobody knows what share of rejections are document errors. Operator uptake is untested too. Both key assumptions are [?] and collapse.",
+  "weakest_assumption": "That document problems cause most rejections. No data exists and experiment 1 hasn't run.",
+  "missing_info": "Rejection-cause frequencies from real CSC operators, and whether operators would add this step to their workflow",
+  "fix": {
+   "change": "Before building more, run experiment 1: get several operators to tally recent rejections by cause. If document causes are small, pivot to the eligibility checklist.",
+   "impact": "high",
+   "effort": "low"
+  }
+ }
+]

@@ -20,7 +20,7 @@ HACK KIT  ·  Think deeper. Challenge harder. Build smarter.
                     10 /hack:lock  🔒
 
  ANYTIME   /hack:assumptions · /hack:court <thing> ⚖️ · /hack:status · /hack:help
- FLAGS     --quick   faster: 6 jurors, fewer ideas, 1 improve round
+ FLAGS     --quick   faster: 7 jurors, fewer ideas, 1 improve round
 
  💡 = explore different solution directions     ↺ = improve loop after any trial
  ⚖️ = Hack Court: PASS · REVISE · FAIL · INCONCLUSIVE

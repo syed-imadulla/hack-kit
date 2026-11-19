@@ -19,14 +19,14 @@ Read `jurors.json` (jurors, domain seats, vote format) and `templates/verdict.md
 | Mode | Jurors | Points per side | When |
 |---|---|---|---|
 | Full | 12 | 5 | default |
-| Quick | 6 (the `"quick": true` seats) | 3 | `--quick`, quick mode in STATE.md, or low time or usage |
+| Quick | 7 (the `"quick": true` seats, always including the sceptic) | 3 | `--quick`, quick mode in STATE.md, or low time or usage |
 
-Before starting, tell the user the cost: about 15 subagent calls for a full trial, about 9 for a quick one.
+Before starting, tell the user the cost: about 15 subagent calls for a full trial, about 10 for a quick one.
 
 ---
 
 ## Step 1 — Evidence pack (you, the clerk)
-Write `case.md` in `.hackathon/court/<case-slug>/`, or in `./court/<case-slug>/` if there's no `.hackathon/`. Keep it to about 200 words:
+Write `case.md` in `.hackathon/court/<case-slug>/`, or in `./court/<case-slug>/` if there's no `.hackathon/`. Keep it to about 200–300 words:
 
 ```
 CASE: <one line>
@@ -35,6 +35,8 @@ PROBLEM: who suffers, what, how often
 REAL USERS: end user · least-digital user · operator
 SOLUTION: 3–5 lines, step by step
 CONSTRAINTS: time left, team skills, top rubric items, existing systems
+EXISTING SOLUTIONS: closest competitor + honest difference (from COMPETE.md, if it exists)
+BUILT vs MOCKED: (solution trials only, from PLAN.md) — labelled [T]
 EVIDENCE (labelled):
   [V] … (source, date)
   [T] …
@@ -42,7 +44,7 @@ EVIDENCE (labelled):
   [?] …
 KEY ASSUMPTIONS: top 3 from ASSUMPTIONS.md, with labels
 ```
-Build it only from `.hackathon/` files and what the user said. Don't add facts, and keep every claim's label exactly as it is in the source file.
+Build it only from `.hackathon/` files and what the user said. Don't add facts, and keep every claim's label exactly as it is in the source file. The team's own plans, scope and build status are `[T]`, never `[V]`.
 
 ## Step 2 — Domain seats
 Look up the domain in BRIEF.md or STATEMENTS.md. If it matches a key in `domain_seats.domains` (healthcare, agriculture, education, finance, civic, climate), swap the three seats listed in `domain_seats.replaces` for that domain's three jurors. The first domain juror takes the quick-mode seat. If the domain isn't listed, or is unclear, keep the universal jurors and say so in the verdict.
@@ -83,9 +85,9 @@ Reply with ONLY one JSON object:
 
 ### Collecting the votes
 1. Save every raw reply, as received, to `votes-raw.json`, a JSON list. **Never edit this file afterwards.**
-2. Count with the script:
+2. Count with the script. Pass the number of "collapses" assumptions in `ASSUMPTIONS.md` that are still open (evidence `[?]` or `[AI]`):
    ```bash
-   python3 "<plugin>/scripts/tally.py" .hackathon/court/<case>/votes-raw.json --expected <12 or 6>
+   python3 "<plugin>/scripts/tally.py" .hackathon/court/<case>/votes-raw.json --expected <12 or 7> --open-collapses <n>
    ```
 3. Re-run only the jurors the script reports as invalid, up to 2 retries each. Append the new replies to `votes-raw.json`. If a juror has a valid reply and a later invalid one, the valid one stands.
 4. If a juror still fails, record it as `NO VOTE`. **Never invent a vote.** The script counts only the valid votes it received.
@@ -101,12 +103,13 @@ Use only the valid votes.
 3. **Decision** (the script applies the same rule):
    | Decision | Rule |
    |---|---|
-   | **INCONCLUSIVE** | Fewer than 2/3 of jurors gave valid votes, or INSUFFICIENT EVIDENCE is 1/3 or more of valid votes |
+   | **INCONCLUSIVE** | Fewer than 2/3 of jurors gave valid votes, or INSUFFICIENT EVIDENCE is more than 1/3 of valid votes |
    | **FAIL** | GUILTY outnumbers NOT GUILTY |
-   | **PASS** | NOT GUILTY is at least 75% of decisive votes, and fewer than half of votes rest on weak or no evidence |
+   | **PASS** | NOT GUILTY is at least 75% of all valid votes (abstentions count against a pass), and fewer than half of votes rest on weak or no evidence |
    | **REVISE** | Anything else |
 
-   You may move the decision **one step stricter** (PASS → REVISE, or REVISE → FAIL) if a safety risk or a critical `[?]` assumption is unresolved. Say why. Never move it in the lenient direction.
+   **Mandatory cap:** if any "collapses" assumption is still `[?]` or `[AI]`, a PASS becomes REVISE ("PASS by votes, capped until <assumption> is tested"). The script does this with `--open-collapses`.
+   You may also move the decision **one step stricter** for an unresolved safety risk. Say why. Never move it in the lenient direction.
 4. **Ratings out of 10** for the 8 items in `jurors.json → ratings`, each with a one-line reason. Lower any rating that rests mostly on `[AI]` or `[?]` claims.
 5. **The improvement sections:**
    - **What's genuinely strong:** 2–3 points, with evidence labels.

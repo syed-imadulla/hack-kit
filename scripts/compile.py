@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Compile a Hack Kit .hackathon/ folder into FINAL.md, FINAL.html and (if possible) FINAL.pdf.
 
-Usage: python3 compile.py [.hackathon] [--md-only]
+Usage: python3 compile.py [.hackathon] [--md-only] [--brief]
+
+--brief: a short pack for mentors and judges (SUMMARY, CORE, ASSUMPTIONS, PLAN, VERDICT, PITCH).
 
 PDF is attempted with, in order: pandoc (with a PDF engine), Chromium/Chrome headless,
 Playwright (python). If none works, open FINAL.html in a browser and Print -> Save as PDF.
@@ -72,9 +74,14 @@ def read_state_title(folder: Path):
     return ev, mo
 
 
-def build_markdown(folder: Path):
+BRIEF_SET = {"SUMMARY.md", "CORE.md", "ASSUMPTIONS.md", "PLAN.md", "VERDICT.md", "PITCH.md"}
+
+
+def build_markdown(folder: Path, brief=False):
     parts, toc = [], []
     for fname, label in ORDER:
+        if brief and fname not in BRIEF_SET:
+            continue
         p = folder / fname
         if not p.exists():
             continue
@@ -139,11 +146,12 @@ def try_pdf(html_path: Path, pdf_path: Path, md_path: Path):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     md_only = "--md-only" in sys.argv
+    brief = "--brief" in sys.argv
     folder = Path(args[0] if args else ".hackathon")
     if not folder.is_dir():
         sys.exit(f"Folder not found: {folder}. Run /hack:start first.")
 
-    parts, toc = build_markdown(folder)
+    parts, toc = build_markdown(folder, brief)
     if not parts:
         sys.exit("No Hack Kit files found to compile.")
 
@@ -156,7 +164,8 @@ def main():
     md_out += ["## Contents", ""] + [f"{i}. {label}" for i, (_, label) in enumerate(toc, 1)] + [""]
     for fname, label, text in parts:
         md_out += ['<div style="page-break-after:always"></div>', "", text, ""]
-    md_path = folder / "FINAL.md"
+    stem = "BRIEF" if brief else "FINAL"
+    md_path = folder / f"{stem}.md"
     md_path.write_text("\n".join(md_out), encoding="utf-8")
 
     # FINAL.html
@@ -170,7 +179,7 @@ def main():
         body.append(f'<div class="section">{md_to_html(text)}</div>')
     html_doc = (f"<!DOCTYPE html><html><head><meta charset='utf-8'><title>{html.escape(event)}</title>"
                 f"<style>{CSS}</style></head><body>{''.join(body)}</body></html>")
-    html_path = folder / "FINAL.html"
+    html_path = folder / f"{stem}.html"
     html_path.write_text(html_doc, encoding="utf-8")
 
     print(f"Wrote {md_path}")
@@ -179,7 +188,7 @@ def main():
 
     if md_only:
         return
-    pdf_path = folder / "FINAL.pdf"
+    pdf_path = folder / f"{stem}.pdf"
     if pdf_path.exists():
         pdf_path.unlink()
     how = try_pdf(html_path, pdf_path, md_path)
