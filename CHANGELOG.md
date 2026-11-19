@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.1.0 — 2026-11-19 · "Build smarter"
+The kit now adapts to your event and checks what you actually built, not just what you planned.
+
+### Added
+- **Event profiles.** `/hack:start` asks the event type (college, SIH, AI/ML, ideathon, hardware, corporate), length (12 h, 24 h, 36 h, 48 h+), team experience and judging focus. `scripts/profile.py` turns that into a `## Profile` table in STATE.md, and every phase command reads its settings: questions asked, research depth, jury size, ideation width, plan depth, drill length. Ideathons skip the plan phase and the demo court; SIH swaps the statement owner onto the quick jury.
+- **Beginner mode.** Fewer questions per step and a one-line "why" for each step.
+- **Team-aware `/hack:plan`.** A team table (skills, hours) and a task table (owner, skills, hours, dependencies, status). `scripts/plan_check.py` finds the critical path, overload and spare hours, skill gaps, integration points, dependency loops and whether the plan fits before code freeze. Tasks marked `maybe` are tracked but not counted. Plans also get failure scenarios and AI test cases.
+- **`/hack:verify --demo` (Demo Day Court).** Planned → built → tested → shown: a feature ladder where a feature counts only if it was run, a timed demo walk, a failure drill, the AI test cases, a **disclosure check** (each "this is mocked" line must match what exists now), a trial of the built product, and a fix list ranked by juror agreement. Writes `DEMO.md` and updates the pitch's built-vs-mocked answer.
+- **`/hack:pitch --drill`.** A simulated panel of 3 judges built from your rubric asks one hard question at a time. It never writes your answers; it scores clarity, evidence, honesty and length, shows a stronger answer from your own files, and checks every pitch claim against `DEMO.md`.
+- **Safe parallel work.** One owner per file; teammates write `## Pending from <name>` sections and only the captain merges with `/hack:status --merge`. Conflicts are marked, never overwritten.
+- **Lighter context.** Commands read each file's summary line first and open the rest only when needed.
+
+### Changed
+- `tally.py` accepts harmless wording differences ("Moderate", " guilty ") instead of rejecting the vote. Unknown words are still rejected; the raw votes file is never edited.
+- `lint_project.py` warns about mock disclosures in DEMO.md that aren't true yet, and no longer flags rubric weights such as "Problem judge (25%)".
+- The test-run example now includes the v1.1 run: profile, plan check, prototype, Demo Day Court and drill.
+
 ## 1.0.1 — 2026-11-19 · test-run fixes
 All 11 problems found in the first end-to-end test run ([docs/TEST-RUN.md](docs/TEST-RUN.md)) are fixed.
 

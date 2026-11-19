@@ -138,8 +138,10 @@ Suggest the next step based on the decision: PASS → continue; REVISE → `/hac
 
 Also update `ASSUMPTIONS.md`: add each juror's `weakest_assumption` that isn't already listed, labelled `[AI]` with the source "court <case>".
 
+## Demo Day Court
+Used by `/hack:verify --demo`. The question is: *"Does the built product, as it will be demoed, honestly prove that it solves the real problem for its real users?"* The evidence pack is the feature ladder and demo-walk results. Add this line to every juror prompt: **"Count a feature as working only if the ladder shows it tested ([V] measured or [T] team-run). Code existing is not evidence. A mocked feature is fine only if it's disclosed."**
+
 ## Rules
 - Jurors must be independent subagents. If the Agent tool isn't available (for example, in the Claude app), simulate the jury in one pass and print: "Simulated jury in one chat — less independent than the Claude Code version."
 - The verdict is advice, not a decision. **The captain decides.**
 - Never present juror votes as proof that real users accept the idea.
-- Demo Day Court (a trial of the built product) is planned for v1.1.

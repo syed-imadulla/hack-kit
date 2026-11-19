@@ -28,3 +28,16 @@ Rules: no heavy text · readable fonts · every number sourced or labelled "targ
 ## Judge Q&A
 | Question | Answer (2–3 lines) |
 |---|---|
+
+## Drill <n> (from `/hack:pitch --drill`)
+| # | Judge | Question | Answer (summary) | Clarity | Evidence | Honesty | Length | Stronger answer |
+|---|---|---|---|---|---|---|---|---|
+
+### Pitch vs product
+| Claim | Backed by | Status |
+|---|---|---|
+
+### Rehearse again
+1.
+2.
+3.

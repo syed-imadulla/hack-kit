@@ -94,7 +94,7 @@ This is the one-chat version of the Hack Kit Claude Code plugin. The team types 
 | hack status | Phase checklist, CORE version, latest decision, open assumptions, next phase |
 | hack help | List all phases and the quick start |
 
-**Before running a phase, read its full instructions in `phases/<name>.md`** (for example, `phases/ideate.md`) and follow them. Output templates are in `templates/`, and the full trial rules are in `court.md` and `jurors.json`.
+**Before running a phase, read its full instructions in `phases/<name>.md`** (for example, `phases/ideate.md`) and follow them. Output templates are in `templates/`, the full trial rules are in `court.md` and `jurors.json`, and event profiles are in `profiles.json` (combine them by hand: length first, then event type, experience and focus).
 
 In the Claude app, `.hackathon/<FILE>.md` means that section of the Idea Pack, or a real file if this session has file tools. Ask questions with the multiple-choice tool if available (at most 4 at a time, 2 in quick mode), otherwise in plain text with numbered options.
 
@@ -171,6 +171,7 @@ def adapt(text):
     text = text.replace("${CLAUDE_PLUGIN_ROOT}/skills/hack-court/SKILL.md", "court.md")
     text = text.replace("${CLAUDE_PLUGIN_ROOT}/skills/hack-court/jurors.json", "jurors.json")
     text = text.replace("${CLAUDE_PLUGIN_ROOT}/skills/hack-kit/SKILL.md", "SKILL.md")
+    text = text.replace("`skills/hack-kit/profiles.json`", "`profiles.json`")
     text = text.replace("${CLAUDE_PLUGIN_ROOT}/scripts/", "<plugin>/scripts/")
     text = text.replace("Arguments: $ARGUMENTS\n\n", "")
     return text
@@ -185,6 +186,7 @@ def files():
         out[f"templates/{f.name}"] = f.read_text(encoding="utf-8")
     out["court.md"] = APP_NOTE + adapt((ROOT / "skills" / "hack-court" / "SKILL.md").read_text(encoding="utf-8"))
     out["jurors.json"] = (ROOT / "skills" / "hack-court" / "jurors.json").read_text(encoding="utf-8")
+    out["profiles.json"] = (ROOT / "skills" / "hack-kit" / "profiles.json").read_text(encoding="utf-8")
     return out
 
 

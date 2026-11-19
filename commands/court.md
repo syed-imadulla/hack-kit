@@ -28,6 +28,7 @@ Build it from the relevant `.hackathon/` files plus anything the user said, keep
 | Idea or solution | "Does this solve a real problem for its real users?" |
 | Feature or fix | "Does this make the solution better for real users without drifting from the core?" |
 | Pitch | "Does this pitch prove the problem is real and the solution solves it, to a judge who has already seen 30 pitches?" |
+| Built product | Use `/hack:verify --demo` (Demo Day Court) |
 
 ### 4. Run the trial
 Run the full trial, or the quick one if `--quick` was passed. Tell the user the cost first: about 15 subagent calls for a full trial, about 9 for a quick one.

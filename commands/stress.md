@@ -12,6 +12,8 @@ Arguments: $ARGUMENTS
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `USERS.md`, `IDEAS.md`, `EVIDENCE.md`, `COMPETE.md` and `ASSUMPTIONS.md`.
 
+
+Profile settings used: `mode` (questions per role), `explain_steps` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Stand in for the domain expert you don't have, and find every weakness in the chosen idea. This command **finds and ranks** the problems. `/hack:improve` then fixes them with the team.
 

@@ -7,6 +7,8 @@
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md` and `BRIEF.md`.
 
+
+Profile settings used: `decode_research`, `questions_per_command`, `explain_steps` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Turn each raw problem statement into something the whole team understands, and spot the angle the other 70% of teams will miss.
 

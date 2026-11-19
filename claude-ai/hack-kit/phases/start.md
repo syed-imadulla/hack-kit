@@ -26,29 +26,39 @@ Use AskUserQuestion (at most 4 per round), prefilled wherever possible. Don't as
 
 | Topic | What to capture |
 |---|---|
-| Event | name, organiser, track or theme, **domain** (healthcare, agriculture, education, finance, civic, climate, other) |
+| Event type | college · SIH / government statements · AI/ML · startup ideathon (no build) · hardware · corporate |
 | Event length | 12 h · 24 h · 36 h · 48 h+ (and online, offline or hybrid) |
-| Rubric | criteria and weights. If unknown, use the default (Problem 25 · Innovation 20 · Feasibility 20 · Impact 20 · Presentation 15) and mark it `ASSUMED` |
+| Team | size, and experience: mostly first-timers · mixed · experienced |
+| Judging focus | balanced · technical feasibility · innovation and impact · business (pitch only) |
+| Event | name, organiser, track or theme, **domain** (healthcare, agriculture, education, finance, civic, climate, other) |
+| Rubric | criteria and weights. If unknown, use the event type's default rubric from the profile and mark it `ASSUMED` |
 | Deliverables | slide limit, video, repo, form questions with word limits, demo length |
 | Time | now, submission deadline, judging time (with time zone) |
-| Team | names, roles, skills (frontend, backend, AI, design, pitch, domain), experience level |
+| Team members | names, roles, skills (frontend, backend, AI, design, pitch, domain), hours each can work |
 | Resources | sponsor tech or required APIs, hardware, datasets, cloud credits |
 | Rules | pre-built code allowed, data, team size |
 
 ### 3. Write down what judges will reward
 Translate the top 3 rubric items into plain words and say what each means for choosing an idea. For example: "Feasibility 25% → pick something one journey can prove in 24 h."
 
-### 4. Set the plan
-- **Mode:** `quick` if `--quick` was passed or the whole event is under 12 h, otherwise `full`.
-- **Time guard:** from the skill's tables, write the planned time for phases 1–10 and the freeze times (idea freeze; code freeze 3–4 h before judging).
+### 4. Set the profile
+Ask the first four rows of the table first (type, length, team, focus): one AskUserQuestion round, prefilled from the brief. Then run:
+```bash
+python3 "<plugin>/scripts/profile.py" --type <t> --length <l> --experience <e> --focus <f> --team <n>
+```
+Show the table in one screen and ask: **"Use this plan?"** (Yes · Change something). If Python isn't available, build the same table by hand from `profiles.json` (length first, then event type, experience and focus).
+
+### 5. Set the plan
+- **Mode and depth:** from the profile (`--quick` forces quick).
+- **Time guard:** idea locked within the profile's target; code freeze 3–4 h before judging (not used for ideathons).
 - **Captain:** the final decider. Ask if it isn't clear.
 
 ## Output
 - `.hackathon/BRIEF.md` from `templates/brief.md`.
-- `.hackathon/STATE.md` from `templates/state.md` (schema version 2): fill in the event table, set phase 1 to done, and set "Last updated".
+- `.hackathon/STATE.md` from `templates/state.md` (schema version 2): fill in the event table, paste the profile under `## Profile`, mark the profile's skipped phases as `skipped (profile)`, set phase 1 to done, and set "Last updated".
 - `.hackathon/ASSUMPTIONS.md` from `templates/assumptions.md` (empty for now).
 - The folders `.hackathon/court/` and `.hackathon/history/`.
 
 ## Finish
-Give a 5-line summary: event, top 3 rubric items, deliverables, time left, mode.
+Give a 5-line summary: event and profile, top 3 rubric items, deliverables, time left, target time to lock the idea.
 **Next → `/hack:decode`.** Paste the problem statements when they're out.

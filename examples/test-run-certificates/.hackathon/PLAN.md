@@ -45,6 +45,34 @@ flowchart TB
   S --> G[Flag log: SQLite]
 ```
 
+## Team
+| Member | Skills | Hours available |
+|---|---|---|
+| A | backend, python, fastapi | 14 |
+| B | frontend, react | 14 |
+| C | ai, python, speech, llm | 14 |
+| D | design, pitch, figma | 12 |
+
+Hours until code freeze: 18
+
+## Tasks
+| ID | Task | Owner | Skills needed | Hours | Depends on | Status |
+|---|---|---|---|---|---|---|
+| T0 | Phone 3 operators (experiments 1 and 2) | D, A | pitch | 1 | — | todo |
+| T1 | Checklist config for income certificate | A | backend | 1 | — | todo |
+| T2 | Folder watcher + check engine skeleton | A | backend, python | 4 | T1 | todo |
+| T3 | Vision extraction of doc type and fields | C | ai, llm | 4 | — | todo |
+| T4 | Name matching across scripts | C | python | 3 | T3 | todo |
+| T5 | Wire extraction + rules into engine | A | backend | 3 | T2, T4 | todo |
+| T6 | Operator screen | B | frontend, react | 4 | — | todo |
+| T7 | Connect screen to engine | B | frontend | 3 | T5, T6 | todo |
+| T8 | Kannada TTS + pre-generated clips | C | speech | 2 | T5 | todo |
+| T9 | Flag log (SQLite) | A | backend | 2 | T5 | todo |
+| T10 | Seeded scan sets (clean, blurry, mismatch) | D | design | 2 | — | todo |
+| T11 | Deck + demo script | D | pitch | 5 | T0 | todo |
+| T12 | Record backup demo video | D | design | 1 | T7, T8 | todo |
+| T13 | Eligibility warning (if experiment 1 fails) | C | python | 3 | T0 | maybe |
+
 ## Timeline
 | Hour | Task | Owner | Checkpoint |
 |---|---|---|---|
@@ -96,3 +124,11 @@ Recorded video of the full journey; seeded scans bundled locally; TTS clips pre-
 | 8 | Aadhaar number visible | Masked on screen and in the log |
 | 9 | Unsupported certificate type | "Checklist not available: use the printed card" (hand over to human) |
 | 10 | Empty folder | No crash; "No scans found" |
+
+## Plan check
+
+- **Critical path:** T3 → T4 → T5 → T7 → T12 (14 h of 18 h to code freeze). Any delay here delays the demo.
+- **Load:** a 10.5 h · b 7 h · c 9 h · d 8.5 h
+- **Integration checkpoints:** T5, T7, T12. Test these joins early, not at the end.
+- **Conditional (status maybe, not counted):** T13
+- ⚠ Critical path is 14 h of 18 h to code freeze (78%): tight. Start the path first, and pick what to mock if it slips.

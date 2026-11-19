@@ -21,6 +21,35 @@ Last updated: Day 1 10:05 IST
 | Code freeze | Day 2 06:00 IST |
 | Submission deadline (with time zone) | Day 2 09:30 IST |
 
+## Profile
+
+**College hackathon** · 24 hours · team of 4 · Mixed · focus: Balanced
+`--type college --length 24h --experience mixed --focus balanced --team 4`
+
+| Setting | Value |
+|---|---|
+| Mode | full |
+| Questions per command | 4 |
+| Explain each step (beginner) | no |
+| Decode research | 1–2 quick searches per statement |
+| Sources to open per key claim | 2 |
+| Pick: trials · jury | 2 · 7 jurors |
+| Ideate: directions × ideas | 6 × 2 + constraint removal |
+| Validate: experiments | 2 |
+| Improve: rounds · re-trial | 2 · quick (7 jurors) |
+| Verify jury · Demo Day Court | 12 jurors · quick (7 jurors) |
+| Plan depth | standard |
+| Pitch depth · drill questions | standard · 10 |
+| Validate ‖ compete in parallel | yes |
+| Skip phases | none |
+| Target: idea locked within | 95 min |
+
+Scoring weights (pick/ideate): problem ×3 · user ×2 · rubric ×3 · directions ×2 · buildable ×3 · demo ×2 · data ×1 · team ×1
+
+Notes:
+- Judges are often faculty and alumni: a clear persona and a working demo beat breadth.
+
+
 ## Phases
 | # | Phase | Status | When | Notes |
 |---|---|---|---|---|

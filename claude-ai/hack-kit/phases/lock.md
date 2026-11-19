@@ -7,6 +7,8 @@
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md` and the files above.
 
+
+Profile settings used: `explain_steps` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 One clear idea the whole team can repeat word for word. From here on, the team builds instead of rethinking.
 

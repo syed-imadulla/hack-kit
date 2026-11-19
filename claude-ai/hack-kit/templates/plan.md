@@ -22,6 +22,21 @@ flowchart TB
   B --> D[Data & existing systems]
 ```
 
+## Team
+| Member | Skills | Hours available |
+|---|---|---|
+
+Hours until code freeze: <n>
+
+## Tasks
+| ID | Task | Owner | Skills needed | Hours | Depends on | Status |
+|---|---|---|---|---|---|---|
+
+Status: todo · doing · done · blocked · maybe (conditional: not counted until you decide). Keep each task under 4 h; split bigger ones.
+
+## Plan check
+<paste the output of scripts/plan_check.py>
+
 ## Timeline
 | Hour | Task | Owner | Checkpoint |
 |---|---|---|---|
@@ -40,6 +55,10 @@ flowchart TB
 | 0:20–1:00 | Live journey + wow | |
 | 1:00–1:15 | Safety / human check | |
 | 1:15–1:30 | Impact (targets) + motto | |
+
+## Failure scenarios
+| Failure | Fallback | Backup demo path |
+|---|---|---|
 
 ## Backup plan
 

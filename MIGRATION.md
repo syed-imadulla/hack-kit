@@ -45,3 +45,18 @@ Old verdicts said GUILTY or NOT GUILTY with a count. New verdicts add a third ju
 ## 5. Evidence labels
 
 Old files used `UNVERIFIED`. New files use `[V]`, `[T]`, `[AI]` and `[?]`. Old files don't need changing: when a command reads them, it treats `UNVERIFIED` as `[?]`, and sourced numbers as `[V]` only after it reopens the source.
+
+---
+
+# Moving from v1.0 to v1.1
+
+Nothing breaks. v1.1 adds features; your `.hackathon/` folder keeps working.
+
+1. **Update:** `/plugin marketplace update hack-kit`, then `/plugin install hack@hack-kit` (restart Claude Code if the new flags don't show).
+2. **Add a profile (optional):** run `/hack:start` again and answer the 4 new questions, or run
+   `python3 <plugin>/scripts/profile.py --type college --length 24h --experience mixed --focus balanced --team 4`
+   and paste the output into STATE.md. Without a profile, commands use the old Full/Quick table.
+3. **Plan check:** add a `## Team` table, an `Hours until code freeze: N` line and the new `## Tasks` columns to PLAN.md (see `templates/plan.md`), or just re-run `/hack:plan`.
+4. **After building:** run `/hack:verify --demo`, then `/hack:pitch --drill`.
+5. **Teams working in parallel:** teammates add `## Pending from <name> — <time>` sections; the captain runs `/hack:status --merge`.
+

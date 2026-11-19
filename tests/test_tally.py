@@ -40,6 +40,10 @@ def run():
         (tally([], 12)["average_confidence"] is None, "no votes gives no average"),
         (tally(load("pass"), 12, open_collapses=2)["decision"] == "REVISE", "PASS is capped to REVISE while a collapses assumption is open"),
         (tally(load("fail"), 12, open_collapses=2)["decision"] == "FAIL", "the cap never makes a verdict more lenient"),
+        (tally([dict(v, evidence_strength="Moderate", vote=" guilty ") for v in load("fail")], 12)["decision"] == "FAIL",
+         "wording like 'Moderate' or ' guilty ' is normalized, not rejected"),
+        (tally([dict(v, evidence_strength="kinda") for v in load("pass")], 12)["decision"] == "INCONCLUSIVE",
+         "unknown wording is still rejected"),
     ]
     for ok, label in checks:
         failures += not ok

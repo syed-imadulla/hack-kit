@@ -21,6 +21,9 @@ Last updated: <YYYY-MM-DD HH:MM, time zone>
 | Code freeze | |
 | Submission deadline (with time zone) | |
 
+## Profile
+<paste the output of scripts/profile.py here>
+
 ## Phases
 | # | Phase | Status | When | Notes |
 |---|---|---|---|---|

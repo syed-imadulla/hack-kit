@@ -12,6 +12,8 @@ Arguments: $ARGUMENTS
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `IDEAS.md` and `USERS.md`.
 
+
+Profile settings used: `sources_to_open`, `questions_per_command` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Position the idea honestly against what exists, and show that it works **alongside** the systems people already use instead of replacing them.
 

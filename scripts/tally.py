@@ -29,6 +29,33 @@ import sys
 VOTES = {"GUILTY", "NOT GUILTY", "INSUFFICIENT EVIDENCE"}
 LEVELS = {"high", "medium", "low"}
 STRENGTH = {"strong", "medium", "weak", "none"}
+# Harmless wording differences jurors often use. Mapped in memory only;
+# votes-raw.json is never edited.
+SYNONYMS = {"moderate": "medium", "med": "medium", "mid": "medium",
+            "not guilty": "NOT GUILTY", "guilty": "GUILTY",
+            "insufficient evidence": "INSUFFICIENT EVIDENCE"}
+
+
+def normalize(reply):
+    """Return a copy with case, spaces and common synonyms fixed (vote, strength, fix levels)."""
+    if not isinstance(reply, dict):
+        return reply
+    r = dict(reply)
+
+    def norm(v, upper=False):
+        if not isinstance(v, str):
+            return v
+        k = " ".join(v.strip().replace("_", " ").split()).lower()
+        k = SYNONYMS.get(k, k)
+        return k.upper() if upper else k
+
+    r["vote"] = norm(r.get("vote"), upper=True)
+    r["evidence_strength"] = norm(r.get("evidence_strength"))
+    if isinstance(r.get("fix"), dict):
+        f = dict(r["fix"])
+        f["impact"], f["effort"] = norm(f.get("impact")), norm(f.get("effort"))
+        r["fix"] = f
+    return r
 
 
 def check(reply):
@@ -58,6 +85,7 @@ def check(reply):
 def tally(replies, expected=12, open_collapses=0):
     valid, invalid, seen = [], [], set()
     for i, r in enumerate(replies):
+        r = normalize(r)
         probs = check(r)
         name = r.get("juror", f"#{i + 1}") if isinstance(r, dict) else f"#{i + 1}"
         if not probs and name.strip().lower() in seen:

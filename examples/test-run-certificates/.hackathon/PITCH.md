@@ -36,3 +36,28 @@ Rules: no heavy text · readable fonts · only [V]/[T] claims stated as facts ·
 | How does a person who can't read use it? | The operator plays the Kannada sentence aloud; before the visit, a missed call reads the checklist. |
 | What about privacy? | Scans are processed in memory and never stored; Aadhaar numbers are masked on screen and in logs. |
 | Isn't this just OCR? | The OCR is a commodity. The difference is when the check happens (before submission) and who it serves (non-readers, through the operator). |
+
+## Drill 1 (from `/hack:pitch --drill`)
+Panel (from the rubric): Problem judge (25%), Innovation judge (25%), Feasibility/tech judge. Test run: Claude played the team, so answers are a stand-in; a real drill uses the team's own words.
+
+| # | Judge | Question | Answer (summary) | Clarity | Evidence | Honesty | Length | Stronger answer |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Tech | "Show me a real document going through. Is the reading live?" | "Yes, it reads the scans" | 3 | 1 | 1 | 3 | "Reading is simulated today; the rules, masking and log run live. Here's the blurry-scan case." (DEMO.md ladder) |
+| 2 | Problem | "How do you know documents are the main reason for rejection?" | "Operators told us" | 3 | 1 | 2 | 3 | "We don't know yet. We're phoning operators; if verification is the main cause, we pivot to the eligibility warning (T13)." (ASSUMPTIONS 1) |
+| 3 | Innovation | "CSC operators already use checklists. What's new?" | "Ours is spoken in Kannada at the counter" | 4 | 2 | 3 | 3 | Add: "and it flags name mismatches across documents, tested on Laxmi/Lakshmi" ([V] test 3) |
+| 4 | Tech | "What happens with a Kannada-script name?" | "It matches automatically" | 3 | 1 | 1 | 3 | "Today it flags it for the operator; never auto-fails. Transliteration is next." ([V] test 4) |
+
+Scores out of 5. Average honesty 1.75: the answers claimed more than the product does.
+
+### Pitch vs product (checked against DEMO.md)
+| Claim | Backed by | Status |
+|---|---|---|
+| Q&A: "Built: folder watcher, operator screen, Kannada TTS" | Ladder: watcher not built, TTS mocked, no operator screen | ❌ false: fix before judging |
+| Form: "income, caste and residence" | Only income checklist exists | ⚠ reword to "income certificate first" |
+| "under 30 seconds (target)" | 0.01 s check on JSON [V]; no OCR time | ⚠ keep "target" until OCR runs |
+| "Aadhaar masked on screen and in logs" | [V] masked; log stores no number | ✅ |
+| "never approves anything" | [V] "looks complete (operator decides)" | ✅ |
+
+### Rehearse again
+- Re-answer Q1 and Q4 with the stronger answers; aim for honesty 4+.
+- Update the Q&A "built vs mock" line from DEMO.md, then run the drill again.

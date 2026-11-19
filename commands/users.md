@@ -12,6 +12,8 @@ Arguments: $ARGUMENTS
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `STATEMENTS.md` and `PICK.md`.
 
+
+Profile settings used: `questions_per_command`, `explain_steps` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 See the problem through the eyes of everyone it touches, especially the person most likely to be left out.
 

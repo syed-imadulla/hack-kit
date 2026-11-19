@@ -1,0 +1,3 @@
+{"certificate": "Income certificate (Karnataka)", "last_checked": "2026-11-19",
+ "required": [{"type": "aadhaar", "label_kn": "ಆಧಾರ್ ಕಾರ್ಡ್"}, {"type": "ration_card", "label_kn": "ಪಡಿತರ ಚೀಟಿ"},
+              {"type": "income_proof", "label_kn": "ಆದಾಯ ಪುರಾವೆ", "max_age_days": 365}]}

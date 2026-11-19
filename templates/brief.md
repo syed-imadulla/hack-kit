@@ -3,6 +3,9 @@
 > Summary: <event>, <track>, <time left>. Top rubric items: <1>, <2>, <3>.
 
 ## Event
+- Event type (profile):
+- Team size and experience:
+- Judging focus:
 - Name / organiser:
 - Track(s) / theme:
 - Link to brief:

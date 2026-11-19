@@ -7,7 +7,7 @@
 From *"here are the problem statements"* to a well-explored, evidence-labelled, challenged and buildable hackathon idea, with an MVP plan, a pitch and one final PDF.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.0.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-18-orange)](#-commands)
@@ -56,7 +56,7 @@ Hack Kit turns those two hours into a guided process. Each `/hack:` command asks
 
 Already on 0.x? Update with `/plugin marketplace update hack-kit`. Old `.hackathon/` projects upgrade automatically; see [MIGRATION.md](MIGRATION.md).
 
-> 🧪 **Tested end to end:** v1.0 was run through all 14 phases on a mock 24 h hackathon, with 48 real juror subagents. The run found 11 problems, and all are fixed in v1.0.1. Read the [test report](docs/TEST-RUN.md) or browse the [full test project](examples/test-run-certificates/.hackathon).
+> 🧪 **Tested end to end:** v1.0 was run through all 14 phases on a mock 24 h hackathon, with 48 real juror subagents. The run found 11 problems, and all are fixed in v1.0.1. v1.1's Demo Day Court and drill were then tested on a real prototype, which found 4 more problems, all fixed in v1.1.0. Read the [test report](docs/TEST-RUN.md) or browse the [full test project](examples/test-run-certificates/.hackathon).
 
 ---
 
@@ -94,7 +94,7 @@ flowchart LR
 ### Find it
 | Command | What it does | Saves |
 |---|---|---|
-| `/hack:start` | Sets up the project and reads the brief like a judge: rubric, limits, event length, team, time | `BRIEF.md` `STATE.md` |
+| `/hack:start` | Sets up the project, picks an **event profile** (type, length, team experience, judging focus) and reads the brief like a judge | `BRIEF.md` `STATE.md` |
 | `/hack:decode` | Decodes every statement: real problem, severity, real user, least-digital user, hidden constraints | `STATEMENTS.md` |
 | `/hack:pick` ⚖️ | Chooses the **problem**: rubric-weighted scoring, red flags, a trial for the top 2–3, the captain decides | `PICK.md` |
 
@@ -112,9 +112,9 @@ flowchart LR
 ### Build & sell it
 | Command | What it does | Saves |
 |---|---|---|
-| `/hack:plan` | One-journey MVP, build/mock/cut, stack, timeline, failure scenarios, 90-second demo, AI test cases | `PLAN.md` |
-| `/hack:verify` ⚖️ | **Trial** of the planned solution + rubric estimate + mistakes, claims and assumptions checks | `VERDICT.md` |
-| `/hack:pitch` | Deck outline within your slide limit, one-line pitch, form answers, judge Q&A | `PITCH.md` |
+| `/hack:plan` | One-journey MVP, build/mock/cut, **team-aware tasks** (owners, skills, hours, critical path, overload check), timeline, failure scenarios, 90-second demo, AI test cases | `PLAN.md` |
+| `/hack:verify` ⚖️ | **Trial** of the planned solution + rubric estimate + mistakes, claims and assumptions checks. `--demo`: **Demo Day Court** on what you actually built | `VERDICT.md` `DEMO.md` |
+| `/hack:pitch` | Deck outline within your slide limit, one-line pitch, form answers, judge Q&A. `--drill`: a **simulated judging panel** to practise hard questions | `PITCH.md` |
 | `/hack:ship` 📄 | Compiles everything into one Idea Pack | `FINAL.pdf` |
 
 ### Anytime
@@ -122,10 +122,12 @@ flowchart LR
 |---|---|
 | `/hack:assumptions` | What you believe but haven't proven. A **kill test** ranks what to test first |
 | `/hack:court <thing>` ⚖️ | Put anything on trial: an idea, a feature, a fix, a pitch |
-| `/hack:status` | Phase table, CORE version, latest decision, open assumptions, time to each freeze |
+| `/hack:status` | Phase table, CORE version, latest decision, open assumptions, task progress, time to each freeze. `--merge`: the captain merges teammates' pending work |
 | `/hack:help` | Command map and quick start |
 
-**Flag:** add `--quick` to any command for a faster version: 7 jurors, fewer ideas, one improve round. Quick mode turns on automatically for events under 12 hours.
+**Flags:** `--quick` on any command gives a faster version (7 jurors, fewer ideas, one improve round). `--demo` on `/hack:verify`, `--drill` on `/hack:pitch`, `--merge` on `/hack:status`.
+
+**Event profiles (v1.1):** your answers in `/hack:start` set how deep every command goes. A 12 h ideathon for beginners gets quick juries, fewer questions and no plan phase; a 48 h SIH final gets full juries, deeper research and the problem-statement owner on the jury. The profile is a table in `STATE.md`, so you can see and change it.
 
 ---
 
@@ -326,8 +328,8 @@ At the idea stage, judges reward a real problem that's clearly solved. If your r
 
 ## 🗓️ Roadmap
 
-- **v1.0 (this release), "Think deeper":** ideate, Hack Court 2.0, the improve loop, assumptions, evidence labels, automated checks.
-- **v1.1, "Build smarter":** full event profiles, Demo Day Court (`/hack:verify --demo`), team-aware plans, pitch drills.
+- **v1.0, "Think deeper":** ideate, Hack Court 2.0, the improve loop, assumptions, evidence labels, automated checks.
+- **v1.1 (this release), "Build smarter":** full event profiles, Demo Day Court (`/hack:verify --demo`), team-aware plans, pitch drills, safe parallel work.
 - **v1.2, "Show it":** a complete example Idea Pack, a website idea-evolution demo, a post-event retro command.
 
 ---

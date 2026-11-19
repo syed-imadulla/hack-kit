@@ -65,4 +65,38 @@ The two real juror vote sets from this run are now test fixtures (`tests/fixture
 - One problem domain was fully tested (civic). Agriculture got a quick trial; healthcare is covered by the OPD Saathi example.
 
 ## Next
-Run the same flow with a real team at a real event, measuring time to lock, assumptions found, how often the verdict changes after `/hack:improve`, and whether the demo worked. Then decide what v1.1 should be.
+Run the same flow with a real team at a real event, measuring time to lock, assumptions found, how often the verdict changes after `/hack:improve`, and whether the demo worked. v1.1 was then built and tested; see below.
+
+---
+
+# Hack Kit v1.1 — test run of the new features
+
+> Summary: the v1.1 features were run on the same project. A small prototype was built so the Demo Day Court had something real to judge: 2 lawyers and 7 jurors as separate subagents (9 calls). The verdict was a unanimous FAIL, and every juror named the same problem the kit should have caught first. That led to 4 fixes, all in v1.1.0.
+
+## What was run
+| Feature | How | Result |
+|---|---|---|
+| Event profile | `profile.py --type college --length 24h --experience mixed --focus balanced --team 4` | `## Profile` added to STATE.md |
+| Plan check | 4 members, 14 tasks, 18 h to freeze | Critical path T3→T4→T5→T7→T12, 14 of 18 h ("tight"); load a 10.5 · b 7 · c 9 · d 8.5 h; 1 conditional task |
+| Prototype | `app/onetrip.py`: checklist, name match, date rule, Aadhaar masking, flag log; OCR and voice mocked | Clean, blurry and mismatch scan sets behaved as expected (0.01 s per check) |
+| AI test cases | 10 cases from PLAN.md, all run | 6 pass, 1 partial, 3 fail (Kannada script flagged instead of matched, random photo ignored, unsupported certificate not handed over) |
+| Demo Day Court | Quick 7 with the government-clerk civic seat, `--open-collapses 2` | **FAIL**, 0 NG · 7 G · 0 IE, average confidence 6.9 |
+| Pitch drill | 4 questions from a 3-judge panel; Claude played the team | Honesty averaged 1.75 of 5; the pitch vs product check found a false "built" line |
+
+## Problems found and fixed
+1. **Overstated mock disclosure.** The draft said "voice is pre-recorded" and "the missed call is a recorded clip". Neither existed yet. All 7 jurors caught it. → New step D3b, a disclosure check in `/hack:verify --demo`; a "True now?" column in DEMO.md; `lint_project.py` warns on untrue lines.
+2. **Pitch written before building.** PITCH.md listed the folder watcher and TTS as built. → `/hack:pitch` takes the built-vs-mocked answer from DEMO.md, or marks it as the plan; demo mode updates PITCH.md.
+3. **Votes rejected over wording.** Jurors wrote "moderate" instead of "medium", and all 7 votes were invalid. → `tally.py` maps harmless synonyms in memory (the raw file stays unedited); unknown words are still rejected. 2 new tests.
+4. **Linter false positive** on "Problem judge (25%)". → Rubric-weight lines are recognised more broadly.
+
+Earlier in v1.1 development, `plan_check.py` testing also fixed 4 gaps: a false skill gap on shared tasks, no hint for overload, conditional tasks counted, and no "tight" warning.
+
+## What worked well
+- The feature ladder made the gap between planned and built obvious within minutes.
+- Running the AI test cases found 3 real failures that a read-through of the code would have missed.
+- The jurors' `fix` fields agreed, so the fix list ranked itself.
+- The court judged the *problem* too: 6 of 7 jurors said the operator-phone experiment still had to come first.
+
+## Limits
+- Same limits as v1.0: no real team; Claude played the captain and the team in the drill.
+- The prototype was built in the workspace, not by a hackathon team, and OCR and voice were mocked.

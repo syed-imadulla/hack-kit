@@ -1,0 +1,100 @@
+[
+ {
+  "juror": "Actual end user",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "moderate",
+  "reason": "My real documents are phone photos and Kannada-script papers. Reading them is faked with JSON, Kannada name matching fails, and a random photo gets silently ignored. Voice is mocked too, so it hasn't shown it would save me a trip.",
+  "weakest_assumption": "That missing or bad documents cause most repeat trips and rejections. Nobody has phoned operators to check this yet.",
+  "missing_info": "One real blurry phone photo of an applicant's document going through real OCR, plus operator data on why applications actually get rejected.",
+  "fix": {
+   "change": "Swap in real OCR (even Tesseract) for at least one live photographed document, and fix the disclosure so it says voice is printed text and the missed-call clip doesn't exist yet.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Least-digital user",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "moderate",
+  "reason": "For me, the parts I would actually use, Kannada voice and the missed-call callback, are both mocked. Kannada-script names aren't matched, and the disclosure says 'pre-recorded' when the voice is only printed text. Nothing shown reaches me.",
+  "weakest_assumption": "That a keypad-phone, Kannada-speaking applicant gets anything from it, when everything runs on the operator's screen in English text and the audio/callback path doesn't exist.",
+  "missing_info": "Any test with an elderly or low-literacy applicant; whether a real Kannada audio clip or callback works on a basic phone; whether operators actually explain the flags in Kannada.",
+  "fix": {
+   "change": "Record real Kannada TTS clips for each flag and play one in the demo, then reword the disclosure so it matches what is actually mocked (voice and missed call are not built yet).",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Front-line worker",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "moderate",
+  "reason": "Rules are real, but at my counter nothing reads a real document: OCR is mocked, I'd run the script by hand, odd photos get silently ignored, and the disclosure overstates the voice and the missed-call clip. It isn't shown working in a rush.",
+  "weakest_assumption": "That CSC operators will add a manual pre-check step during rush hours, when nobody has asked operators yet and the folder watcher isn't built.",
+  "missing_info": "A run on even one real phone photo or scan going through real OCR, and the operator-phone experiment showing that document problems cause most rejections.",
+  "fix": {
+   "change": "Run real OCR on 3-5 real income-certificate scans live, show a clear message for unknown photos, and correct the mock disclosure to match what actually exists at freeze.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Government clerk",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "moderate",
+  "reason": "Rules and safe hand-off to the operator are tested, but OCR is mocked, the operator runs the script by hand, nothing ties it to the existing portal, and the disclosure calls voice and the clip recorded when they aren't.",
+  "weakest_assumption": "That CSC operators will add a manual pre-check step on top of their portal workload, and that document problems cause most rejections. Neither has been checked.",
+  "missing_info": "How it fits the existing government submission portal, how much time it adds per application, rejection-reason data from the Tahsildar office, and who answers for a false 'looks complete'.",
+  "fix": {
+   "change": "Fix the mock disclosure so it is accurate (voice is printed text, clip not recorded), run real OCR on at least one actual scan, and phone 3 operators to time the extra step and confirm rejection causes.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Root-cause analyst",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "moderate",
+  "reason": "Rules on pre-made JSON are tested, but the claimed root cause (document problems drive most rejections) is unproven [?]. Real document reading is mocked, and the disclosure misstates the voice and clip mocks. So nothing shows the cause is actually tackled.",
+  "weakest_assumption": "That missing, old, unreadable or mismatched documents cause most repeat trips and rejections; the operator phone experiment was never run.",
+  "missing_info": "Operator or Tahsildar data on why applications are rejected, and any run on a real scanned document instead of JSON input.",
+  "fix": {
+   "change": "Phone 5+ CSC operators today to measure what share of rejections come from document problems. Run one real scan through even basic OCR. Correct the disclosure: voice is printed text, and the missed-call clip and backup video are not recorded.",
+   "impact": "high",
+   "effort": "low"
+  }
+ },
+ {
+  "juror": "Engineer",
+  "vote": "GUILTY",
+  "confidence": 6,
+  "evidence_strength": "moderate",
+  "reason": "The rules are tested [V], but every check runs on mocked JSON, so no real document has gone end to end. Two lines of the disclosure (voice, call clip) misstate what exists, the backup video isn't recorded, and only 3/6 demo steps pass.",
+  "weakest_assumption": "That the checks will behave the same on real OCR output, with Kannada script, phone-photo noise and partial reads, as they do on hand-made JSON.",
+  "missing_info": "Any [T] run of a real scanned or photographed income-certificate document through OCR into the rule engine, with its error rate; also the result of the operator phone experiment on rejection causes.",
+  "fix": {
+   "change": "In the 18 h left: wire Tesseract (with kan+eng) or a cloud OCR into the pipeline for one real document per check and demo it live, with JSON kept as a disclosed fallback. Record the TTS clips, missed-call clip and backup video. Rewrite the disclosure so it matches exactly what exists at freeze.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ },
+ {
+  "juror": "Sceptic",
+  "vote": "GUILTY",
+  "confidence": 7,
+  "evidence_strength": "moderate",
+  "reason": "Rules are tested, but OCR is mocked, so no real document is ever read. The problem's size is unproven: no operator calls yet. The disclosure misstates voice and missed-call mocks. Only 3 of 6 demo steps pass.",
+  "weakest_assumption": "That document problems cause most rejections and repeat trips. It is marked [?] and nobody has phoned an operator to check.",
+  "missing_info": "Rejection-cause data from real CSC operators or the Tahsildar office. One run on a real scanned document. Whether operators would actually add a pre-check step.",
+  "fix": {
+   "change": "Phone 5+ CSC operators to get rejection-cause numbers. Run one real phone-photo document through basic OCR end to end. Correct the disclosure: voice is printed text, missed-call clip not recorded.",
+   "impact": "high",
+   "effort": "medium"
+  }
+ }
+]

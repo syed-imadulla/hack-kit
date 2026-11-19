@@ -11,6 +11,8 @@ Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `CORE.md` and `ASSU
 
 If CORE.md doesn't exist yet, suggest `/hack:stress` first. This command can run after any trial, not only as phase 9.
 
+
+Profile settings used: `improve_rounds`, `improve_retrial` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Criticism is only useful if it makes the idea better. This command turns feedback into a **revised version**, explains every change, and checks that the team hasn't drifted from the problem it set out to solve.
 

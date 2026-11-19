@@ -22,7 +22,7 @@ This is the playbook behind the commands. Read it once before your first event.
 ### Timeline (24 h event)
 | After statements are released | Command | Who |
 |---|---|---|
-| 0:00 | `/hack:start` (or before statements) | Captain |
+| 0:00 | `/hack:start`: event profile + brief (or before statements) | Captain |
 | 0:05 | `/hack:decode` | Captain |
 | 0:20 | `/hack:pick` → captain chooses the problem | Everyone |
 | 0:35 | `/hack:users` | Captain + pitcher |
@@ -30,19 +30,24 @@ This is the playbook behind the commands. Read it once before your first event.
 | 0:55 | `/hack:validate` ‖ `/hack:compete` ‖ test the riskiest assumption with real people | Split the team |
 | 1:15 | `/hack:stress` → `/hack:improve` | Everyone |
 | ~1:40 | `/hack:lock` → **idea freeze** 🔒 | Captain |
-| 1:50 | `/hack:plan` | Builders |
+| 1:50 | `/hack:plan`: team table, tasks, plan check | Builders |
 | 2:10 | `/hack:verify` (→ `/hack:improve` if REVISE) | Captain |
 | 2:30 → code freeze | Build the one journey | Builders |
+| 4–6 h before code freeze | `/hack:verify --demo` → fix what fits | Captain + builders |
 | Code freeze (3–4 h before judging) | Record the backup demo | Builder |
-| Before judging | `/hack:pitch` → `/hack:ship` | Pitcher |
+| Before judging | `/hack:pitch` → `/hack:pitch --drill` → `/hack:ship` | Pitcher |
 
-For a 12 h event, quick mode turns on automatically: fewer ideas, one improve round, and the idea is locked in about 45 minutes. For 36 h+, spend the extra time on real conversations and experiments.
+Your event profile sets the depth. For a 12 h event, quick mode turns on automatically: fewer ideas, one improve round, and the idea is locked in about 45 minutes. For 36 h+, spend the extra time on real conversations and experiments. Ideathons skip the plan phase and the demo court. Beginner teams get fewer questions and a short "why" for each step.
 
 ### Working as a team
 - Put `.hackathon/` in your shared git repo. It's the single source of truth.
-- One person runs the main commands. Others run `/hack:validate` and `/hack:compete` on their own machines and push the files.
+- One person (the captain) runs the main commands and owns each file. Others run `/hack:validate` and `/hack:compete` on their own machines; their changes go into `## Pending from <name> — <time>` sections, and the captain runs `/hack:status --merge`. Nothing is overwritten; clashes are marked CONFLICT for the captain.
 - Run `/hack:status` whenever someone asks "where are we?"
 - The verdict is advice. **The captain decides.**
+
+### Demo Day Court and the drill
+- **`/hack:verify --demo`** checks the product as it will be shown. A feature counts only if it was run and the result was seen; code existing isn't enough. Every "this is mocked" line must match what exists now. In our test run, 7 of 7 jurors failed a demo whose disclosure said a voice clip was "pre-recorded" before anyone had recorded it.
+- **`/hack:pitch --drill`** plays 3 judges from your rubric. Answer out loud in your own words; it scores you and shows a stronger answer built only from your files. It also checks every pitch claim against `DEMO.md`.
 
 ### Talking to people at the venue
 Mentors, volunteers, other attendees and staff can all be users. Ask about their past, not their opinion of your idea:

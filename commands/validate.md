@@ -12,6 +12,8 @@ Arguments: $ARGUMENTS
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `IDEAS.md`, `USERS.md` and `ASSUMPTIONS.md`.
 
+
+Profile settings used: `validate_experiments`, `sources_to_open` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Collect three layers of evidence, so no judge can ask "is this even a problem?" Then design small real-world tests for the assumptions that could kill the idea.
 

@@ -7,6 +7,8 @@
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md` and `STATEMENTS.md`.
 
+
+Profile settings used: `pick_trials`, `pick_jury`, `sources_to_open`, scoring weights, quick-jury swap (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Pick the **problem** where real pain, the rubric and the team's ability to build overlap. Base the pick on evidence and a trial, not gut feeling. The solution comes later, in `/hack:ideate`. Here you only need a rough direction to show the problem *can* be solved in the time.
 

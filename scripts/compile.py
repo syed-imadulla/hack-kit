@@ -32,6 +32,7 @@ ORDER = [
     ("CORE.md", "Locked core"),
     ("PLAN.md", "MVP plan"),
     ("VERDICT.md", "Solution trial and checks"),
+    ("DEMO.md", "Demo Day check"),
     ("PITCH.md", "Pitch and judge Q&A"),
 ]
 
@@ -74,7 +75,7 @@ def read_state_title(folder: Path):
     return ev, mo
 
 
-BRIEF_SET = {"SUMMARY.md", "CORE.md", "ASSUMPTIONS.md", "PLAN.md", "VERDICT.md", "PITCH.md"}
+BRIEF_SET = {"SUMMARY.md", "CORE.md", "ASSUMPTIONS.md", "PLAN.md", "VERDICT.md", "DEMO.md", "PITCH.md"}
 
 
 def build_markdown(folder: Path, brief=False):

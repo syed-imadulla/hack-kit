@@ -7,6 +7,8 @@
 ## Before you start
 Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `PICK.md` and `USERS.md`. If `PICK.md` is missing, suggest `/hack:pick` first.
 
+
+Profile settings used: `ideate_directions`, `ideas_per_direction`, `constraint_removal`, scoring weights (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
 ## Goal
 Most teams build the first idea they think of. This command makes the team look at **genuinely different ways** to solve the same problem for the same user, then choose with the trade-offs in plain view.
 

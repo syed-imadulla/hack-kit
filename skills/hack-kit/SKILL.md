@@ -27,6 +27,9 @@ In this file and in the commands, `<plugin>` means that root.
 | Juror list and domain seats | `<plugin>/skills/hack-court/jurors.json` |
 | Trial rules | `<plugin>/skills/hack-court/SKILL.md` |
 | Vote counter | `<plugin>/scripts/tally.py` |
+| Event profiles | `<plugin>/skills/hack-kit/profiles.json` · `<plugin>/scripts/profile.py` |
+| Plan checker | `<plugin>/scripts/plan_check.py` |
+| Project linter | `<plugin>/scripts/lint_project.py` |
 | PDF compiler | `<plugin>/scripts/compile.py` |
 
 ---
@@ -35,6 +38,7 @@ In this file and in the commands, `<plugin>` means that root.
 
 - All work is saved in a `.hackathon/` folder in the current project. Never keep an important decision only in chat.
 - **Before** a command: read `.hackathon/STATE.md` and only the files listed under "Reads". Don't load everything.
+- **Summary first:** for each file you only need for context, read the title and `> Summary:` line plus the sections you actually use. Read a whole file only when you are rewriting it. Trials get only their evidence pack, never whole files.
 - **After** a command: update `STATE.md`: the phase table, the decisions log (including what was rejected and why), pending items, "Last updated" and the next command.
 - Never delete a team's content. When a file is replaced by a new version, move the old one to `.hackathon/history/<NAME>-v<n>.md` first.
 - If `.hackathon/` doesn't exist and the command isn't `/hack:start`, `/hack:help` or `/hack:court`, say so and offer to run `/hack:start`.
@@ -56,6 +60,7 @@ In this file and in the commands, `<plugin>` means that root.
 | 10 | `/hack:lock` | all above | `CORE.md` (locked) | core |
 | 11 | `/hack:plan` | BRIEF, CORE | `PLAN.md` | plan |
 | 12 | `/hack:verify` | BRIEF, EVIDENCE, COMPETE, CORE, PLAN, ASSUMPTIONS | `VERDICT.md`, `court/` | verdict |
+| 12b | `/hack:verify --demo` | PLAN, CORE, the built product | `DEMO.md`, `court/demo-<n>/` | demo |
 | 13 | `/hack:pitch` | everything | `PITCH.md` | pitch |
 | 14 | `/hack:ship` | everything | `SUMMARY.md`, `FINAL.md/.html/.pdf` | summary |
 | any | `/hack:assumptions` | ASSUMPTIONS, EVIDENCE | `ASSUMPTIONS.md` | assumptions |
@@ -141,9 +146,23 @@ Hack Kit judges **whether the problem is real and whether the solution truly sol
 
 ---
 
-## 7. Modes and the time guard
+## 7. Event profiles, modes and the time guard
 
-Set in `/hack:start` and stored in STATE.md. **Quick** is on when `--quick` is passed, or when the whole event is under 12 hours.
+### Profiles (v1.1)
+`/hack:start` sets a profile: **event type** (college, SIH/government, AI/ML, ideathon, hardware, corporate) · **length** (12h, 24h, 36h, 48h+) · **team size and experience** (beginner, mixed, advanced) · **judging focus** (balanced, technical, innovation-impact, business). It runs:
+
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/profile.py" --type <t> --length <l> --experience <e> --focus <f> --team <n>
+```
+and pastes the output into STATE.md under `## Profile`. **Every command reads its numbers from that table**: how many ideas, trials, jurors, experiments and improve rounds; plan and pitch depth; which phases to skip; whether to explain each step. If STATE.md has no Profile (older projects), use the Full/Quick tables below.
+
+- Beginner teams: explain each step in 2 plain lines first, define terms the first time, and ask at most 2 questions.
+- Skipped phases are marked `skipped (profile: <type>)` in the phase table. The team can still run them.
+- `--quick` on any command always means the quick column below, whatever the profile says.
+- The focus changes scoring weights only. **Hack Court never judges business viability**, whatever the focus.
+
+### Modes
+**Quick** is on when `--quick` is passed, or when the profile says `mode: quick` (12 h events).
 
 | | Full | Quick |
 |---|---|---|
@@ -197,9 +216,11 @@ Warn the team **as soon as** you see one of these:
 
 ## 9. Parallel work
 
-- When teammates run `/hack:validate` and `/hack:compete` on different machines, each writes only its own file (`EVIDENCE.md` or `COMPETE.md`). Updates to `ASSUMPTIONS.md` go in a section headed `## Pending from <name>`.
-- Only the captain's machine updates `STATE.md`. Merge through git.
-- `/hack:status` flags conflicts: a file changed by two people, or pending sections that haven't been merged.
+- **One owner per file.** When teammates run `/hack:validate` and `/hack:compete` on different machines, each writes only its own file (`EVIDENCE.md` or `COMPETE.md`).
+- **Shared files get pending sections.** Updates to `ASSUMPTIONS.md` (and anything meant for STATE.md) go at the end, under `## Pending from <name> — <time>`. Never edit someone else's table rows directly.
+- **Only the captain's machine updates `STATE.md`,** and merges pending sections with `/hack:status --merge`. That moves each pending row into the main table, removes duplicates, keeps both versions of a row the two people changed differently (marked `CONFLICT`) for the captain to choose, and logs the merge.
+- **Sync through git:** pull before starting a command and push right after it. If git reports a conflict in a `.hackathon/` file, keep both versions inside the file, mark the block `CONFLICT`, and run `/hack:status --merge`.
+- `/hack:status` and `scripts/lint_project.py` flag pending sections that haven't been merged, and `CONFLICT` markers.
 
 ---
 

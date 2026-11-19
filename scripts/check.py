@@ -116,11 +116,20 @@ def check_jurors():
 
 
 def check_tally():
-    print("Vote counter")
-    r = subprocess.run([sys.executable, str(ROOT / "tests" / "test_tally.py")], capture_output=True, text=True)
-    ok(r.returncode == 0, "tests/test_tally.py passes")
-    if r.returncode:
-        print(r.stdout + r.stderr)
+    print("Scripts and tests")
+    for name in ("test_tally.py", "test_profile.py", "test_plan_check.py"):
+        r = subprocess.run([sys.executable, str(ROOT / "tests" / name)], capture_output=True, text=True)
+        ok(r.returncode == 0, f"tests/{name} passes")
+        if r.returncode:
+            print(r.stdout + r.stderr)
+    prof = json.loads(read("skills/hack-kit/profiles.json"))
+    ok(set(prof["event_types"]) == {"college", "sih", "ai-ml", "ideathon", "hardware", "corporate"}, "6 event types defined")
+    ok(set(prof["lengths"]) == {"12h", "24h", "36h", "48h+"}, "4 event lengths defined")
+    skip = {p for et in prof["event_types"].values() for p in et.get("changes", {}).get("skip_phases", [])}
+    ok(skip <= set(PHASES), "profiles only skip real phases")
+    cmds = "".join(read(f"commands/{n}.md") for n in PHASES)
+    ok(cmds.count("Profile settings used") >= 12, "phase commands say which profile settings they use")
+    ok("--demo" in read("commands/verify.md") and "--drill" in read("commands/pitch.md"), "demo and drill modes documented")
 
 
 def table_ok(md):
