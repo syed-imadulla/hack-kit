@@ -35,7 +35,7 @@
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.2.2</span>
+      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.3.0</span>
       <h1>Think <em>deeper</em>.<br>Challenge <em>harder</em>.<br>Build <em>smarter</em>.</h1>
       <p class="lead">Nineteen <code>/hack:</code> commands take your team from "here are the statements" to an idea that's been explored, tested, challenged in Hack Court and improved, then to an MVP plan, a checked demo, a pitch and one final PDF, with a retro after the event.</p>
       <p class="sr-only">Think deeper. Challenge harder. Build smarter.</p>
@@ -108,8 +108,10 @@
           <button class="btn" id="playFlow" aria-pressed="false">▶ Play the flow</button>
           <button class="btn ghost small" id="prevPhase" aria-label="Previous phase">←</button>
           <button class="btn ghost small" id="nextPhase" aria-label="Next phase">→</button>
+          <button class="btn ghost starter-btn" id="starterPath" aria-pressed="false" title="Show the 5-command starter path for first-time teams">🌱 Starter path</button>
           <span class="hint">Tip: use ← → keys</span>
         </div>
+        <p class="starter-note" id="starterNote" hidden>First hackathon? These <b>5 commands</b> take you from statements to pitch. The dimmed phases aren't dropped: each one is folded into a highlighted command as a short version.</p>
         <div class="acts reveal" id="acts"></div>
         <div class="rail" aria-hidden="true"><i id="rail"></i></div>
       </div>

@@ -7,7 +7,7 @@
 From *"here are the problem statements"* to a well-explored, evidence-labelled, challenged and buildable hackathon idea, with an MVP plan, a pitch and one final PDF.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.2.2-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-18-orange)](#-commands)
@@ -53,6 +53,24 @@ Hack Kit turns those two hours into a guided process. Each `/hack:` command asks
 /hack:pick           # choose the problem (with a trial)
 /hack:ideate         # explore different ways to solve it
 ```
+
+### 🌱 First hackathon? Use the starter path
+
+Five commands, start to finish:
+
+```
+/hack:start  →  /hack:pick  →  /hack:ideate  →  /hack:plan  →  /hack:pitch     (then /hack:ship for the PDF)
+```
+
+| Command | What it also covers (short version) |
+|---|---|
+| `/hack:start` | Event profile, rubric, team and deadlines |
+| `/hack:pick` | Decodes every statement, then picks the problem with one quick trial (about 9 agent runs) |
+| `/hack:ideate` | Who the users are, 3 solution directions, who already does it, then the team picks |
+| `/hack:plan` | The riskiest assumptions, a quick stress check, **locks the idea**, then the build plan |
+| `/hack:pitch` | Deck outline, judge Q&A, and an offer to practise with `--drill` |
+
+Beginner teams get it automatically in `/hack:start`; anyone can choose it. Nothing is dropped: the other phases are folded in as short versions, and `/hack:status --path full` switches to the full 14 phases at any time without losing work.
 
 Already on 0.x? Update with `/plugin marketplace update hack-kit`. Old `.hackathon/` projects upgrade automatically; see [MIGRATION.md](MIGRATION.md).
 
@@ -331,7 +349,8 @@ At the idea stage, judges reward a real problem that's clearly solved. If your r
 
 - **v1.0, "Think deeper":** ideate, Hack Court 2.0, the improve loop, assumptions, evidence labels, automated checks.
 - **v1.1, "Build smarter":** full event profiles, Demo Day Court (`/hack:verify --demo`), team-aware plans, pitch drills, safe parallel work.
-- **v1.2 (this release), "Prove it":** `/hack:retro`, a merge script for teammates' pending work, the PDS Anna-Mitra worked example, and the FieldTrip website. v1.2.2 makes retro report only what the files show, makes merging lossless, and labels the example's one-pass trials as illustrative next to a real Demo Day Court.
+- **v1.2, "Prove it":** `/hack:retro`, a merge script for teammates' pending work, the PDS Anna-Mitra worked example, and the FieldTrip website. v1.2.2 makes retro report only what the files show, makes merging lossless, and labels the example's one-pass trials as illustrative next to a real Demo Day Court.
+- **v1.3 (this release), "Start simple":** the starter path for first-time teams.
 - **Next:** a run with a real team at a real event.
 
 ---

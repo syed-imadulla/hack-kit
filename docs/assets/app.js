@@ -211,6 +211,17 @@
 
   /* ---------------- FLOW ---------------- */
   var actsEl = $("#acts"), panel = $("#panel"), rail = $("#rail"), stations = [], current = 0, playTimer = null;
+  var STARTER = ["start", "pick", "ideate", "plan", "pitch"];
+  var FOLDS = { pick: ["decode"], ideate: ["users", "compete"], plan: ["validate", "stress", "lock"] };
+  var starterOn = false;
+  function idx(cmd) { for (var k = 0; k < PHASES.length; k++) if (PHASES[k].cmd === cmd) return k; return -1; }
+  function stepFrom(i, dir) {
+    if (!starterOn) return i + dir;
+    var pos = STARTER.indexOf(PHASES[(i + PHASES.length) % PHASES.length].cmd);
+    if (pos < 0) pos = dir > 0 ? -1 : STARTER.length;
+    var next = (pos + dir + STARTER.length) % STARTER.length;
+    return idx(STARTER[next]);
+  }
   Object.keys(ACTS).forEach(function (k) {
     var box = el("div", "act"); box.setAttribute("data-act", k);
     box.appendChild(el("h3", null, ACTS[k]));
@@ -232,12 +243,17 @@
   function show(i, userInitiated) {
     current = (i + PHASES.length) % PHASES.length;
     var p = PHASES[current];
-    stations.forEach(function (s, k) { s.classList.toggle("on", k === current); s.classList.toggle("done", k < current); });
-    rail.style.width = ((current + 1) / PHASES.length * 100) + "%";
+    var spos = STARTER.indexOf(p.cmd);
+    stations.forEach(function (s, k) {
+      s.classList.toggle("on", k === current);
+      s.classList.toggle("done", starterOn ? (STARTER.indexOf(PHASES[k].cmd) > -1 && STARTER.indexOf(PHASES[k].cmd) < spos) : k < current);
+    });
+    rail.style.width = (starterOn && spos > -1 ? (spos + 1) / STARTER.length : (current + 1) / PHASES.length) * 100 + "%";
     panel.textContent = "";
     var main = el("div", "panel-main");
     var mainPhases = PHASES.filter(function (x) { return x.cmd !== "retro"; }).length;
     var phaseLabel = p.cmd === "retro" ? "After the event" : "Phase " + (current + 1) + " of " + mainPhases;
+    if (starterOn && spos > -1) phaseLabel = "Starter step " + (spos + 1) + " of " + STARTER.length;
     var ph = el("div", "phase", phaseLabel + " · " + ACTS[p.act].replace(/^\S+\s/, "") + " · ~" + p.time);
     main.appendChild(ph);
     var h = el("h3"); h.appendChild(document.createTextNode(p.icon + " " + p.title + " "));
@@ -247,12 +263,22 @@
     if (p.parallel) cmdLine.appendChild(el("span", "badge parallel", "runs in parallel"));
     main.appendChild(cmdLine);
     main.appendChild(el("p", "tag", p.tag));
+    if (starterOn && FOLDS[p.cmd]) {
+      var fold = el("p", "fold-line");
+      fold.appendChild(el("b", null, "Starter path also covers: "));
+      fold.appendChild(document.createTextNode(FOLDS[p.cmd].map(function (c) { return "/hack:" + c; }).join(", ") + " (short versions)"));
+      main.appendChild(fold);
+    }
     var ul = el("ul"); p.does.forEach(function (d) { ul.appendChild(el("li", null, d)); }); main.appendChild(ul);
     var aside = el("aside");
     var a1 = el("div", "kv"); a1.appendChild(el("b", null, "It asks you")); p.asks.forEach(function (q) { a1.appendChild(el("span", "chip q", q)); });
     var a2 = el("div", "kv"); a2.appendChild(el("b", null, "It writes")); p.writes.forEach(function (w) { a2.appendChild(el("span", "chip w", w)); });
     var a3 = el("div", "kv"); a3.appendChild(el("b", null, "Then"));
-    a3.appendChild(current < PHASES.length - 1 ? code("→ /hack:" + PHASES[current + 1].cmd) : el("span", null, "Take the lessons into your next hackathon."));
+    if (starterOn && spos > -1) {
+      a3.appendChild(spos < STARTER.length - 1 ? code("→ /hack:" + STARTER[spos + 1]) : el("span", null, "Build, then /hack:ship for the PDF (optional)."));
+    } else {
+      a3.appendChild(current < PHASES.length - 1 ? code("→ /hack:" + PHASES[current + 1].cmd) : el("span", null, "Take the lessons into your next hackathon."));
+    }
     aside.appendChild(a1); aside.appendChild(a2); aside.appendChild(a3);
     panel.appendChild(main); panel.appendChild(aside);
     if (!reduce) { panel.classList.remove("flip"); void panel.offsetWidth; panel.classList.add("flip"); }
@@ -265,13 +291,27 @@
   function stop() { clearInterval(playTimer); playTimer = null; playBtn.textContent = "▶ Play the flow"; playBtn.setAttribute("aria-pressed", "false"); }
   function play() {
     if (playTimer) return stop();
-    if (current >= PHASES.length - 1) show(0);
+    var lastIdx = starterOn ? idx(STARTER[STARTER.length - 1]) : PHASES.length - 1;
+    if (current >= lastIdx) show(starterOn ? idx(STARTER[0]) : 0);
     playBtn.textContent = "❚❚ Pause"; playBtn.setAttribute("aria-pressed", "true");
-    playTimer = setInterval(function () { if (current >= PHASES.length - 1) return stop(); show(current + 1); }, 2600);
+    playTimer = setInterval(function () { if (current >= lastIdx) return stop(); show(stepFrom(current, 1)); }, 2600);
   }
   playBtn.addEventListener("click", play);
-  $("#prevPhase").addEventListener("click", function () { stop(); show(current - 1, true); });
-  $("#nextPhase").addEventListener("click", function () { stop(); show(current + 1, true); });
+  $("#prevPhase").addEventListener("click", function () { stop(); show(stepFrom(current, -1), true); });
+  $("#nextPhase").addEventListener("click", function () { stop(); show(stepFrom(current, 1), true); });
+  var starterBtn = $("#starterPath"), starterNote = $("#starterNote");
+  if (starterBtn) {
+    starterBtn.addEventListener("click", function () {
+      stop();
+      starterOn = !starterOn;
+      starterBtn.setAttribute("aria-pressed", starterOn ? "true" : "false");
+      starterBtn.textContent = starterOn ? "Show all 14 phases" : "🌱 Starter path";
+      if (starterNote) starterNote.hidden = !starterOn;
+      actsEl.classList.toggle("starter", starterOn);
+      stations.forEach(function (s, k) { s.classList.toggle("dim", starterOn && STARTER.indexOf(PHASES[k].cmd) < 0); });
+      show(starterOn ? idx(STARTER[0]) : current);
+    });
+  }
   var backBtn = $("#panelBackLink");
   if (backBtn) {
     backBtn.addEventListener("click", function () {
@@ -283,8 +323,8 @@
     var t = e.target.tagName; if (t === "INPUT" || t === "TEXTAREA") return;
     var f = $("#flow").getBoundingClientRect();
     if (f.top > window.innerHeight || f.bottom < 0) return;
-    if (e.key === "ArrowRight") { stop(); show(current + 1, true); }
-    if (e.key === "ArrowLeft") { stop(); show(current - 1, true); }
+    if (e.key === "ArrowRight") { stop(); show(stepFrom(current, 1), true); }
+    if (e.key === "ArrowLeft") { stop(); show(stepFrom(current, -1), true); }
   });
   show(0);
 

@@ -4,10 +4,12 @@
 Usage:
   python3 profile.py [--type college|sih|ai-ml|ideathon|hardware|corporate]
                      [--length 12h|24h|36h|48h+] [--experience beginner|mixed|advanced]
-                     [--focus balanced|technical|innovation-impact|business] [--team N] [--json]
+                     [--focus balanced|technical|innovation-impact|business] [--team N]
+                     [--path auto|full|starter] [--json]
 
 Missing options use the defaults in skills/hack-kit/profiles.json. Output is a Markdown block
-for STATE.md ("## Profile"), or JSON with --json. Order: length → event type → experience → focus.
+for STATE.md ("## Profile"), or JSON with --json. Order: length → event type → experience → focus → path.
+--path auto (the default) picks the starter path for beginner teams and the full path otherwise.
 """
 import json
 import sys
@@ -20,7 +22,36 @@ def load():
     return json.loads(PROFILES.read_text(encoding="utf-8"))
 
 
-def combine(p, event_type=None, length=None, experience=None, focus=None, team=None):
+def resolve_path(p, path, experience):
+    path = path or p["defaults"].get("path", "auto")
+    if path == "auto":
+        return "starter" if experience == "beginner" else "full"
+    if path not in p["paths"]:
+        raise SystemExit(f"Unknown path '{path}'. Choose from: auto, {', '.join(p['paths'])}")
+    return path
+
+
+def apply_path(p, path, s):
+    """Return (commands, folded, skipped) for the path, and change settings s in place."""
+    spec = p["paths"][path]
+    if path == "full":
+        cmds = [c for c in spec["commands"] if c not in s.get("skip_phases", [])]
+        return cmds, {}, {}
+    plan_skipped = "plan" in s.get("skip_phases", [])
+    cmds = list(spec["commands_if_plan_skipped"] if plan_skipped else spec["commands"])
+    folded = dict(spec["folded"])
+    if plan_skipped:  # ideathons: the lock (with a short stress check) happens in /hack:lock instead
+        folded = {k: ("lock" if v == "plan" and k != "lock" else v) for k, v in folded.items() if k != "lock"}
+    for k, cap in spec["caps"].items():
+        if isinstance(s.get(k), (int, float)) and not isinstance(s.get(k), bool):
+            s[k] = min(s[k], cap)
+    s.update(spec["changes"])
+    all_phases = p["paths"]["full"]["commands"]
+    s["skip_phases"] = sorted(set(all_phases) - set(cmds) - {spec.get("optional_end")})
+    return cmds, folded, dict(spec["skipped"])
+
+
+def combine(p, event_type=None, length=None, experience=None, focus=None, team=None, path=None):
     d = p["defaults"]
     event_type, length = event_type or d["event_type"], length or d["length"]
     experience, focus = experience or d["experience"], focus or d["focus"]
@@ -50,11 +81,17 @@ def combine(p, event_type=None, length=None, experience=None, focus=None, team=N
     else:
         s["parallel_validate_compete"] = True
 
+    path = resolve_path(p, path, experience)
+    commands, folded, skipped = apply_path(p, path, s)
+    s["path"] = path
+
     notes = list(et.get("notes", [])) + list(p["experience"][experience].get("notes", [])) + \
-        list(p["focus"][focus].get("notes", []))
+        list(p["focus"][focus].get("notes", [])) + list(p["paths"][path].get("notes", []))
     return {
         "profile": {"event_type": event_type, "length": length, "experience": experience,
-                    "focus": focus, "team_size": team},
+                    "focus": focus, "team_size": team, "path": path},
+        "path": {"name": path, "label": p["paths"][path]["label"], "commands": commands,
+                 "optional_end": p["paths"][path].get("optional_end"), "folded": folded, "skipped": skipped},
         "labels": {"event_type": et["label"], "length": p["lengths"][length]["label"],
                    "experience": p["experience"][experience]["label"], "focus": p["focus"][focus]["label"]},
         "settings": s,
@@ -68,7 +105,19 @@ def combine(p, event_type=None, length=None, experience=None, focus=None, team=N
 
 def to_markdown(r):
     pr, lb, s = r["profile"], r["labels"], r["settings"]
+    pa = r["path"]
+    cmd_line = " → ".join(f"/hack:{c}" for c in pa["commands"])
+    if pa.get("optional_end"):
+        cmd_line += f" (then /hack:{pa['optional_end']} for the PDF)"
     rows = [
+        ("Path", pa["label"]), ("Commands, in order", cmd_line),
+    ]
+    if pa["folded"]:
+        by_cmd = {}
+        for phase, into in pa["folded"].items():
+            by_cmd.setdefault(into, []).append(phase)
+        rows.append(("Folded in (short versions)", " · ".join(f"{', '.join(v)} → /hack:{k}" for k, v in by_cmd.items())))
+    rows += [
         ("Mode", s["mode"]), ("Questions per command", s["questions_per_command"]),
         ("Explain each step (beginner)", "yes" if s.get("explain_steps") else "no"),
         ("Decode research", s["decode_research"]), ("Sources to open per key claim", s["sources_to_open"]),
@@ -80,12 +129,12 @@ def to_markdown(r):
         ("Verify jury · Demo Day Court", f'{s["verify_jury"]} jurors · {s["demo_court"]}'),
         ("Plan depth", s["plan_depth"]), ("Pitch depth · drill questions", f'{s["pitch_depth"]} · {s["drill_questions"]}'),
         ("Validate ‖ compete in parallel", "yes" if s["parallel_validate_compete"] else "no (small team)"),
-        ("Skip phases", ", ".join(s["skip_phases"]) or "none"),
+        ("Skip phases", ", ".join(x for x in s["skip_phases"] if x not in pa["folded"]) or "none"),
         ("Target: idea locked within", f'{s["lock_target_minutes"]} min'),
     ]
     out = ["## Profile", "",
            f'**{lb["event_type"]}** · {lb["length"]} · team of {pr["team_size"]} · {lb["experience"]} · focus: {lb["focus"]}',
-           f'`--type {pr["event_type"]} --length {pr["length"]} --experience {pr["experience"]} --focus {pr["focus"]} --team {pr["team_size"]}`',
+           f'`--type {pr["event_type"]} --length {pr["length"]} --experience {pr["experience"]} --focus {pr["focus"]} --team {pr["team_size"]} --path {pr["path"]}`',
            "", "| Setting | Value |", "|---|---|"]
     out += [f"| {k} | {v} |" for k, v in rows]
     w = r["scoring_weights"]
@@ -112,7 +161,8 @@ def main():
                 return args[idx + 1]
             raise SystemExit(f"Missing value for option '{name}'.")
         return None
-    r = combine(load(), opt("--type"), opt("--length"), opt("--experience"), opt("--focus"), opt("--team"))
+    r = combine(load(), opt("--type"), opt("--length"), opt("--experience"), opt("--focus"), opt("--team"),
+                opt("--path"))
     print(json.dumps(r, indent=2, ensure_ascii=False) if "--json" in args else to_markdown(r))
 
 

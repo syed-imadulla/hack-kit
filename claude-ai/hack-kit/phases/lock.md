@@ -49,6 +49,12 @@ Once the team confirms:
 - Put `> LOCKED: <date time, time zone> · Version v<n>` at the top of CORE.md.
 - In STATE.md: tick "lock", fill the **Locked** section (problem, main user, core journey, motto), set "Core locked at", and log it.
 
+## Starter path, when plan is skipped (ideathons)
+On an ideathon's starter path there's no `/hack:plan`, so the short validate and stress steps happen here, **before step 1**:
+1. List the top 3 assumptions in `ASSUMPTIONS.md` with a kill test each, and one 30-minute experiment card for the top "collapses" one.
+2. Role-play the least-digital user, the front-line worker and the sceptic in 2 lines each; write their doubts to `STRESS.md` under `## Short version (starter path)`.
+Then lock as normal.
+
 ## Output
 - `.hackathon/CORE.md`, complete and marked LOCKED. The previous draft goes to `history/` only if its content changed.
 - In STATE.md: the Locked section, "Core locked at", phase 10 ticked, and the decision logged.
@@ -58,4 +64,4 @@ If any later command or teammate proposes a change to the problem, the main user
 
 ## Finish
 Give the motto, the journey in 5 steps, and any open "collapses" assumptions.
-**Next → `/hack:plan`.**
+**Next → `/hack:plan`** (or **`/hack:pitch`** if the profile skips plan).

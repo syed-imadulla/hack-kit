@@ -60,3 +60,11 @@ Nothing breaks. v1.1 adds features; your `.hackathon/` folder keeps working.
 4. **After building:** run `/hack:verify --demo`, then `/hack:pitch --drill`.
 5. **Teams working in parallel:** teammates add `## Pending from <name> — <time>` sections; the captain runs `/hack:status --merge`.
 
+---
+
+# Moving to v1.3 (starter path)
+
+Nothing breaks. Existing projects keep the full path, and a STATE.md profile without a `Path` row is treated as full.
+- To try the starter path on an existing project: `/hack:status --path starter`. Phases you've already run stay done.
+- To regenerate the profile by hand: `python3 <plugin>/scripts/profile.py ... --path starter`.
+

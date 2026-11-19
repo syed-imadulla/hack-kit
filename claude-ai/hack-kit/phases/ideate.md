@@ -5,7 +5,7 @@
 > **Phase 5 of 14** · Reads: `BRIEF.md`, `PICK.md`, `USERS.md` · Writes: `IDEAS.md`, `ASSUMPTIONS.md` · Next: `/hack:validate`
 
 ## Before you start
-Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `PICK.md` and `USERS.md`. If `PICK.md` is missing, suggest `/hack:pick` first.
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `PICK.md` and `USERS.md`. If `PICK.md` is missing, suggest `/hack:pick` first. On the starter path `USERS.md` doesn't exist yet: this command writes its short version (see "Starter path" below).
 
 
 Profile settings used: `ideate_directions`, `ideas_per_direction`, `constraint_removal`, scoring weights (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
@@ -72,6 +72,13 @@ Then ask for the captain's confirmation.
 - In `IDEAS.md` (from `templates/ideas.md`), record **every idea, the scores, the choice, and why each other idea was rejected**.
 - For the chosen idea, list its **key assumptions** (what must be true for it to work). Add them to `ASSUMPTIONS.md`, labelled `[AI]` or `[T]`, with the source "ideate".
 
+## Starter path (STATE.md → Profile → Path: starter)
+`/hack:users` and `/hack:compete` are folded in here, as short versions:
+- **Before step 1 (users, 5 lines):** main user and least-digital user, one persona line with a name and situation, the POV ("<user> needs <need> because <insight>"), and a motto. Write them to `USERS.md` under `## Short version (starter path)`.
+- **Directions:** explore the profile's number of directions (3 on the starter path). Skip constraint removal.
+- **After step 5 (compete, short):** for the top 2 ideas, name up to 2 existing solutions each (one web search per idea if available) and one line on what they fail to do. Mark unopened search snippets `[AI]`. Write them to `COMPETE.md` under `## Short version (starter path)`.
+- An idea that already exists and works for the main user scores 0 on "different".
+
 ## Output
 - `.hackathon/IDEAS.md`.
 - Updated `.hackathon/ASSUMPTIONS.md`.
@@ -79,4 +86,4 @@ Then ask for the captain's confirmation.
 
 ## Finish
 Give 3 lines: the chosen idea, the direction it came from, and its riskiest assumption.
-**Next → `/hack:validate`** (test the riskiest assumption). It can run in parallel with `/hack:compete`.
+**Next → `/hack:validate`** (test the riskiest assumption). It can run in parallel with `/hack:compete`. On the starter path: **Next → `/hack:plan`** (it also checks and locks the idea).

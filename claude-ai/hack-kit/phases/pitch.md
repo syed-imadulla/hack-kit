@@ -5,7 +5,7 @@
 > **Phase 13 of 14** · Reads: everything · Writes: `PITCH.md` · Next: `/hack:ship`
 
 ## Before you start
-Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `EVIDENCE.md`, `COMPETE.md`, `CORE.md`, `PLAN.md` and `VERDICT.md`.
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md`, `EVIDENCE.md`, `COMPETE.md`, `CORE.md`, `PLAN.md` and `VERDICT.md`. On the starter path, `EVIDENCE.md` and `VERDICT.md` usually don't exist: use `ASSUMPTIONS.md`, `STRESS.md` and the pick trial instead, and don't treat the missing files as a problem.
 
 
 Profile settings used: `pitch_depth`, `drill_questions` (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
@@ -50,12 +50,15 @@ Write 12–15 likely questions with answers of 2–3 lines. Draw them from the p
 - What did you actually build, and what is mocked? Take this answer from the DEMO.md ladder if it exists. If not, mark it *"(plan: update after /hack:verify --demo)"*, because what was planned is rarely what gets built.
 - How does the least-digital user use it?
 
+## Starter path (STATE.md → Profile → Path: starter)
+This is the last of the 5 commands. Keep the pitch short (the profile's `pitch_depth`) and offer the drill once at the end: "Want to practise with simulated judges? `/hack:pitch --drill`". Many first-time teams skip `/hack:verify`, so take the built-vs-mocked answer from `DEMO.md` if it exists, and otherwise mark it *"(plan: update after building)"*.
+
 ## Output
 Write `.hackathon/PITCH.md` from `templates/pitch.md`. Tick "pitch" in STATE.md.
 
 ## Finish
 Give the one-line pitch and the slide count.
-**Next → `/hack:ship`.** It compiles everything into one PDF.
+**Next → `/hack:ship`.** It compiles everything into one PDF. On the starter path this is optional.
 
 ---
 

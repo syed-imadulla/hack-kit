@@ -5,7 +5,7 @@
 > **Phase 3 of 14** · Reads: `BRIEF.md`, `STATEMENTS.md` · Writes: `PICK.md`, `court/` · Next: `/hack:users`
 
 ## Before you start
-Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md` and `STATEMENTS.md`.
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md` and `STATEMENTS.md`. If `STATEMENTS.md` is missing: on the starter path, do the short decode below first; on the full path, suggest `/hack:decode`.
 
 
 Profile settings used: `pick_trials`, `pick_jury`, `sources_to_open`, scoring weights, quick-jury swap (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
@@ -59,6 +59,14 @@ Unless `--no-trial` was passed, run the `hack-court` skill once per shortlisted 
 
 Recommend one with 3 reasons. Then the **captain decides** (AskUserQuestion, with the statements as options).
 
+## Starter path (STATE.md → Profile → Path: starter)
+`/hack:decode` is folded in here. If `STATEMENTS.md` doesn't exist yet, do a **short decode** first, then continue with step 1:
+- For each statement, one row: real problem in plain words · who suffers most · least-digital user · one hidden constraint · how often or how bad (label `[V]`/`[T]`/`[AI]`/`[?]`).
+- No web research unless the team asks; mark gaps `[?]`.
+- Write it to `STATEMENTS.md` under `## Short decode (starter path)`.
+
+Then run steps 1–6 as normal with the profile's settings: one trial with a quick jury of 7. Tell the team the cost first (about 9 agent runs).
+
 ## Output
 - `.hackathon/PICK.md`: scores and weights, red flags, links to each trial in `court/`, the final pick and why, the rejected statements and why, and the assumptions to carry forward.
 - Add the trial's weakest assumptions to `ASSUMPTIONS.md`.
@@ -66,4 +74,4 @@ Recommend one with 3 reasons. Then the **captain decides** (AskUserQuestion, wit
 
 ## Finish
 Give 3 lines: the chosen problem, its decision, and the riskiest assumption.
-**Next → `/hack:users`.**
+**Next → `/hack:users`** (full path) or **`/hack:ideate`** (starter path: it covers users too).

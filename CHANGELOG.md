@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.3.0 — 2026-11-19 · "Start simple"
+A shorter way in for first-time teams.
+
+### Added
+- **Starter path: 5 commands.** `/hack:start` → `/hack:pick` → `/hack:ideate` → `/hack:plan` → `/hack:pitch`, then `/hack:ship` if you want the PDF.
+  - The other phases are folded in as short versions, never dropped: decode → pick; users and compete → ideate; validate, stress and lock → plan. For ideathons, which have no plan phase, they move to `/hack:lock`.
+  - Only one trial runs (in pick, quick jury of 7, about 9 agent runs).
+  - Beginner teams get it by default (`--path auto`); anyone can choose it in `/hack:start`.
+  - `/hack:status --path full` switches to all 14 phases at any time. Nothing is lost: short versions are saved under `## Short version (starter path)`, so the full command can extend them later.
+- `profile.py --path auto|full|starter`, and a `paths` section in `profiles.json`. The Profile table shows the path, the commands in order and what is folded where.
+- A **"🌱 Starter path"** button on the website's flow section highlights the 5 commands and shows what each one also covers.
+- `/hack:help`, the README, the guide and the Claude app skill all show the starter path.
+- `check.py` verifies that the starter path covers every phase and that each command on it explains what it folds in. 8 new profile tests.
+
+### Fixed
+- `retro.py` no longer prints a template placeholder as the "next phase", and no longer says a project "stopped before /hack:plan" when a plan exists. It also finds the assumptions table when the `## All assumptions` heading is missing. 1 new test.
+
 ## 1.2.2 — 2026-11-19 · honesty fixes
 A review of v1.2 found places where the kit or its examples claimed more than the evidence showed. All are fixed.
 

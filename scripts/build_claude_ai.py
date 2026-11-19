@@ -94,7 +94,9 @@ This is the one-chat version of the Hack Kit Claude Code plugin. The team types 
 | hack status | Phase checklist, CORE version, latest decision, open assumptions, next phase |
 | hack help | List all phases and the quick start |
 
-**Before running a phase, read its full instructions in `phases/<name>.md`** (for example, `phases/ideate.md`) and follow them. Output templates are in `templates/`, the full trial rules are in `court.md` and `jurors.json`, and event profiles are in `profiles.json` (combine them by hand: length first, then event type, experience and focus).
+**Before running a phase, read its full instructions in `phases/<name>.md`** (for example, `phases/ideate.md`) and follow them. Output templates are in `templates/`, the full trial rules are in `court.md` and `jurors.json`, and event profiles are in `profiles.json` (combine them by hand: length first, then event type, experience, focus and path).
+
+**First hackathon?** Offer the starter path: hack start → hack pick → hack ideate → hack plan → hack pitch. The other phases are folded in as short versions; each phase file's "Starter path" section says how.
 
 In the Claude app, `.hackathon/<FILE>.md` means that section of the Idea Pack, or a real file if this session has file tools. Ask questions with the multiple-choice tool if available (at most 4 at a time, 2 in quick mode), otherwise in plain text with numbered options.
 

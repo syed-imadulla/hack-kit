@@ -117,3 +117,16 @@ Earlier in v1.1 development, `plan_check.py` testing also fixed 4 gaps: a false 
 | After the trial | Monthly entitlement guard added; 4 tests; both bugs now rejected. Not re-tried. |
 
 **Lesson for the kit:** one model writing all 12 votes produces confident, uniform agreement and misses what running the product reveals. Hack Court only works when each juror is a separate run and the evidence comes from actually running the product.
+
+---
+
+# v1.3 — starter path dry run
+
+A small project (24 h college event, team of 3 first-timers) was walked through the starter path by hand, writing the short versions the starter sections ask for. Then the tools were run on it:
+- `profile.py` → starter path, 5 commands, folds listed [V].
+- `plan_check.py`, `lint_project.py`, `compile.py --md-only` and `merge.py` all handled the shorter project [V].
+- `retro.py` showed 2 problems on a project with a plan but no trial: it printed a template placeholder as the next phase, and it claimed the project stopped before `/hack:plan`. Both are fixed, with a test.
+- Website: the starter toggle steps through exactly start → pick → ideate → plan → pitch on desktop and mobile, with no errors [V].
+
+Not run: the pick trial itself (it's unchanged from the full path, which earlier test runs covered), and a real first-time team.
+

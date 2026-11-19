@@ -153,12 +153,20 @@ Hack Kit judges **whether the problem is real and whether the solution truly sol
 `/hack:start` sets a profile: **event type** (college, SIH/government, AI/ML, ideathon, hardware, corporate) · **length** (12h, 24h, 36h, 48h+) · **team size and experience** (beginner, mixed, advanced) · **judging focus** (balanced, technical, innovation-impact, business). It runs:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/profile.py" --type <t> --length <l> --experience <e> --focus <f> --team <n>
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/profile.py" --type <t> --length <l> --experience <e> --focus <f> --team <n> --path <starter|full>
 ```
 and pastes the output into STATE.md under `## Profile`. **Every command reads its numbers from that table**: how many ideas, trials, jurors, experiments and improve rounds; plan and pitch depth; which phases to skip; whether to explain each step. If STATE.md has no Profile (older projects), use the Full/Quick tables below.
 
 - Beginner teams: explain each step in 2 plain lines first, define terms the first time, and ask at most 2 questions.
 - Skipped phases are marked `skipped (profile: <type>)` in the phase table. The team can still run them.
+
+### Starter path (v1.3)
+For a first hackathon: **`/hack:start` → `/hack:pick` → `/hack:ideate` → `/hack:plan` → `/hack:pitch`**, then `/hack:ship` if they want the PDF. Beginner teams get it by default (`--path auto`); anyone can choose it.
+- The other phases are **folded in as short versions**, never dropped: decode → pick · users and compete → ideate · validate, stress and lock → plan. For ideathons (no plan phase), validate, stress and lock move to `/hack:lock`, which replaces plan on the path.
+- Each command has a "Starter path" section that says exactly what to fold in. Short versions are written under `## Short version (starter path)` in the usual file, so the full command can extend them later.
+- Folded phases show as `folded → /hack:<command>` in the phase table. Improve and verify are skipped, with a one-line reason; the team can run them anytime.
+- Only one trial runs (in `/hack:pick`, quick jury of 7, about 9 agent runs). Say the cost before it starts.
+- `/hack:status --path full` switches path at any time without losing work.
 - `--quick` on any command always means the quick column below, whatever the profile says.
 - The focus changes scoring weights only. **Hack Court never judges business viability**, whatever the focus.
 

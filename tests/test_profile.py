@@ -152,9 +152,68 @@ class TestProfile(unittest.TestCase):
 
 
 def run():
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestProfile)
+    suite = unittest.TestSuite([unittest.TestLoader().loadTestsFromTestCase(c) for c in (TestProfile, TestStarterPath)])
     res = unittest.TextTestRunner(verbosity=1).run(suite)
     return len(res.failures) + len(res.errors)
+
+
+class TestStarterPath(unittest.TestCase):
+    """v1.3: the starter path for first-time teams."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.p = load()
+
+    def test_beginners_get_starter_by_default(self):
+        r = combine(self.p, experience="beginner")
+        self.assertEqual(r["path"]["name"], "starter")
+        self.assertEqual(r["path"]["commands"], ["start", "pick", "ideate", "plan", "pitch"])
+
+    def test_others_get_full_by_default(self):
+        for exp in ("mixed", "advanced"):
+            self.assertEqual(combine(self.p, experience=exp)["path"]["name"], "full")
+
+    def test_explicit_path_wins(self):
+        self.assertEqual(combine(self.p, experience="beginner", path="full")["path"]["name"], "full")
+        self.assertEqual(combine(self.p, experience="advanced", path="starter")["path"]["name"], "starter")
+
+    def test_every_phase_is_run_folded_or_explained(self):
+        full = self.p["paths"]["full"]["commands"]
+        for et in self.p["event_types"]:
+            for length in self.p["lengths"]:
+                r = combine(self.p, event_type=et, length=length, path="starter")
+                pa = r["path"]
+                self.assertLessEqual(len(pa["commands"]), 5)
+                for ph in full:
+                    covered = ph in pa["commands"] or ph in pa["folded"] or ph in pa["skipped"] \
+                        or ph == pa["optional_end"] or ph in self.p["event_types"][et].get("changes", {}).get("skip_phases", [])
+                    self.assertTrue(covered, f"{et}/{length}: phase {ph} is lost")
+                for into in pa["folded"].values():
+                    self.assertIn(into, pa["commands"], f"{et}: folded into a command not on the path")
+
+    def test_ideathon_starter_locks_in_lock(self):
+        pa = combine(self.p, event_type="ideathon", path="starter")["path"]
+        self.assertNotIn("plan", pa["commands"])
+        self.assertIn("lock", pa["commands"])
+        self.assertEqual(pa["folded"]["stress"], "lock")
+
+    def test_starter_caps_never_raise_settings(self):
+        for length in self.p["lengths"]:
+            base = combine(self.p, length=length, path="full")["settings"]
+            st = combine(self.p, length=length, path="starter")["settings"]
+            for k in ("pick_trials", "ideate_directions", "questions_per_command", "drill_questions"):
+                self.assertLessEqual(st[k], base[k], f"{length}: {k}")
+            self.assertEqual(st["pick_jury"], 7)
+
+    def test_markdown_lists_commands_and_folds(self):
+        md = to_markdown(combine(self.p, experience="beginner"))
+        self.assertIn("/hack:start → /hack:pick → /hack:ideate → /hack:plan → /hack:pitch", md)
+        self.assertIn("decode → /hack:pick", md)
+        self.assertIn("--path starter", md)
+
+    def test_unknown_path_rejected(self):
+        with self.assertRaises(SystemExit):
+            combine(self.p, path="express")
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ argument-hint: "[--quick]"
 Arguments: $ARGUMENTS
 
 ## Before you start
-Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md` and `CORE.md`. If CORE.md isn't locked, suggest running `/hack:lock` first.
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md` and `CORE.md`. If CORE.md isn't locked, suggest running `/hack:lock` first, except on the starter path, where this command does the lock (see "Starter path" below).
 
 
 Profile settings used: `plan_depth`, plan extras, team size, `skip_phases` (ideathons skip this) (from STATE.md → Profile; older projects use the Full/Quick table in the skill).
@@ -70,9 +70,17 @@ From STRESS.md, give each failure (no internet, API down, wrong AI answer, user 
 ### 9. AI test cases
 Write 8–12 inputs with the expected behaviour for each. Include a regional language, unclear input, wrong input, a safety-critical input and empty input. At least one test should expect a hand-over to a human.
 
+## Starter path (STATE.md → Profile → Path: starter)
+`/hack:validate`, `/hack:stress` and `/hack:lock` are folded in here. Do these **before step 1**, in about 15 minutes:
+1. **Riskiest assumptions (validate, short):** list the top 3 in `ASSUMPTIONS.md` with a kill test each (collapses · weakens · minor). For the top "collapses" one, write one 30-minute experiment card (who to ask, what to ask, pass/fail rule). Never mark it validated without `[V]` or `[T]` evidence.
+2. **Quick stress check:** role-play 3 people in 2 lines each: the least-digital user, the front-line worker, and the sceptic. Note each one's biggest doubt and the change it suggests. Write them to `STRESS.md` under `## Short version (starter path)`.
+3. **Lock:** fill in `CORE.md` from `templates/core.md` (problem, main user, journey, motto, what's built vs mocked). Show it and ask the captain: **"Lock this idea?"** (Lock · Change one thing first). Warn in one line if a "collapses" assumption is still untested. Then mark lock done in STATE.md.
+
+Then continue with steps 1–9 using the profile's `plan_depth` (light on the starter path: skip the architecture diagram unless asked, keep the task table short).
+
 ## Output
 Write `.hackathon/PLAN.md` from `templates/plan.md`. Tick "plan" in STATE.md and set the freeze times.
 
 ## Finish
 Give 3 lines: the journey, the wow moment and the code freeze time.
-**Next → `/hack:verify`.** It puts the solution on trial.
+**Next → `/hack:verify`.** It puts the solution on trial. On the starter path: build, then **`/hack:pitch`** (and `/hack:verify --demo` after building if there's time).

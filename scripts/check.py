@@ -130,6 +130,20 @@ def check_tally():
     cmds = "".join(read(f"commands/{n}.md") for n in PHASES)
     ok(cmds.count("Profile settings used") >= 12, "phase commands say which profile settings they use")
     ok("--demo" in read("commands/verify.md") and "--drill" in read("commands/pitch.md"), "demo and drill modes documented")
+    st = prof.get("paths", {}).get("starter", {})
+    ok(set(prof.get("paths", {})) == {"full", "starter"}, "full and starter paths defined")
+    ok(prof["paths"]["full"]["commands"] == PHASES, "full path lists all 14 phases in order")
+    ok(len(st.get("commands", [])) == 5 and set(st["commands"]) <= set(PHASES), "starter path has 5 real commands")
+    on_path = set(st["commands"]) | set(st.get("commands_if_plan_skipped", []))
+    ok(set(st.get("folded", {})) | set(st.get("skipped", {})) | on_path | {st.get("optional_end")} >= set(PHASES),
+       "starter path covers every phase (run, folded, skipped with a reason, or optional)")
+    missing = [c for c in sorted(on_path - {"start"}) if "## Starter path" not in read(f"commands/{c}.md")]
+    ok(not missing, f"every starter command except start has a 'Starter path' section{' (missing: ' + ', '.join(missing) + ')' if missing else ''}")
+    for phase, into in st.get("folded", {}).items():
+        sec = read(f"commands/{into}.md").split("## Starter path", 1)[-1].split("\n## ", 1)[0]
+        ok(phase in sec.lower(), f"{into}: its starter section folds in {phase}")
+    ok("--path" in read("commands/start.md") and "--path" in read("commands/status.md"), "start sets the path and status can switch it")
+    ok("Starter path" in read("commands/help.md") and "starter path" in read("README.md").lower(), "help and README show the starter path")
 
 
 def table_ok(md):

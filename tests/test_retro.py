@@ -251,6 +251,18 @@ class TestRetroHonesty(unittest.TestCase):
         self.assertNotIn("1.75", conns[0]["consequence"])
         self.assertIn("No drill honesty score", conns[0]["consequence"])
 
+    def test_starter_project_without_trial(self):
+        """A starter-path project: plan done, no trial, assumptions table without its heading."""
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Path(tmp)
+            (f / "STATE.md").write_text("# STATE\n\n> Summary: x · next: <command>\n\n| # | Phase | Status | When | Notes |\n|---|---|---|---|---|\n| 11 | plan | done | | |\n| 13 | pitch | next | | |\n", encoding="utf-8")
+            (f / "ASSUMPTIONS.md").write_text("# A\n\n| # | Assumption | Kill test | Evidence | Status |\n|---|---|---|---|---|\n| 1 | Warden refills | collapses | [?] | open |\n", encoding="utf-8")
+            (f / "PLAN.md").write_text("# PLAN\n\n## Team\n| Member | Skills | Hours available |\n|---|---|---|\n| a | x | 5 |\n\nHours until code freeze: 10\n\n## Tasks\n| ID | Task | Owner | Skills needed | Hours | Depends on | Status |\n|---|---|---|---|---|---|---|\n| T1 | Build | a | x | 2 | — | todo |\n", encoding="utf-8")
+            md = generate_retro_markdown(f)
+        self.assertNotIn("<command>", md)
+        self.assertNotIn("before /hack:plan or /hack:verify were run", md)
+        self.assertIn("Warden refills", md)
+
 
 def run():
     suite = unittest.TestSuite([unittest.TestLoader().loadTestsFromTestCase(c) for c in (TestRetro, TestRetroHonesty)])

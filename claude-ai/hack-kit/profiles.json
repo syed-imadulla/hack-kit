@@ -1,123 +1,395 @@
 {
   "schema_version": 1,
-  "about": "Event profiles. /hack:start picks one value from each group; scripts/profile.py combines them into the effective settings saved in STATE.md. Order of application: length (baseline) → event type → experience → focus. Event type and experience may only change the keys they list.",
+  "about": "Event profiles. /hack:start picks one value from each group; scripts/profile.py combines them into the effective settings saved in STATE.md. Order of application: length (baseline) → event type → experience → focus. Event type and experience may only change the keys they list. Path (full or starter) is applied last; beginner teams default to the starter path.",
   "lengths": {
     "12h": {
       "label": "12 hours",
       "settings": {
-        "mode": "quick", "questions_per_command": 2,
-        "decode_research": "skip unless asked", "sources_to_open": 1,
-        "pick_trials": 1, "pick_jury": 7,
-        "ideate_directions": 3, "ideas_per_direction": 1, "constraint_removal": false,
-        "validate_experiments": 1, "improve_rounds": 1, "improve_retrial": "only if asked",
-        "verify_jury": 7, "demo_court": "quick (7 jurors)",
-        "plan_depth": "light", "pitch_depth": "short", "drill_questions": 6,
-        "lock_target_minutes": 45, "skip_phases": []
+        "mode": "quick",
+        "questions_per_command": 2,
+        "decode_research": "skip unless asked",
+        "sources_to_open": 1,
+        "pick_trials": 1,
+        "pick_jury": 7,
+        "ideate_directions": 3,
+        "ideas_per_direction": 1,
+        "constraint_removal": false,
+        "validate_experiments": 1,
+        "improve_rounds": 1,
+        "improve_retrial": "only if asked",
+        "verify_jury": 7,
+        "demo_court": "quick (7 jurors)",
+        "plan_depth": "light",
+        "pitch_depth": "short",
+        "drill_questions": 6,
+        "lock_target_minutes": 45,
+        "skip_phases": []
       }
     },
     "24h": {
       "label": "24 hours",
       "settings": {
-        "mode": "full", "questions_per_command": 4,
-        "decode_research": "1–2 quick searches per statement", "sources_to_open": 2,
-        "pick_trials": 2, "pick_jury": 7,
-        "ideate_directions": 6, "ideas_per_direction": 2, "constraint_removal": true,
-        "validate_experiments": 2, "improve_rounds": 2, "improve_retrial": "quick (7 jurors)",
-        "verify_jury": 12, "demo_court": "quick (7 jurors)",
-        "plan_depth": "standard", "pitch_depth": "standard", "drill_questions": 10,
-        "lock_target_minutes": 95, "skip_phases": []
+        "mode": "full",
+        "questions_per_command": 4,
+        "decode_research": "1–2 quick searches per statement",
+        "sources_to_open": 2,
+        "pick_trials": 2,
+        "pick_jury": 7,
+        "ideate_directions": 6,
+        "ideas_per_direction": 2,
+        "constraint_removal": true,
+        "validate_experiments": 2,
+        "improve_rounds": 2,
+        "improve_retrial": "quick (7 jurors)",
+        "verify_jury": 12,
+        "demo_court": "quick (7 jurors)",
+        "plan_depth": "standard",
+        "pitch_depth": "standard",
+        "drill_questions": 10,
+        "lock_target_minutes": 95,
+        "skip_phases": []
       }
     },
     "36h": {
       "label": "36 hours",
       "settings": {
-        "mode": "full", "questions_per_command": 4,
-        "decode_research": "2 searches per statement", "sources_to_open": 2,
-        "pick_trials": 3, "pick_jury": 7,
-        "ideate_directions": 6, "ideas_per_direction": 2, "constraint_removal": true,
-        "validate_experiments": 3, "improve_rounds": 2, "improve_retrial": "quick (7 jurors)",
-        "verify_jury": 12, "demo_court": "full (12 jurors)",
-        "plan_depth": "standard", "pitch_depth": "standard", "drill_questions": 12,
-        "lock_target_minutes": 150, "skip_phases": []
+        "mode": "full",
+        "questions_per_command": 4,
+        "decode_research": "2 searches per statement",
+        "sources_to_open": 2,
+        "pick_trials": 3,
+        "pick_jury": 7,
+        "ideate_directions": 6,
+        "ideas_per_direction": 2,
+        "constraint_removal": true,
+        "validate_experiments": 3,
+        "improve_rounds": 2,
+        "improve_retrial": "quick (7 jurors)",
+        "verify_jury": 12,
+        "demo_court": "full (12 jurors)",
+        "plan_depth": "standard",
+        "pitch_depth": "standard",
+        "drill_questions": 12,
+        "lock_target_minutes": 150,
+        "skip_phases": []
       }
     },
     "48h+": {
       "label": "48 hours or more",
       "settings": {
-        "mode": "full", "questions_per_command": 4,
-        "decode_research": "2–3 searches per statement", "sources_to_open": 3,
-        "pick_trials": 3, "pick_jury": 12,
-        "ideate_directions": 6, "ideas_per_direction": 2, "constraint_removal": true,
-        "validate_experiments": 3, "improve_rounds": 2, "improve_retrial": "full (12 jurors)",
-        "verify_jury": 12, "demo_court": "full (12 jurors)",
-        "plan_depth": "deep", "pitch_depth": "full", "drill_questions": 15,
-        "lock_target_minutes": 210, "skip_phases": []
+        "mode": "full",
+        "questions_per_command": 4,
+        "decode_research": "2–3 searches per statement",
+        "sources_to_open": 3,
+        "pick_trials": 3,
+        "pick_jury": 12,
+        "ideate_directions": 6,
+        "ideas_per_direction": 2,
+        "constraint_removal": true,
+        "validate_experiments": 3,
+        "improve_rounds": 2,
+        "improve_retrial": "full (12 jurors)",
+        "verify_jury": 12,
+        "demo_court": "full (12 jurors)",
+        "plan_depth": "deep",
+        "pitch_depth": "full",
+        "drill_questions": 15,
+        "lock_target_minutes": 210,
+        "skip_phases": []
       }
     }
   },
   "event_types": {
     "college": {
       "label": "College hackathon",
-      "rubric_default": {"Problem": 25, "Innovation": 20, "Feasibility": 20, "Impact": 20, "Presentation": 15},
+      "rubric_default": {
+        "Problem": 25,
+        "Innovation": 20,
+        "Feasibility": 20,
+        "Impact": 20,
+        "Presentation": 15
+      },
       "changes": {},
-      "notes": ["Judges are often faculty and alumni: a clear persona and a working demo beat breadth."]
+      "notes": [
+        "Judges are often faculty and alumni: a clear persona and a working demo beat breadth."
+      ]
     },
     "sih": {
       "label": "SIH / government problem statements",
-      "rubric_default": {"Problem understanding": 25, "Innovation": 20, "Feasibility": 20, "Impact": 20, "Presentation": 15},
-      "changes": {"decode_research": "open the ministry/department statement page and 2 official sources per statement", "sources_to_open": 3, "pitch_depth": "full"},
+      "rubric_default": {
+        "Problem understanding": 25,
+        "Innovation": 20,
+        "Feasibility": 20,
+        "Impact": 20,
+        "Presentation": 15
+      },
+      "changes": {
+        "decode_research": "open the ministry/department statement page and 2 official sources per statement",
+        "sources_to_open": 3,
+        "pitch_depth": "full"
+      },
       "notes": [
         "The statement owner is a ministry or department: always seat the statement-owner judge, even in quick juries (swap it for the root-cause analyst).",
         "Prefer official sources ([V] from .gov.in / .nic.in). Fit with existing government systems is judged hard.",
         "There is often an idea-submission round (deck) before the finale: run /hack:pitch early for that round."
       ],
-      "quick_jury_swap": {"out": "root-cause", "in": "statement-owner"}
+      "quick_jury_swap": {
+        "out": "root-cause",
+        "in": "statement-owner"
+      }
     },
     "ai-ml": {
       "label": "AI / ML hackathon",
-      "rubric_default": {"Problem": 20, "Technical depth": 25, "Innovation": 20, "Feasibility": 15, "Impact": 10, "Presentation": 10},
-      "changes": {"plan_depth": "deep"},
-      "plan_extras": ["data source and licence", "baseline vs model comparison", "evaluation metric and test set", "failure cases and human fallback"],
-      "notes": ["The AI must earn its place: compare against a simple non-AI baseline in /hack:plan.", "Data availability is a red flag in /hack:pick: no data, no pick."]
+      "rubric_default": {
+        "Problem": 20,
+        "Technical depth": 25,
+        "Innovation": 20,
+        "Feasibility": 15,
+        "Impact": 10,
+        "Presentation": 10
+      },
+      "changes": {
+        "plan_depth": "deep"
+      },
+      "plan_extras": [
+        "data source and licence",
+        "baseline vs model comparison",
+        "evaluation metric and test set",
+        "failure cases and human fallback"
+      ],
+      "notes": [
+        "The AI must earn its place: compare against a simple non-AI baseline in /hack:plan.",
+        "Data availability is a red flag in /hack:pick: no data, no pick."
+      ]
     },
     "ideathon": {
       "label": "Startup ideathon (no build)",
-      "rubric_default": {"Problem": 25, "Innovation": 25, "Feasibility": 15, "Impact": 20, "Presentation": 15},
-      "changes": {"validate_experiments": 3, "pitch_depth": "full", "demo_court": "not applicable", "plan_depth": "light", "skip_phases": ["plan"]},
-      "notes": ["No build: /hack:plan is skipped (or reduced to a 1-page roadmap); /hack:verify judges the concept and evidence.", "Real validation counts more than usual: run every experiment you can."]
+      "rubric_default": {
+        "Problem": 25,
+        "Innovation": 25,
+        "Feasibility": 15,
+        "Impact": 20,
+        "Presentation": 15
+      },
+      "changes": {
+        "validate_experiments": 3,
+        "pitch_depth": "full",
+        "demo_court": "not applicable",
+        "plan_depth": "light",
+        "skip_phases": [
+          "plan"
+        ]
+      },
+      "notes": [
+        "No build: /hack:plan is skipped (or reduced to a 1-page roadmap); /hack:verify judges the concept and evidence.",
+        "Real validation counts more than usual: run every experiment you can."
+      ]
     },
     "hardware": {
       "label": "Hardware hackathon",
-      "rubric_default": {"Problem": 20, "Innovation": 20, "Feasibility": 25, "Impact": 20, "Presentation": 15},
-      "changes": {"plan_depth": "deep"},
-      "plan_extras": ["bill of materials with what's in hand vs needed", "parts lead time and substitutes", "electrical/physical safety", "simulation fallback if a part fails"],
-      "notes": ["Red flag in /hack:pick: any part you don't have in hand.", "Demo Day Court must test the physical demo, not slides."]
+      "rubric_default": {
+        "Problem": 20,
+        "Innovation": 20,
+        "Feasibility": 25,
+        "Impact": 20,
+        "Presentation": 15
+      },
+      "changes": {
+        "plan_depth": "deep"
+      },
+      "plan_extras": [
+        "bill of materials with what's in hand vs needed",
+        "parts lead time and substitutes",
+        "electrical/physical safety",
+        "simulation fallback if a part fails"
+      ],
+      "notes": [
+        "Red flag in /hack:pick: any part you don't have in hand.",
+        "Demo Day Court must test the physical demo, not slides."
+      ]
     },
     "corporate": {
       "label": "Corporate / internal hackathon",
-      "rubric_default": {"Problem": 25, "Innovation": 20, "Feasibility": 20, "Business impact": 20, "Presentation": 15},
-      "changes": {"pitch_depth": "full"},
-      "notes": ["Fit with existing company systems and data-access rules is judged hard: seat the systems person in quick juries (swap for the engineer only if the build is trivial).", "Business impact may be in the rubric: /hack:pitch covers it; Hack Court still never judges business viability."]
+      "rubric_default": {
+        "Problem": 25,
+        "Innovation": 20,
+        "Feasibility": 20,
+        "Business impact": 20,
+        "Presentation": 15
+      },
+      "changes": {
+        "pitch_depth": "full"
+      },
+      "notes": [
+        "Fit with existing company systems and data-access rules is judged hard: seat the systems person in quick juries (swap for the engineer only if the build is trivial).",
+        "Business impact may be in the rubric: /hack:pitch covers it; Hack Court still never judges business viability."
+      ]
     }
   },
   "experience": {
     "beginner": {
       "label": "Mostly first-timers",
-      "changes": {"questions_per_command": 2, "explain_steps": true},
-      "notes": ["Explain each step in 2 plain lines before doing it, define terms the first time (MVP, persona, rubric), and give one example."]
+      "changes": {
+        "questions_per_command": 2,
+        "explain_steps": true
+      },
+      "notes": [
+        "Explain each step in 2 plain lines before doing it, define terms the first time (MVP, persona, rubric), and give one example."
+      ]
     },
-    "mixed": {"label": "Mixed", "changes": {"explain_steps": false}, "notes": []},
+    "mixed": {
+      "label": "Mixed",
+      "changes": {
+        "explain_steps": false
+      },
+      "notes": []
+    },
     "advanced": {
       "label": "Experienced team",
-      "changes": {"explain_steps": false},
-      "notes": ["Skip explanations; show only decisions, tables and trade-offs."]
+      "changes": {
+        "explain_steps": false
+      },
+      "notes": [
+        "Skip explanations; show only decisions, tables and trade-offs."
+      ]
     }
   },
   "focus": {
-    "balanced": {"label": "Balanced", "weights": {"problem": 3, "user": 2, "rubric": 3, "directions": 2, "buildable": 3, "demo": 2, "data": 1, "team": 1}},
-    "technical": {"label": "Technical feasibility", "weights": {"problem": 2, "user": 2, "rubric": 3, "directions": 2, "buildable": 4, "demo": 3, "data": 2, "team": 1}},
-    "innovation-impact": {"label": "Innovation and impact", "weights": {"problem": 3, "user": 3, "rubric": 3, "directions": 3, "buildable": 2, "demo": 2, "data": 1, "team": 1}},
-    "business": {"label": "Business viability (pitch only)", "weights": {"problem": 3, "user": 2, "rubric": 3, "directions": 2, "buildable": 3, "demo": 2, "data": 1, "team": 1}, "notes": ["Business points go in /hack:pitch only. Hack Court never judges business viability."]}
+    "balanced": {
+      "label": "Balanced",
+      "weights": {
+        "problem": 3,
+        "user": 2,
+        "rubric": 3,
+        "directions": 2,
+        "buildable": 3,
+        "demo": 2,
+        "data": 1,
+        "team": 1
+      }
+    },
+    "technical": {
+      "label": "Technical feasibility",
+      "weights": {
+        "problem": 2,
+        "user": 2,
+        "rubric": 3,
+        "directions": 2,
+        "buildable": 4,
+        "demo": 3,
+        "data": 2,
+        "team": 1
+      }
+    },
+    "innovation-impact": {
+      "label": "Innovation and impact",
+      "weights": {
+        "problem": 3,
+        "user": 3,
+        "rubric": 3,
+        "directions": 3,
+        "buildable": 2,
+        "demo": 2,
+        "data": 1,
+        "team": 1
+      }
+    },
+    "business": {
+      "label": "Business viability (pitch only)",
+      "weights": {
+        "problem": 3,
+        "user": 2,
+        "rubric": 3,
+        "directions": 2,
+        "buildable": 3,
+        "demo": 2,
+        "data": 1,
+        "team": 1
+      },
+      "notes": [
+        "Business points go in /hack:pitch only. Hack Court never judges business viability."
+      ]
+    }
   },
-  "defaults": {"event_type": "college", "length": "24h", "experience": "mixed", "focus": "balanced", "team_size": 4}
+  "defaults": {
+    "event_type": "college",
+    "length": "24h",
+    "experience": "mixed",
+    "focus": "balanced",
+    "team_size": 4,
+    "path": "auto"
+  },
+  "paths": {
+    "full": {
+      "label": "Full path (14 phases)",
+      "commands": [
+        "start",
+        "decode",
+        "pick",
+        "users",
+        "ideate",
+        "validate",
+        "compete",
+        "stress",
+        "improve",
+        "lock",
+        "plan",
+        "verify",
+        "pitch",
+        "ship"
+      ],
+      "notes": []
+    },
+    "starter": {
+      "label": "Starter path (5 commands)",
+      "commands": [
+        "start",
+        "pick",
+        "ideate",
+        "plan",
+        "pitch"
+      ],
+      "commands_if_plan_skipped": [
+        "start",
+        "pick",
+        "ideate",
+        "lock",
+        "pitch"
+      ],
+      "optional_end": "ship",
+      "folded": {
+        "decode": "pick",
+        "users": "ideate",
+        "compete": "ideate",
+        "validate": "plan",
+        "stress": "plan",
+        "lock": "plan"
+      },
+      "skipped": {
+        "improve": "run /hack:improve anytime if a trial says REVISE",
+        "verify": "after building, run /hack:verify --demo if there's time"
+      },
+      "caps": {
+        "questions_per_command": 2,
+        "pick_trials": 1,
+        "pick_jury": 7,
+        "ideate_directions": 3,
+        "ideas_per_direction": 2,
+        "validate_experiments": 1,
+        "improve_rounds": 0,
+        "drill_questions": 6,
+        "lock_target_minutes": 60
+      },
+      "changes": {
+        "mode": "quick",
+        "constraint_removal": false,
+        "decode_research": "skip unless asked",
+        "plan_depth": "light",
+        "improve_retrial": "only if asked"
+      },
+      "notes": [
+        "Starter path: 5 commands, one trial (in /hack:pick, about 9 agent runs). Skipped phases are folded in briefly; the team can switch to the full path anytime with /hack:status --path full, and nothing is lost."
+      ]
+    }
+  }
 }

@@ -84,6 +84,13 @@ def analyze_assumptions(assumptions_md):
     if not assumptions_md:
         return None
     rows = parse_table_rows(assumptions_md, "All assumptions")
+    if not rows and not re.search(r"^##\s+All assumptions\s*$", assumptions_md, re.M):
+        # No heading: use the first table that has assumption and kill-test columns
+        for line in assumptions_md.splitlines():
+            if line.startswith("|") and "assumption" in line.lower() and "kill test" in line.lower():
+                start = assumptions_md.index(line)
+                rows = parse_table_rows("## All assumptions\n" + assumptions_md[start:], "All assumptions")
+                break
     if not rows:
         # Fallback to bounded section before next heading
         m = re.search(r"^##\s+All assumptions\s*$", assumptions_md, re.M)
@@ -502,7 +509,7 @@ def find_causal_connections(assumptions, demo, plan_check_res, trials, pitch_dri
             })
 
     # 5. Missing late-stage data
-    if not trials and meta and meta.get("next_phase"):
+    if not trials and not (demo and demo.get("features")) and not plan_check_res and meta and meta.get("next_phase"):
         connections.append({
             "category": "[Unknown / Unverified]",
             "finding": f"Project stopped at Phase {meta.get('next_phase')} before /hack:plan or /hack:verify were run.",
@@ -540,7 +547,8 @@ def extract_project_meta(folder: Path):
     core_ver = ver_m.group(1).strip() if ver_m else ("v2 locked" if "v2" in state_md else "v1")
 
     # Next phase
-    next_m = re.search(r"next:\s*([^\n]+)", state_md)
+    # Next phase: the first phase-table row whose status is "next"
+    next_m = re.search(r"^\|\s*\d+\s*\|\s*([a-z]+)[^|]*\|\s*next\b", state_md, re.M | re.I)
     next_phase = next_m.group(1).strip() if next_m else None
 
     # Chosen problem / statement

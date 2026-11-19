@@ -17,6 +17,22 @@ This is the playbook behind the commands. Read it once before your first event.
 
 ---
 
+## First hackathon? Take the starter path
+
+If most of your team is new, choose the **starter path** in `/hack:start` (it's the default for first-timers):
+
+| # | Command | What happens |
+|---|---|---|
+| 1 | `/hack:start` | Event profile, rubric, deadlines |
+| 2 | `/hack:pick` | A short decode of every statement, then one quick trial to choose the problem |
+| 3 | `/hack:ideate` | Users in 5 lines, 3 directions, who already does it, then the team picks |
+| 4 | `/hack:plan` | Top 3 assumptions with one experiment, a 3-person stress check, **lock the idea**, then tasks and the demo script |
+| 5 | `/hack:pitch` | Deck, judge Q&A, then `--drill` to practise |
+
+For a 24 h event, aim to finish `/hack:plan` within about an hour of the statements coming out, then build. If you have time later, `/hack:verify --demo` checks what you built, and `/hack:status --path full` opens up the full 14 phases without losing anything.
+
+---
+
 ## During the event
 
 ### Timeline (24 h event)

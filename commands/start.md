@@ -35,6 +35,7 @@ Use AskUserQuestion (at most 4 per round), prefilled wherever possible. Don't as
 | Event length | 12 h · 24 h · 36 h · 48 h+ (and online, offline or hybrid) |
 | Team | size, and experience: mostly first-timers · mixed · experienced |
 | Judging focus | balanced · technical feasibility · innovation and impact · business (pitch only) |
+| Path | **starter** (5 commands, recommended for a first hackathon) · **full** (all 14 phases). Default: starter for mostly first-timers, full otherwise |
 | Event | name, organiser, track or theme, **domain** (healthcare, agriculture, education, finance, civic, climate, other) |
 | Rubric | criteria and weights. If unknown, use the event type's default rubric from the profile and mark it `ASSUMED` |
 | Deliverables | slide limit, video, repo, form questions with word limits, demo length |
@@ -47,9 +48,13 @@ Use AskUserQuestion (at most 4 per round), prefilled wherever possible. Don't as
 Translate the top 3 rubric items into plain words and say what each means for choosing an idea. For example: "Feasibility 25% → pick something one journey can prove in 24 h."
 
 ### 4. Set the profile
-Ask the first four rows of the table first (type, length, team, focus): one AskUserQuestion round, prefilled from the brief. Then run:
+Ask the first four rows of the table first (type, length, team, focus): one AskUserQuestion round, prefilled from the brief. Then ask the path in one question:
+- **Starter path (Recommended for first-timers):** 5 commands: start → pick → ideate → plan → pitch. The other phases are folded in as short versions. One trial, about 9 agent runs.
+- **Full path:** all 14 phases, more trials, deeper checks.
+
+Put the recommended option first: starter if the team is mostly first-timers, full otherwise. Then run:
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/profile.py" --type <t> --length <l> --experience <e> --focus <f> --team <n>
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/profile.py" --type <t> --length <l> --experience <e> --focus <f> --team <n> --path <starter|full>
 ```
 Show the table in one screen and ask: **"Use this plan?"** (Yes · Change something). If Python isn't available, build the same table by hand from `skills/hack-kit/profiles.json` (length first, then event type, experience and focus).
 
@@ -60,10 +65,11 @@ Show the table in one screen and ask: **"Use this plan?"** (Yes · Change someth
 
 ## Output
 - `.hackathon/BRIEF.md` from `templates/brief.md`.
-- `.hackathon/STATE.md` from `templates/state.md` (schema version 2): fill in the event table, paste the profile under `## Profile`, mark the profile's skipped phases as `skipped (profile)`, set phase 1 to done, and set "Last updated".
+- `.hackathon/STATE.md` from `templates/state.md` (schema version 2): fill in the event table, paste the profile under `## Profile`, mark the profile's skipped phases as `skipped (profile)` and, on the starter path, each folded phase as `folded → /hack:<command>`, set phase 1 to done, and set "Last updated".
 - `.hackathon/ASSUMPTIONS.md` from `templates/assumptions.md` (empty for now).
 - The folders `.hackathon/court/` and `.hackathon/history/`.
 
 ## Finish
 Give a 5-line summary: event and profile, top 3 rubric items, deliverables, time left, target time to lock the idea.
-**Next → `/hack:decode`.** Paste the problem statements when they're out.
+On the starter path, add one line: "Your 5 commands: start ✓ → pick → ideate → plan → pitch."
+**Next → `/hack:decode`** (full path) or **`/hack:pick`** (starter path: it decodes the statements first). Paste the problem statements when they're out.
