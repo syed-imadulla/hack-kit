@@ -1,0 +1,18 @@
+{
+  "name": "hack-kit",
+  "owner": {
+    "name": "Team Udaan"
+  },
+  "metadata": {
+    "description": "Hack Kit: from problem statements to a locked, validated, buildable hackathon idea.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "hack",
+      "source": "./",
+      "description": "Hackathon ideation kit with /hack: commands and a problem-focused courtroom trial.",
+      "version": "0.1.0"
+    }
+  ]
+}

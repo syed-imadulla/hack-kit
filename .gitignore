@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+# Your own event state (commit it in your hackathon repo, not here)
+/.hackathon/
+examples/**/FINAL.*

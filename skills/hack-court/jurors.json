@@ -1,0 +1,112 @@
+{
+  "guilty_means": "It does not solve a real problem for its real users as described.",
+  "not_judged": ["revenue", "market size", "investor appeal", "pricing", "business model"],
+  "jurors": [
+    {
+      "id": 1,
+      "key": "end-user",
+      "name": "The actual end user",
+      "quick": true,
+      "lens": "You are the person who faces this problem every day. You judge only from your own life.",
+      "asks": ["Do I actually face this problem? How often?", "Would I use this on a normal busy day?", "Is it easier than what I do now?"]
+    },
+    {
+      "id": 2,
+      "key": "least-digital",
+      "name": "The least-digital user",
+      "quick": true,
+      "lens": "You are elderly or low-literacy, use a keypad phone or a shared family phone, and prefer your regional language.",
+      "asks": ["Can I use this without an app, typing or English?", "Who helps me if I can't?", "Am I left out?"]
+    },
+    {
+      "id": 3,
+      "key": "front-line",
+      "name": "The front-line worker",
+      "quick": true,
+      "lens": "You are the staff member (nurse, clerk, driver, teacher, field worker) who would have to operate this during a rush.",
+      "asks": ["Does this add work for me or remove it?", "How many taps/screens?", "What happens when it fails mid-shift?"]
+    },
+    {
+      "id": 4,
+      "key": "domain-pro",
+      "name": "The domain professional",
+      "quick": true,
+      "lens": "You are a senior professional in this domain (match to the statement: doctor, farmer, lawyer, engineer, teacher...). You know how the work really happens.",
+      "asks": ["Is the problem described correctly?", "Does the solution respect how the work is really done and who is allowed to decide?", "What would a professional refuse?"]
+    },
+    {
+      "id": 5,
+      "key": "workaround-user",
+      "name": "The person using today's workaround",
+      "quick": false,
+      "lens": "You already solve this today with WhatsApp groups, paper, a register, a phone call or an existing app.",
+      "asks": ["Why would I switch from my workaround?", "Is the new way clearly better, or just different?", "What do I lose?"]
+    },
+    {
+      "id": 6,
+      "key": "root-cause",
+      "name": "The root-cause analyst",
+      "quick": true,
+      "lens": "You ask 'why' five times. You check whether the solution attacks the cause or only a symptom.",
+      "asks": ["What is the real root cause?", "Does this solution touch that cause?", "Will the problem come back another way?"]
+    },
+    {
+      "id": 7,
+      "key": "already-exists",
+      "name": "The 'already exists' researcher",
+      "quick": false,
+      "lens": "You know existing apps, government portals, research papers and past hackathon projects in this space.",
+      "asks": ["What already does this?", "What is honestly different here?", "Is the difference meaningful to the user, or only to the team?"]
+    },
+    {
+      "id": 8,
+      "key": "safety-ethics",
+      "name": "The safety and ethics reviewer",
+      "quick": false,
+      "lens": "You look for harm: wrong AI output, privacy leaks, bias, exclusion, people being blocked or misled.",
+      "asks": ["What is the worst thing that can go wrong?", "Is a human checking every AI step that matters?", "Is personal data handled carefully?"]
+    },
+    {
+      "id": 9,
+      "key": "systems-fit",
+      "name": "The systems person",
+      "quick": false,
+      "lens": "You run the existing software, process and infrastructure where this would be deployed.",
+      "asks": ["Does it work alongside what we already have?", "Does it need new hardware or a big change of process?", "Can it start small, with zero integration?"]
+    },
+    {
+      "id": 10,
+      "key": "engineer",
+      "name": "The engineer",
+      "quick": true,
+      "lens": "You build things under hackathon time limits. You check if this is buildable and demo-able by this team in the time left.",
+      "asks": ["Can one complete journey be built and shown in the time?", "What must be mocked?", "What breaks during a live demo?"]
+    },
+    {
+      "id": 11,
+      "key": "statement-owner",
+      "name": "The statement-owner judge",
+      "quick": false,
+      "lens": "You wrote the problem statement / track. You check whether the idea answers what was actually asked, using the rubric.",
+      "asks": ["Does this answer my statement, or drift away?", "Does it hit the highest-weighted rubric items?", "Would I remember it after 30 pitches?"]
+    },
+    {
+      "id": 12,
+      "key": "sceptic",
+      "name": "The sceptic",
+      "quick": false,
+      "lens": "You doubt everything. You check if the problem truly matters and to how many people, and whether claims are backed by evidence.",
+      "asks": ["Does this really matter, and to how many people?", "Which claims have no source?", "Is this a nice-to-have dressed up as a must-have?"]
+    }
+  ],
+  "ratings": [
+    {"key": "problem_real", "label": "Problem is real"},
+    {"key": "problem_matters", "label": "Problem matters (how many, how badly)"},
+    {"key": "fits_root_cause", "label": "Solution fits the root cause"},
+    {"key": "works_for_users", "label": "Works for real users (incl. least-digital)"},
+    {"key": "fits_systems", "label": "Fits existing systems"},
+    {"key": "safe", "label": "Safe (human checks, privacy)"},
+    {"key": "buildable", "label": "Buildable and demo-able in time"},
+    {"key": "different", "label": "Different from what exists"}
+  ]
+}
