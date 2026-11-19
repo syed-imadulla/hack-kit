@@ -319,4 +319,6 @@ The trial format was inspired by court-style review skills such as [alexyc9381/c
 
 ## 📄 License
 
-[MIT](LICENSE)
+Hack Kit is open source under the **[MIT License](LICENSE)**. You're free to use, copy, modify and share it, including in your own hackathon projects, as long as you keep the copyright notice.
+
+<sub>© 2026 Team Udaan · Made for hackers who want to solve real problems.</sub>
