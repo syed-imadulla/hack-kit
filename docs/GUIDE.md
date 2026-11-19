@@ -153,3 +153,139 @@ From building OPD Saathi:
 7. **Diagrams that implied the wrong user** used a screen.
 
 Hack Kit's rules exist because of these.
+
+---
+
+# Reference
+
+## The 17 rules every command follows
+1. Read the brief like a judge, because rubric weights decide everything.
+2. Pick a problem, not a technology.
+3. Think as every real user, especially the least-digital one.
+4. Prove it's real with sources, real complaints and venue chats.
+5. Check what already exists. "No competitors" is never true.
+6. Stress-test in place of a domain expert, then confirm with real people.
+7. Lock the core (problem, user, journey, motto). Details can still improve.
+8. Fit with existing systems. No new hardware.
+9. No app, no typing, the simplest device.
+10. AI suggests, humans decide. Safety checks use fixed rules.
+11. One complete journey for the MVP. Every feature needs a reason.
+12. No unlabelled numbers. Targets are labelled as targets.
+13. Simple, everyday English.
+14. **Evidence before confidence.** A confident AI answer is still `[AI]`.
+15. **Test the riskiest assumption first.**
+16. **Different technology isn't innovation.** Differentiate by user value.
+17. **Keep the decision history.** Record what was rejected, and why.
+
+## The 12 jurors
+★ = sits on the quick jury of 7.
+
+| # | Juror | Asks |
+|---|---|---|
+| 1 ★ | Actual end user | Would I use this on a busy day? |
+| 2 ★ | Least-digital user | Can I use it without an app, typing or English? |
+| 3 ★ | Front-line worker | Does this add work for me or remove it? |
+| 4 ★ | Domain professional | Does it respect how the work really happens? |
+| 5 | Today's-workaround user | Why switch from WhatsApp or paper? |
+| 6 ★ | Root-cause analyst | Does it fix the cause or only a symptom? |
+| 7 | "Already exists" researcher | What's honestly different? |
+| 8 | Safety & ethics reviewer | What's the worst that can go wrong? |
+| 9 | Systems person | Does it fit what we already run? |
+| 10 ★ | Engineer | Can it be built and demoed in time? |
+| 11 | Statement-owner judge | Does it answer what was asked? |
+| 12 ★ | Sceptic | Does this really matter, and to how many people? |
+
+**Domain seats:** for healthcare, agriculture, education, finance, civic and climate problems, seats 4, 5 and 9 become three domain jurors. For healthcare, that's a senior doctor, a hospital administrator and a patient privacy officer. The jury stays at 12, so the cost doesn't change.
+
+No investors and no accountants, on purpose. Simulated jurors are perspectives, not real experts, and confidence isn't a probability of success.
+
+## What gets saved
+Everything is saved in `.hackathon/` in your project. Commit it so the whole team works from the same state. The starter path writes fewer files; short versions go under `## Short version (starter path)`.
+
+```
+.hackathon/
+├── STATE.md        schema v2: phases, decisions (incl. rejected), locked items
+├── BRIEF.md        rubric, limits, team, time
+├── STATEMENTS.md   every statement decoded
+├── PICK.md         chosen problem + trial
+├── USERS.md        stakeholder views, persona, motto
+├── IDEAS.md        💡 directions explored, scores, rejected ideas
+├── ASSUMPTIONS.md  what you're assuming, kill test, status
+├── EVIDENCE.md     labelled evidence, experiment cards
+├── COMPETE.md      what exists + differentiation
+├── STRESS.md       doubts + failure scenarios
+├── IMPROVE.md      ↺ improvement rounds, v1 → v2
+├── CORE.md         🔒 the locked idea (versioned)
+├── PLAN.md         MVP, demo script, fallbacks
+├── VERDICT.md      solution trial + rubric estimate
+├── DEMO.md         Demo Day check: planned → built → tested → shown
+├── RETRO.md        after the event
+├── PITCH.md        deck + Q&A
+├── SUMMARY.md      one page
+├── FINAL.pdf       📄 everything
+├── history/        earlier versions, never deleted
+└── court/          full trial records + raw votes
+```
+
+## FAQ
+<details>
+<summary><b>How long does it take?</b></summary>
+
+About 80–100 minutes to a locked idea for a 24-hour event, and about 45 minutes in quick mode for a 12-hour one. The time guard shrinks the new thinking steps when time is short.
+</details>
+
+<details>
+<summary><b>How much usage does a trial cost?</b></summary>
+
+A full trial uses about 15 subagent calls (2 lawyers + 12 jurors + retries). Quick mode uses about 10. `/hack:improve` runs one quick re-trial per round.
+</details>
+
+<details>
+<summary><b>Will it pick the idea for us?</b></summary>
+
+No. `/hack:ideate` shows the trade-offs and the captain decides. The AI never picks the most impressive-sounding idea for you.
+</details>
+
+<details>
+<summary><b>Can we trust the verdict?</b></summary>
+
+Use it to decide what to test and fix, not as proof. Jurors are simulated perspectives, confidence isn't a probability, and only `[V]` and `[T]` evidence counts as real. Real validation comes from the experiments you run.
+</details>
+
+<details>
+<summary><b>Does it need web access?</b></summary>
+
+The research steps work best with web search. Without it, Hack Kit still runs, but labels claims `[?]` or `[AI]` and tells you what to look up.
+</details>
+
+<details>
+<summary><b>What do I need for the PDF?</b></summary>
+
+Python 3, plus Chrome/Chromium, Playwright or pandoc. Otherwise, open `FINAL.html` and use **Print → Save as PDF**.
+</details>
+
+<details>
+<summary><b>Why no business or market judging?</b></summary>
+
+At the idea stage, judges reward a real problem that's clearly solved. If your rubric asks for business points, `/hack:pitch` covers them.
+</details>
+
+## Repo layout
+```
+hack-kit/
+├── .claude-plugin/     plugin.json · marketplace.json
+├── .github/workflows/  checks on every push
+├── commands/           19 /hack: commands
+├── agents/             hack-juror · hack-prosecutor · hack-defender
+├── skills/
+│   ├── hack-kit/       shared rules (the source of truth)
+│   └── hack-court/     trial protocol + jurors.json (with domain seats)
+├── templates/          one template per output file
+├── scripts/            tally · profile · plan_check · merge · retro · compile · lint_project · check · build_claude_ai
+├── tests/              unit tests and vote fixtures
+├── claude-ai/          generated Claude app skill + one-paste prompt
+├── prompts/            copy-ready prompts
+├── docs/               website · GUIDE.md · TEST-RUN.md · skill zip · internal/
+└── examples/           test run (complete) · PDS Anna-Mitra · OPD Saathi sample
+```
+
