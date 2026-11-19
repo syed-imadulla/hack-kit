@@ -66,6 +66,7 @@ In this file and in the commands, `<plugin>` means that root.
 | any | `/hack:assumptions` | ASSUMPTIONS, EVIDENCE | `ASSUMPTIONS.md` | assumptions |
 | any | `/hack:court <thing>` | as needed | `court/<case>/` | verdict |
 | any | `/hack:status`, `/hack:help` | STATE | — | — |
+| post | `/hack:retro` | everything | `RETRO.md` | retro |
 
 `/hack:improve` can also run after any trial (`/hack:pick`, `/hack:verify`, `/hack:court`). Phases 6 and 7 can run in parallel on different teammates' machines (see section 9).
 

@@ -1,0 +1,170 @@
+[
+  {
+    "juror": "The safety and ethics reviewer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The automated security tests proving truncation, tampering, and key-theft detection are rock-solid.",
+    "weakest_assumption": "Dealers will physically preserve printed thermal paper checkpoint rolls",
+    "missing_info": "Paper roll retention rates during seasonal shop dampness",
+    "fix": {
+      "change": "Send end-of-day summary hash checkpoint via one-way SMS ping whenever a single bar of cellular signal appears",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The sceptic",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The team openly admitted that offline devices cannot prevent split-brain duplicates in real time. This honesty is rare in hackathons.",
+    "weakest_assumption": "Food inspectors will act on central duplicate conflict flags promptly",
+    "missing_info": "District recovery protocols for double-drawn grain",
+    "fix": {
+      "change": "Include an administrative recovery workflow recommendation in the inspector report",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Government clerk",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Tracking the 5-10% state offline quota limit and adding a visual warning at 8% directly addresses administrative liability.",
+    "weakest_assumption": "Dealers won't panic when the 10% offline ceiling is reached during multi-day outages",
+    "missing_info": "State emergency escalation circulars",
+    "fix": {
+      "change": "Display the Food Inspector's direct emergency phone number on the screen when the 10% limit is reached",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The actual end user",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Number repetition in Kannada and SMS backup ensures I don't mishear my family's rice allocation.",
+    "weakest_assumption": "Calling the toll-free number during morning peak hours won't hit busy signals",
+    "missing_info": "Telephony concurrent line capacity",
+    "fix": {
+      "change": "Size cloud telephony PRI lines to support at least 30 concurrent inbound callers per taluk",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The least-digital user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Pull IVR from any phone removes the device ownership trap.",
+    "weakest_assumption": "Elderly cardholders won't get confused by automated IVR menu options",
+    "missing_info": "Menu navigation failure rates",
+    "fix": {
+      "change": "Zero menu trees: user simply enters 12 digits and immediately hears their quota without pressing 1 for this or 2 for that",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The front-line worker",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Sub-5-second interaction and SQLite WAL crash recovery protects me during power cuts and rush hours.",
+    "weakest_assumption": "ePOS touchscreen won't register ghost touches when covered in grain flour dust",
+    "missing_info": "Physical keyboard vs touchscreen durability",
+    "fix": {
+      "change": "Support physical hardware keypad shortcuts (Enter/Confirm) alongside touch controls",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Policy officer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Aadhaar masking and statutory disclaimer watermarks ensure full regulatory compliance.",
+    "weakest_assumption": "State DBT cash transfers will not be delayed by central bank clearing bottlenecks",
+    "missing_info": "DBT credit clearance times",
+    "fix": {
+      "change": "Clarify that cash DBT status is read-only information from the Ahara database",
+      "impact": "low",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Citizen advocate (NGO)",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Retaining full SQLite audit history even when thermal printer paper runs out protects the beneficiary's transaction record.",
+    "weakest_assumption": "Cardholders will not lose their paper receipts before leaving the village",
+    "missing_info": "Receipt retention practices",
+    "fix": {
+      "change": "Encourage cardholders to store receipts inside their physical ration card booklet",
+      "impact": "low",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The 'already exists' researcher",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The failure matrix proves Anna-Mitra survives attacks where paper registers and simple web portals fail completely.",
+    "weakest_assumption": "State food departments will welcome an external audit verification tool",
+    "missing_info": "Bureaucratic clearance timelines",
+    "fix": {
+      "change": "Publish the verification algorithm as open-source civic infrastructure",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The systems person",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The reconciliation test proving 100% duplicate card conflict detection upon sync validates the distributed design.",
+    "weakest_assumption": "Batch sync files won't get corrupted during partial cellular uploads",
+    "missing_info": "Network layer packet loss recovery",
+    "fix": {
+      "change": "Enforce atomic file chunking with checksum verification on upload",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The engineer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Running actual executable tests during Phase 8 rather than writing prose separates this project from ordinary hackathon claims.",
+    "weakest_assumption": "The team will integrate these crypto primitives cleanly into the final prototype CLI",
+    "missing_info": "CLI integration plan",
+    "fix": {
+      "change": "Expose verify_chain and reconcile_batch_logs directly as CLI subcommands in the prototype",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The statement-owner judge",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Anna-Mitra has passed the most aggressive red-teaming of any project in this track.",
+    "weakest_assumption": "The core design will remain disciplined without scope creep during Phase 9 improve",
+    "missing_info": "Scope freeze boundary",
+    "fix": {
+      "change": "Lock CORE v2 strictly to the tested dual-channel scope in Phase 10",
+      "impact": "high",
+      "effort": "low"
+    }
+  }
+]

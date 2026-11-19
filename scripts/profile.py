@@ -24,7 +24,10 @@ def combine(p, event_type=None, length=None, experience=None, focus=None, team=N
     d = p["defaults"]
     event_type, length = event_type or d["event_type"], length or d["length"]
     experience, focus = experience or d["experience"], focus or d["focus"]
-    team = int(team or d["team_size"])
+    try:
+        team = int(team if team is not None else d["team_size"])
+    except (ValueError, TypeError):
+        raise SystemExit(f"Invalid --team value '{team}'. Team size must be an integer (e.g. --team 4).")
     for key, group in (("event type", (event_type, p["event_types"])), ("length", (length, p["lengths"])),
                        ("experience", (experience, p["experience"])), ("focus", (focus, p["focus"]))):
         if group[0] not in group[1]:
@@ -98,9 +101,17 @@ def to_markdown(r):
 
 def main():
     args = sys.argv[1:]
+    if "-h" in args or "--help" in args:
+        print(__doc__.strip())
+        sys.exit(0)
 
     def opt(name):
-        return args[args.index(name) + 1] if name in args else None
+        if name in args:
+            idx = args.index(name)
+            if idx + 1 < len(args) and not args[idx + 1].startswith("--"):
+                return args[idx + 1]
+            raise SystemExit(f"Missing value for option '{name}'.")
+        return None
     r = combine(load(), opt("--type"), opt("--length"), opt("--experience"), opt("--focus"), opt("--team"))
     print(json.dumps(r, indent=2, ensure_ascii=False) if "--json" in args else to_markdown(r))
 

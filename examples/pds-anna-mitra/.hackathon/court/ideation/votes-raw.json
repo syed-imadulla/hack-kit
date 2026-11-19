@@ -1,0 +1,170 @@
+[
+  {
+    "juror": "The actual end user",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Knowing whether the truck unloaded before I walk 2 km saves me a half-day harvest wage.",
+    "weakest_assumption": "Dealers or distributors will update the arrival log promptly when trucks unload",
+    "missing_info": "Incentive mechanism for timely truck unload logging",
+    "fix": {
+      "change": "Make truck arrival confirmation automatic via SMS delivery receipt from the godown truck driver",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The least-digital user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Voice in Kannada on a normal phone call solves the language and screen barriers for me.",
+    "weakest_assumption": "Older keypad phones have clear enough audio reception in rural hamlets",
+    "missing_info": "Audio clarity of IVR over low-bandwidth 2G cellular voice",
+    "fix": {
+      "change": "Use concise, slow-paced spoken Kannada with repetition and SMS backup",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The front-line worker",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The offline cryptographic ledger keeps my counter moving during morning network timeouts.",
+    "weakest_assumption": "Dealers won't accidentally cause duplicate offline receipts during intermittent connectivity",
+    "missing_info": "Offline-to-online reconciliation edge case handling",
+    "fix": {
+      "change": "Add automatic card-level monthly disbursement lock so offline double drawals are impossible",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The sceptic",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "Dropping the smartphone app was essential. The dual-channel approach is grounded in real constraints.",
+    "weakest_assumption": "Dealers will willingly use the offline tool rather than turning people away",
+    "missing_info": "Field trials testing dealer resistance to extra interface steps",
+    "fix": {
+      "change": "Keep dealer offline interaction under 3 keystrokes per transaction",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "Government clerk",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "I appreciate that the team explicitly denies statutory authorization for local cryptographic receipts.",
+    "weakest_assumption": "HMAC signatures on a local device protect against a full database rewrite if the key is stored on the device",
+    "missing_info": "Key storage and external checkpoint anchoring rules",
+    "fix": {
+      "change": "Document key assumptions clearly and test ledger truncation, tampering, and key rotation",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "Policy officer",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Central NFSA PMGKAY (free through 2028) is cleanly distinguished from Karnataka 2026-27 add-on rules.",
+    "weakest_assumption": "State add-on policies remain stable across the calendar year",
+    "missing_info": "State food department budget modification notifications",
+    "fix": {
+      "change": "Make all state-level benefits fully configurable by date and category in the schema",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Citizen advocate (NGO)",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Provides a non-punitive offline fallback when elderly beneficiaries fail biometric scans.",
+    "weakest_assumption": "Corrupt dealers won't exploit the biometric fallback to divert grain",
+    "missing_info": "Vigilance committee spot-check participation rates",
+    "fix": {
+      "change": "Print a physical paper counterfoil with cryptographic verification hash for the citizen",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The 'already exists' researcher",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "Differentiates from Annavitran and state web portals by addressing the offline rural counter reality.",
+    "weakest_assumption": "State food directorates will permit third-party verification assistants on certified ePOS terminals",
+    "missing_info": "State ePOS hardware application whitelisting policies",
+    "fix": {
+      "change": "Frame the tool as an offline companion running alongside or as an emergency fallback",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The safety and ethics reviewer",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "SHA-256 hash chaining prevents retroactive dealer ledger manipulation during offline hours.",
+    "weakest_assumption": "Device clock manipulation will not be used to backdate offline transactions",
+    "missing_info": "Monotonic hardware clock availability on rural terminals",
+    "fix": {
+      "change": "Enforce monotonic sequence numbers alongside timestamps in the hash chain",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The systems person",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Asynchronous batch sync matches distributed systems realities under intermittent connectivity.",
+    "weakest_assumption": "Batch sync will not overwhelm state servers when cellular service returns across a taluk",
+    "missing_info": "Server bandwidth throttling during bulk morning sync",
+    "fix": {
+      "change": "Implement randomized exponential backoff and batch chunking for sync uploads",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The engineer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The prototype architecture (SQLite + HMAC-SHA256 + hash-chaining) is robust, modular, and testable.",
+    "weakest_assumption": "SQLite WAL mode will survive sudden power cuts or battery pulls on cheap hardware",
+    "missing_info": "Power-loss crash recovery benchmarks on SQLite",
+    "fix": {
+      "change": "Add comprehensive tests for interrupted writes, crash recovery, and corrupt chain detection",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The statement-owner judge",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "The dual-channel model transforms an impossible app idea into a practical public service architecture.",
+    "weakest_assumption": "The team can demonstrate both channels convincingly within the remaining hackathon hours",
+    "missing_info": "Execution velocity and test discipline",
+    "fix": {
+      "change": "Focus the prototype strictly on the offline ledger integrity and quota calculation core",
+      "impact": "high",
+      "effort": "medium"
+    }
+  }
+]

@@ -1,6 +1,11 @@
-"""Tests for scripts/plan_check.py. Run: python3 tests/test_plan_check.py"""
+"""Tests for scripts/plan_check.py.
+
+Run: python3 -m unittest discover -s tests
+Or:  python3 tests/test_plan_check.py
+"""
 import os
 import sys
+import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "scripts"))
@@ -49,36 +54,84 @@ GAP = TEAM + """
 TIGHT = TEAM.replace("Hours until code freeze: 18", "Hours until code freeze: 10") + GOOD[len(TEAM):]
 
 
-def run():
-    fails = 0
+class TestPlanCheck(unittest.TestCase):
+    def test_good_plan_has_no_errors(self):
+        g = check(GOOD)
+        self.assertFalse(g["errors"])
 
-    def ok(c, label):
-        nonlocal fails
-        fails += not c
-        print(f"{'ok ' if c else 'FAIL'} {label}")
-    g = check(GOOD)
-    ok(not g["errors"], "good plan has no errors")
-    ok(g["critical_path"] == ["T3", "T4", "T5"], f"critical path T3→T4→T5 ({g['critical_path']})")
-    ok(g["critical_hours"] == 11, "critical path is 11 h")
-    ok("T4" in g["integration_points"] and "T5" in g["integration_points"], "integration points found")
-    ok(not any("Overload" in w for w in g["warnings"]), "no overload in good plan")
-    ok(any("Overload: a" in w for w in check(OVER)["warnings"]), "overload detected")
-    ok(any("loop" in e.lower() for e in check(LOOP)["errors"]), "dependency loop detected")
-    gp = check(GAP)
-    ok(any("may lack ai" in w for w in gp["warnings"]), "skill gap detected")
-    ok(any("no owner" in w for w in gp["warnings"]), "unassigned task detected")
-    ok(any("unknown task T9" in e for e in gp["errors"]), "unknown dependency detected")
-    ok(any("tight" in w or "no slack" in w for w in check(TIGHT)["warnings"]), "critical path vs freeze checked")
-    shared = GOOD.replace("| T8 | Seeded scans | D | design | 2 | — | todo |", "| T8 | Seeded scans | D, A | design | 2 | — | todo |")
-    ok(not any("T8" in w and "lack" in w for w in check(shared)["warnings"]), "shared task: any owner's skill counts")
-    maybe = GOOD.replace("| T7 | Deck | D | pitch | 6 | — | todo |", "| T7 | Deck | D | pitch | 6 | — | maybe |")
-    mc = check(maybe)
-    ok("T7" in mc["conditional"] and mc["load"].get("d", 0) == 2, "maybe tasks aren't counted in load")
-    ok(any("spare" in w for w in check(OVER)["warnings"]), "overload suggests who has spare hours")
-    ok(check("no tables here")["errors"], "missing task table is an error")
-    ok(to_md(g).startswith("## Plan check"), "markdown output")
-    return fails
+    def test_critical_path_identification(self):
+        g = check(GOOD)
+        self.assertEqual(g["critical_path"], ["T3", "T4", "T5"])
+
+    def test_critical_path_hours_calculation(self):
+        g = check(GOOD)
+        self.assertEqual(g["critical_hours"], 11)
+
+    def test_integration_points_found(self):
+        g = check(GOOD)
+        self.assertIn("T4", g["integration_points"])
+        self.assertIn("T5", g["integration_points"])
+
+    def test_no_overload_in_good_plan(self):
+        g = check(GOOD)
+        self.assertFalse(any("Overload" in w for w in g["warnings"]))
+
+    def test_overload_detected(self):
+        o = check(OVER)
+        self.assertTrue(any("Overload: a" in w for w in o["warnings"]))
+
+    def test_overload_suggests_spare_hours(self):
+        o = check(OVER)
+        self.assertTrue(any("spare" in w for w in o["warnings"]))
+
+    def test_dependency_loop_detected(self):
+        l = check(LOOP)
+        self.assertTrue(any("loop" in e.lower() for e in l["errors"]))
+
+    def test_skill_gap_detected(self):
+        gp = check(GAP)
+        self.assertTrue(any("may lack ai" in w for w in gp["warnings"]))
+
+    def test_unassigned_task_detected(self):
+        gp = check(GAP)
+        self.assertTrue(any("no owner" in w for w in gp["warnings"]))
+
+    def test_unknown_dependency_detected(self):
+        gp = check(GAP)
+        self.assertTrue(any("unknown task T9" in e for e in gp["errors"]))
+
+    def test_critical_path_vs_freeze_checked(self):
+        t = check(TIGHT)
+        self.assertTrue(any("tight" in w or "no slack" in w for w in t["warnings"]))
+
+    def test_shared_task_any_owners_skill_counts(self):
+        shared = GOOD.replace("| T8 | Seeded scans | D | design | 2 | — | todo |", "| T8 | Seeded scans | D, A | design | 2 | — | todo |")
+        self.assertFalse(any("T8" in w and "lack" in w for w in check(shared)["warnings"]))
+
+    def test_maybe_tasks_not_counted_in_load(self):
+        maybe = GOOD.replace("| T7 | Deck | D | pitch | 6 | — | todo |", "| T7 | Deck | D | pitch | 6 | — | maybe |")
+        mc = check(maybe)
+        self.assertIn("T7", mc["conditional"])
+        self.assertEqual(mc["load"].get("d", 0), 2)
+
+    def test_missing_task_table_is_error(self):
+        self.assertTrue(check("no tables here")["errors"])
+
+    def test_markdown_output(self):
+        g = check(GOOD)
+        self.assertTrue(to_md(g).startswith("## Plan check"))
+
+    def test_no_team_table_warning(self):
+        tasks_only = GOOD[len(TEAM):]
+        res = check(tasks_only)
+        self.assertTrue(any("No '## Team' table" in w for w in res["warnings"]))
+
+
+def run():
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestPlanCheck)
+    res = unittest.TextTestRunner(verbosity=1).run(suite)
+    return len(res.failures) + len(res.errors)
 
 
 if __name__ == "__main__":
-    sys.exit(1 if run() else 0)
+    unittest.main()

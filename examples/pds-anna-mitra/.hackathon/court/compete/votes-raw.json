@@ -1,0 +1,170 @@
+[
+  {
+    "juror": "The 'already exists' researcher",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The team honestly maps Mera Ration and state portals. The differentiation on keypad voice and offline exception logging is sharp.",
+    "weakest_assumption": "State food directorates will allow third-party microservices on certified Android ePOS devices",
+    "missing_info": "State ePOS vendor software sandboxing guidelines",
+    "fix": {
+      "change": "Clearly document Level 1 (zero-integration kiosk/IVR) as an independent operating mode",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The sceptic",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The team admitted where they are weaker (statutory authority, telephony cost, split-brain limits). This is real engineering, not marketing.",
+    "weakest_assumption": "Telephony airtime costs can be subsidized by municipal budgets",
+    "missing_info": "Sponsorship or grant model for rural inbound IVR airtime",
+    "fix": {
+      "change": "Model inbound IVR cost per 1,000 beneficiaries in the financial feasibility slide",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Government clerk",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Adhering to the state 5-10% offline exception limit and separating local proof from legal clearance fits audit rules.",
+    "weakest_assumption": "Dealers will not exceed the 10% offline exception quota during prolonged multi-day tower outages",
+    "missing_info": "Procedure when cellular downtime exceeds 48 hours",
+    "fix": {
+      "change": "Include an explicit soft-cap warning in the counter UI when offline transactions hit 8%",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The actual end user",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Mera Ration is useless on my keypad phone. Dialing a number and hearing Kannada tells me what I need.",
+    "weakest_assumption": "The missed-call service will remain completely free for citizens across all telecom operators",
+    "missing_info": "Toll-free 1800 routing costs across rural telecom circles",
+    "fix": {
+      "change": "Ensure toll-free 1800 routing is prioritized over standard geographic numbers",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The least-digital user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "No app download, no English screens. It respects how elderly farm labourers actually live.",
+    "weakest_assumption": "Citizens will understand the difference between central rice and state DBT cash",
+    "missing_info": "Field reception of split grain/cash voice prompt",
+    "fix": {
+      "change": "Use separate clear sentences: first free grain kilograms, then bank cash deposit",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The front-line worker",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The cryptographic paper receipt protects me from being accused of stealing rice during server timeouts.",
+    "weakest_assumption": "Thermal printer paper roll won't run out during morning distribution rush",
+    "missing_info": "Dealer paper roll stock replenishment cycle",
+    "fix": {
+      "change": "Store the complete audit log in SQLite even if the thermal printer runs out of paper",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Policy officer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The gap table accurately categorizes central PMGKAY 2028 and state add-on schemes.",
+    "weakest_assumption": "States will continue hybrid grain + DBT add-ons into the 2027 fiscal year",
+    "missing_info": "State fiscal budget projection for food subsidies",
+    "fix": {
+      "change": "Keep state scheme definitions modular so new commodities can be toggled without code rewrite",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Citizen advocate (NGO)",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Focusing on the 2.5 km wasted walk tackles the hidden wage penalty of public services.",
+    "weakest_assumption": "FPS dealers will update stock unloading status promptly upon truck arrival",
+    "missing_info": "Dealer stock confirmation compliance rates",
+    "fix": {
+      "change": "Allow the wholesale godown driver to trigger arrival status via one-tap SMS confirmation",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The safety and ethics reviewer",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Aadhaar masking and zero biometric retention ensures ethical superiority over biometric caching.",
+    "weakest_assumption": "Dealers will not share the terminal PIN with unauthorized shop assistants",
+    "missing_info": "Operator authentication protocols on rural terminals",
+    "fix": {
+      "change": "Bind HMAC signing key to individual operator ID in the hash chain record",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The systems person",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Level 2 coexistence (microservice companion) is the most credible adoption path I have seen in civic hackathons.",
+    "weakest_assumption": "Android ePOS background services will not be killed by OS battery optimization",
+    "missing_info": "ePOS Android OEM power management policies",
+    "fix": {
+      "change": "Configure foreground service notification on the ePOS terminal",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The engineer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The differentiation is technically sound and avoids the Web3/blockchain traps.",
+    "weakest_assumption": "The prototype can demonstrate both the IVR text and the cryptographic chain cleanly",
+    "missing_info": "Demonstration flow design",
+    "fix": {
+      "change": "Prepare seeded test runs showing clean verification, tampering detection, and duplicate flagging",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The statement-owner judge",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "This is a model competition analysis: no inflated claims, honest competitor mapping, and sharp user focus.",
+    "weakest_assumption": "Team will maintain this rigor through stress testing and planning",
+    "missing_info": "Stress test edge case plan",
+    "fix": {
+      "change": "Red-team the offline ledger against ledger truncation and key theft during Phase 8",
+      "impact": "high",
+      "effort": "low"
+    }
+  }
+]

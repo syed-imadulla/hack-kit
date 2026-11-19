@@ -43,11 +43,11 @@ Work out the times from the current time. Mark any overdue freeze **OVERDUE**.
 
 ## `/hack:status --merge` (captain only)
 1. `git pull` if this is a git repo.
-2. Find every `## Pending from <name> — <time>` section in `.hackathon/*.md`, and every `CONFLICT` block.
-3. For each pending row:
-   - if it's new, append it to the main table;
-   - if it duplicates an existing row, drop it and keep the better-labelled evidence;
-   - if it changes a row differently from the main table, keep both, mark them `CONFLICT`, and ask the captain (AskUserQuestion) which to keep.
-4. Remove the merged pending sections. Never delete a row nobody chose to drop.
-5. Log in STATE.md: "merged <n> rows from <names>; <k> conflicts resolved", and update "Last updated".
-6. Remind the captain to commit and push.
+2. Run the deterministic merge script:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/merge.py" .hackathon
+   ```
+   Add `--dry-run` first if you want to preview the changes.
+   The script validates table structures, appends new rows with teammate attribution, skips exact duplicates, marks conflicting rows with `CONFLICT` tags so neither version is lost, and logs the merge in `STATE.md`.
+3. If conflicts were flagged, ask the captain (AskUserQuestion) which version to keep and edit the conflict rows accordingly.
+4. Remind the captain to commit and push.

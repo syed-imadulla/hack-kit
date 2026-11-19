@@ -1,0 +1,170 @@
+[
+  {
+    "juror": "The actual end user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Letting me check from any phone without requiring the registered SIM addresses our family reality.",
+    "weakest_assumption": "Rural cellular voice quality will remain audible during monsoon storms",
+    "missing_info": "Field audio test over 2G cellular voice",
+    "fix": {
+      "change": "Provide automated SMS receipt alongside spoken Kannada prompt",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The least-digital user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Zero-app requirement and dial-in from any borrowed keypad phone protects vulnerable beneficiaries.",
+    "weakest_assumption": "Elderly cardholders can remember and type a 12-digit ration card number on a phone keypad",
+    "missing_info": "Card number entry error rates on DTMF keypads",
+    "fix": {
+      "change": "Allow dealer shop code + 4-digit card PIN as alternative lookup where feasible",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The front-line worker",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Acknowledging the 5-10% state offline quota limit gives dealers legal confidence during outages.",
+    "weakest_assumption": "Dealers will manage local offline hardware without technical support",
+    "missing_info": "Dealer terminal maintenance procedures",
+    "fix": {
+      "change": "Keep counter offline interaction under 2 taps and provide clear visual offline status",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The sceptic",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "The team honestly marked field experiments as PROPOSED and acknowledged offline duplicate limits.",
+    "weakest_assumption": "Assumptions A1, A2, and A7 remain unperformed field hypotheses",
+    "missing_info": "Real beneficiary survey data from the district",
+    "fix": {
+      "change": "Maintain honest [?] labels into the final pitch; never claim field adoption without data",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Government clerk",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The distinction between local cryptographic receipts and statutory authorization protects audit integrity.",
+    "weakest_assumption": "Food inspectors will understand SHA-256 hash chaining during annual physical verification",
+    "missing_info": "Food inspector audit guidelines for digital offline logs",
+    "fix": {
+      "change": "Print a human-readable verification summary on the physical thermal paper roll",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Policy officer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Central PMGKAY (free through 2028) and Karnataka 2026-27 policy rules are accurately decoupled.",
+    "weakest_assumption": "State food department budget allocations will not alter mid-year cash DBT calculations",
+    "missing_info": "State DBT notification schedule",
+    "fix": {
+      "change": "Keep all state add-on rules configurable via JSON schema rather than code constants",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Citizen advocate (NGO)",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Aadhaar masking and zero local biometric storage ensures full compliance with privacy norms.",
+    "weakest_assumption": "Beneficiaries will verify the printed paper counterfoil at the counter",
+    "missing_info": "Beneficiary receipt retention behavior",
+    "fix": {
+      "change": "Print grain amounts in large bold numerals on the receipt slip",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The 'already exists' researcher",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Focusing on offline outage resilience clearly differentiates Anna-Mitra from existing state web portals.",
+    "weakest_assumption": "State ePOS vendors will not launch their own offline mode before project adoption",
+    "missing_info": "Vendor roadmap for next-gen ePOS firmware",
+    "fix": {
+      "change": "Position the solution as a protocol standard for offline resilience, not a proprietary silo",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The safety and ethics reviewer",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Monotonic sequence enforcement and external checkpoint hash pinning defeat retroactive tampering.",
+    "weakest_assumption": "Dealers will safely safeguard the local HMAC secret key from unauthorized export",
+    "missing_info": "Hardware secure element availability on entry-level ePOS devices",
+    "fix": {
+      "change": "Implement key rotation and test key compromise detection in the test harness",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The systems person",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The asynchronous reconciliation model for multi-device duplicate detection is theoretically sound.",
+    "weakest_assumption": "Central servers can ingest 100,000 batch receipts in a 2-hour synchronization window",
+    "missing_info": "State NIC server batch ingestion throughput",
+    "fix": {
+      "change": "Use idempotent batch chunking with exponential retry backoff",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The engineer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The planned test suite (truncation, full rewrite, clock manipulation, crash recovery) is rigorous.",
+    "weakest_assumption": "SQLite WAL mode will recover cleanly if the device battery is pulled during an append write",
+    "missing_info": "Crash simulation test results",
+    "fix": {
+      "change": "Write an automated test that simulates interrupted writes and asserts zero corruption",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The statement-owner judge",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "The project is exceptionally well grounded. It is ready to move to competition analysis and planning.",
+    "weakest_assumption": "The team can complete the planned security test suite before code freeze",
+    "missing_info": "Team task division",
+    "fix": {
+      "change": "Lock the scope strictly to the core prototype and test suite during Phase 11",
+      "impact": "high",
+      "effort": "low"
+    }
+  }
+]

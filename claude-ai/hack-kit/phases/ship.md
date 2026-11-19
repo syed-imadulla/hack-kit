@@ -43,7 +43,7 @@ python3 "<plugin>/scripts/compile.py" .hackathon --brief    # brief pack → BRI
 If `${CLAUDE_PLUGIN_ROOT}` isn't set in the shell, use the plugin root found as described in the skill.
 
 The script:
-- joins SUMMARY, BRIEF, STATEMENTS, PICK, USERS, IDEAS, ASSUMPTIONS, EVIDENCE, COMPETE, STRESS, IMPROVE, CORE, PLAN, VERDICT and PITCH, skipping any that are missing;
+- joins SUMMARY, BRIEF, STATEMENTS, PICK, USERS, IDEAS, ASSUMPTIONS, EVIDENCE, COMPETE, STRESS, IMPROVE, CORE, PLAN, VERDICT, DEMO and PITCH, skipping any that are missing;
 - adds a cover page and a table of contents;
 - writes FINAL.md and FINAL.html;
 - tries to make FINAL.pdf with Chrome/Chromium, then Playwright, then pandoc.

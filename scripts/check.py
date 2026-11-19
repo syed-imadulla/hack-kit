@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PHASES = ["start", "decode", "pick", "users", "ideate", "validate", "compete", "stress",
           "improve", "lock", "plan", "verify", "pitch", "ship"]
-ANYTIME = ["assumptions", "court", "status", "help"]
+ANYTIME = ["assumptions", "court", "status", "help", "retro"]
 STANDARD = ["## Before you start", "## Goal", "## Steps", "## Output", "## Finish"]
 
 failures = []
@@ -117,7 +117,7 @@ def check_jurors():
 
 def check_tally():
     print("Scripts and tests")
-    for name in ("test_tally.py", "test_profile.py", "test_plan_check.py"):
+    for name in ("test_tally.py", "test_profile.py", "test_plan_check.py", "test_merge.py", "test_retro.py"):
         r = subprocess.run([sys.executable, str(ROOT / "tests" / name)], capture_output=True, text=True)
         ok(r.returncode == 0, f"tests/{name} passes")
         if r.returncode:

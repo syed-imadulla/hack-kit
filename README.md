@@ -7,7 +7,7 @@
 From *"here are the problem statements"* to a well-explored, evidence-labelled, challenged and buildable hackathon idea, with an MVP plan, a pitch and one final PDF.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.1.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-18-orange)](#-commands)
@@ -124,6 +124,7 @@ flowchart LR
 | `/hack:court <thing>` ⚖️ | Put anything on trial: an idea, a feature, a fix, a pitch |
 | `/hack:status` | Phase table, CORE version, latest decision, open assumptions, task progress, time to each freeze. `--merge`: the captain merges teammates' pending work |
 | `/hack:help` | Command map and quick start |
+| `/hack:retro` | Post-hackathon retrospective: connects unvalidated assumptions to demo failures, analyzes planning load, and extracts top 3 engineering lessons | `RETRO.md` |
 
 **Flags:** `--quick` on any command gives a faster version (7 jurors, fewer ideas, one improve round). `--demo` on `/hack:verify`, `--drill` on `/hack:pitch`, `--merge` on `/hack:status`.
 
@@ -348,7 +349,7 @@ At the idea stage, judges reward a real problem that's clearly solved. If your r
 hack-kit/
 ├── .claude-plugin/     plugin.json · marketplace.json
 ├── .github/workflows/  checks on every push
-├── commands/           18 /hack: commands
+├── commands/           19 /hack: commands
 ├── agents/             hack-juror · hack-prosecutor · hack-defender
 ├── skills/
 │   ├── hack-kit/       shared rules (the source of truth)

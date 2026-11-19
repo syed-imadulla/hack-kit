@@ -1,0 +1,170 @@
+[
+  {
+    "juror": "The safety and ethics reviewer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Removing the IVR PIN and suppressing all PII protects vulnerable rural beneficiaries from identity theft and social stigma when using shared phones.",
+    "weakest_assumption": "Rural beneficiaries will not be uncomfortable hearing their grain allocation over a loudspeaker in earshot of neighbors",
+    "missing_info": "User preference data on voice vs discrete SMS when available",
+    "fix": {
+      "change": "Add an optional whisper/low-volume prompt at the beginning of the call",
+      "impact": "low",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The sceptic",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The architectural honesty in DEC-04 admitting that offline terminals cannot prevent split-brain duplicates in real time is commendable and rare.",
+    "weakest_assumption": "State food inspectors will regularly inspect conflict reconciliation reports",
+    "missing_info": "Inspector audit frequency across remote taluks",
+    "fix": {
+      "change": "Automate SMS escalation to the Taluk Tahsildar when duplicate drawals exceed three cards in a week",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Government clerk",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Decoupling central PMGKAY free statutory foodgrains from Karnataka 2026-27 state cash DBT and dal add-ons prevents severe audit violations.",
+    "weakest_assumption": "Panchayat development officers understand the difference between central and state receipt breakdowns",
+    "missing_info": "Clerk training materials on receipt slip layout",
+    "fix": {
+      "change": "Print the words 'CENTRAL NFSA FREE' in bold capital letters on the physical thermal slip",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The front-line worker",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The 2-tap dispense flow reducing transaction latency from 75 seconds to under 15 seconds will actually be used by dealers under peak morning pressure.",
+    "weakest_assumption": "Dealers will remember to use the Custom Quantity button when a household cannot afford the state subsidized dal",
+    "missing_info": "Percentage of households declining optional paid state commodities",
+    "fix": {
+      "change": "Make the standard tap default to grain-only with an explicit toggle for optional dal",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The least-digital user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Flattening the IVR to 2 direct steps and speaking slow Kannada quantities directly solves the maze problem of government IVR hotlines.",
+    "weakest_assumption": "Elderly citizens know their 12-digit ration card number by heart",
+    "missing_info": "Card number retention or physical card proximity during calls",
+    "fix": {
+      "change": "Promote caller-ID matching so if dialed from registered phone, pressing hash confirms their card immediately",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The budget holder",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Zero new proprietary hardware required; runs entirely on existing Linux/Android ePOS terminals and standard telecom toll-free lines.",
+    "weakest_assumption": "Toll-free IVR inbound call costs remain sustainable at scale",
+    "missing_info": "Telecom bulk inbound SIP trunk pricing for state civic utilities",
+    "fix": {
+      "change": "Support missed-call callback mechanism to reduce toll-free telecom holding time",
+      "impact": "medium",
+      "effort": "med"
+    }
+  },
+  {
+    "juror": "The domain expert",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Reflects the exact 2026-27 policy landscape: PMGKAY 35 kg AAY / 5 kg PHH member free, and Karnataka DBT top-ups without confusing central entitlements.",
+    "weakest_assumption": "State food department maintains consistent API schemas for state add-on circulars",
+    "missing_info": "Frequency of mid-month add-on rule revisions",
+    "fix": {
+      "change": "Require cryptographic signature on downloaded state add-on configuration files",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The builder",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Clean separation of concerns: crypto_core.py is fully tested with 10 unit tests, and the CLI prototype has a deterministic schema.",
+    "weakest_assumption": "SQLite WAL mode will behave consistently on low-grade SD card storage in hot environments",
+    "missing_info": "SD card endurance benchmarks under frequent sync writes",
+    "fix": {
+      "change": "Configure SQLite PRAGMA synchronous = NORMAL and batch sync commits",
+      "impact": "high",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The data protection advocate",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Zero Aadhaar biometric numbers stored in local SQLite; only card_id, commodity amounts, and cryptographic receipt hashes.",
+    "weakest_assumption": "Dealers will not manually record Aadhaar numbers in separate paper diaries",
+    "missing_info": "Frequency of unauthorized dealer parallel logs",
+    "fix": {
+      "change": "Display explicit privacy warning on ePOS startup: 'Do not record citizen Aadhaar numbers'",
+      "impact": "low",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The systems architect",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "Independent timestamp verification and key rotation are properly architected into the receipt verification pipeline.",
+    "weakest_assumption": "Terminal local real-time clock won't experience significant drift during multi-week offline operation",
+    "missing_info": "Hardware RTC drift rates on field ePOS devices without network NTP",
+    "fix": {
+      "change": "Log RTC clock drift warnings when delta with external checkpoint exceeds 1 hour",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The maintenance engineer",
+    "vote": "NOT GUILTY",
+    "confidence": 9,
+    "evidence_strength": "strong",
+    "reason": "The verification commands are simple, runnable from standard python or shell scripts without proprietary heavy runtimes.",
+    "weakest_assumption": "Field service technicians can interpret hash chain validation errors",
+    "missing_info": "Technician training curriculum",
+    "fix": {
+      "change": "Output human-readable colorized diagnosis strings (e.g. 'TAMPERED AT ROW 4' vs raw exception)",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "The devil's advocate",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "The team resisted the temptation to invent magical offline distributed consensus and focused on genuine, practical resilience.",
+    "weakest_assumption": "Beneficiaries will actively dial the phone line before going to the shop",
+    "missing_info": "Behavioral friction of placing phone calls in daily routine",
+    "fix": {
+      "change": "Partner with village Asha workers and Anganwadi teachers to demonstrate the toll-free number",
+      "impact": "high",
+      "effort": "low"
+    }
+  }
+]

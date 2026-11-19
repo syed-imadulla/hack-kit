@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.2.0 — 2026-11-19 · "Prove it"
+Post-hackathon learning, deterministic merging, standardized test infrastructure, verified causal retrospective, and complete 14-phase real-world civic showcase.
+
+### Added
+- **`/hack:retro` & `scripts/retro.py`:** Post-hackathon retrospective system that parses the completed `.hackathon/` project and connects the dots across phases. Features multi-dimensional feature reporting (planned, built, tested, mocked, shown, not implemented) without mutual exclusion bugs, and rigorous causal analysis distinguishing directly evidenced causes from contributing factors and correlations. Writes `RETRO.md`.
+- **`templates/retro.md`:** 10-section retrospective template with executive summary, goals vs outcomes, idea evolution, assumptions analysis, delivered features ladder, jury feedback, and actionable improvements.
+- **`scripts/merge.py`:** Deterministic, transactional parser for merging teammate `## Pending from <name>` sections. Validates table structures, appends new rows with attribution, skips exact duplicates, tags conflicting rows with `CONFLICT` annotations, and guarantees zero data loss and idempotency. Integrated directly with `/hack:status --merge`.
+- **Real-World Showcase (`examples/pds-anna-mitra/`):** Full 14-phase demonstration for Public Distribution System (PDS) quota transparency and outage resilience. Demonstrates statutory NFSA PMGKAY decoupling, genuine SQLite3 WAL database, 2-tap dispense (<15ms), SHA-256 hash-chaining, HMAC signatures with key rotation, independent monotonic clock validation, split-brain duplicate conflict detection, and 28 passing unit & integration tests.
+- **Standard unittest discovery:** All test suites migrated to standard `unittest.TestCase` format, supporting `python3 -m unittest discover -s tests` with 87 granular unit tests across tallying, profiles, planning DAGs, merging, and retrospectives.
+
+### Changed
+- CLI scripts (`lint_project.py`, `compile.py`, `profile.py`, `onetrip.py`) now support `-h`/`--help` and provide clean, friendly guidance instead of unhandled tracebacks on missing arguments.
+- `compile.py` compiles `DEMO.md` and `RETRO.md` when present in `.hackathon/`.
+- 19 commands total (14 phases + 5 anytime/post-event commands).
+
 ## 1.1.0 — 2026-11-19 · "Build smarter"
 The kit now adapts to your event and checks what you actually built, not just what you planned.
 

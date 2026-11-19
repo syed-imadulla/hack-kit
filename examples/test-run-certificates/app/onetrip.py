@@ -24,6 +24,9 @@ def same_person(a, b):
     return first and initials_ok
 
 def main(folder):
+    folder_path = Path(folder)
+    if not folder_path.is_dir():
+        sys.exit(f"Scan folder not found: {folder}. Provide a path to a directory with document JSON files.")
     t0 = time.time()
     cl = json.loads((Path(__file__).parent / "checklists/income_certificate.json").read_text())
     docs = [json.loads(p.read_text()) for p in sorted(Path(folder).glob("*.json"))]
@@ -60,4 +63,11 @@ def main(folder):
     print(f"  checked in {time.time() - t0:.2f} s · logged")
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+        print(__doc__.strip())
+        print("\nAvailable sample scan folders:")
+        print("  examples/test-run-certificates/app/scans/clean")
+        print("  examples/test-run-certificates/app/scans/blurry")
+        print("  examples/test-run-certificates/app/scans/mismatch")
+        sys.exit(0 if len(sys.argv) >= 2 and sys.argv[1] in ("-h", "--help") else 1)
     main(sys.argv[1])

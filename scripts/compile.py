@@ -34,6 +34,7 @@ ORDER = [
     ("VERDICT.md", "Solution trial and checks"),
     ("DEMO.md", "Demo Day check"),
     ("PITCH.md", "Pitch and judge Q&A"),
+    ("RETRO.md", "Post-hackathon retrospective"),
 ]
 
 CSS = """
@@ -145,12 +146,15 @@ def try_pdf(html_path: Path, pdf_path: Path, md_path: Path):
 
 
 def main():
+    if "-h" in sys.argv or "--help" in sys.argv:
+        print(__doc__.strip())
+        sys.exit(0)
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     md_only = "--md-only" in sys.argv
     brief = "--brief" in sys.argv
     folder = Path(args[0] if args else ".hackathon")
     if not folder.is_dir():
-        sys.exit(f"Folder not found: {folder}. Run /hack:start first.")
+        sys.exit(f"Folder not found: {folder}. Specify a valid path (e.g. 'python3 compile.py examples/test-run-certificates/.hackathon') or run /hack:start first.")
 
     parts, toc = build_markdown(folder, brief)
     if not parts:

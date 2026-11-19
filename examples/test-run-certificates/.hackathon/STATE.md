@@ -1,9 +1,9 @@
 # STATE — Mock Social Good Hack (test run)
 
-> Summary: Mock Social Good Hack · phase 1 start done · next: Run experiment 1 → /hack:assumptions
+> Summary: Mock Social Good Hack · phase 14 ship done · next: Rehearse Q&A & final demo walk
 
 Schema version: 2
-Last updated: Day 1 10:05 IST
+Last updated: Day 2 05:15 IST
 
 | Field | Value |
 |---|---|
@@ -64,9 +64,9 @@ Notes:
 | 9 | improve | done | 11:30 | v1 → v2; REVISE (capped) |
 | 10 | lock | done | 11:40 | locked with risk logged |
 | 11 | plan | done | 11:55 | |
-| 12 | verify (trial) | done | 12:10 | INCONCLUSIVE: run experiment 1 |
-| 13 | pitch | done | 12:30 | |
-| 14 | ship | done | 12:35 | |
+| 12 | verify (trial) | done | 12:10 | INCONCLUSIVE (pre-build); demo check 1: FAIL (7–0), 6/10 AI tests pass |
+| 13 | pitch | done | 12:30 | deck outline + drill 1: honesty 1.75/5, 1 false claim flagged |
+| 14 | ship | done | 12:35 | FINAL.md and BRIEF.md compiled |
 
 Status values: done · skipped (reason) · next · not started.
 
@@ -77,6 +77,8 @@ Status values: done · skipped (reason) · next · not started.
 | 10:45 | Chose idea 13 (spoken checklist + operator scan check) | Fixes both causes; least-digital fit; uses existing scans | DigiLocker (no access), new portal (exists), policy change (not buildable) | A |
 | 11:30 | Accepted 7 inside-core fixes → CORE v2 | Stress doubts | None rejected | A |
 | 11:40 | Locked CORE v2 with 2 untested "collapses" assumptions | No operators reachable in the test run | Waiting to test first | A |
+| Day 2 04:30 | Demo check 1: FAIL (7–0) | Prototype built: 6/10 AI tests pass; mock disclosures overstated | Re-test after disclosure & transliteration fixes | A |
+| Day 2 05:00 | Pitch drill 1 completed | Practiced 4 judge questions; caught unbuilt folder watcher & TTS | Align deck claims with DEMO.md | A |
 
 ## Locked
 - Problem: certificate applications rejected for document problems force full re-application and repeat trips
@@ -91,4 +93,4 @@ Status values: done · skipped (reason) · next · not started.
 - After lock, the problem, main user, core journey and motto don't change without the captain's OK. Solution details can still improve through `/hack:improve`.
 
 ## Next command
-Run experiment 1 → /hack:assumptions
+Rehearse Q&A with /hack:pitch --drill → final submission

@@ -36,6 +36,7 @@ This is the playbook behind the commands. Read it once before your first event.
 | 4–6 h before code freeze | `/hack:verify --demo` → fix what fits | Captain + builders |
 | Code freeze (3–4 h before judging) | Record the backup demo | Builder |
 | Before judging | `/hack:pitch` → `/hack:pitch --drill` → `/hack:ship` | Pitcher |
+| After the event | `/hack:retro`: connect unvalidated assumptions to demo cracks, analyze load, and record top 3 improvements | Team |
 
 Your event profile sets the depth. For a 12 h event, quick mode turns on automatically: fewer ideas, one improve round, and the idea is locked in about 45 minutes. For 36 h+, spend the extra time on real conversations and experiments. Ideathons skip the plan phase and the demo court. Beginner teams get fewer questions and a short "why" for each step.
 

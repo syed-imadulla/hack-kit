@@ -1,54 +1,161 @@
-"""Tests for scripts/profile.py. Run: python3 tests/test_profile.py (no dependencies)."""
+"""Tests for scripts/profile.py.
+
+Run: python3 -m unittest discover -s tests
+Or:  python3 tests/test_profile.py
+"""
 import itertools
 import os
 import sys
+import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "scripts"))
 from profile import combine, load, to_markdown  # noqa: E402
 
 
+class TestProfile(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.profiles_data = load()
+
+    def test_lengths_define_same_settings_keys(self):
+        p = self.profiles_data
+        keys = set(p["lengths"]["24h"]["settings"])
+        for length_name, length_cfg in p["lengths"].items():
+            self.assertEqual(set(length_cfg["settings"]), keys, f"length '{length_name}' should define the same settings")
+
+    def test_event_type_college_settings_and_rubric(self):
+        p = self.profiles_data
+        allowed = set(p["lengths"]["24h"]["settings"]) | {"explain_steps"}
+        et = p["event_types"]["college"]
+        self.assertTrue(set(et.get("changes", {})) <= allowed)
+        self.assertEqual(sum(et["rubric_default"].values()), 100)
+
+    def test_event_type_sih_settings_and_rubric(self):
+        p = self.profiles_data
+        allowed = set(p["lengths"]["24h"]["settings"]) | {"explain_steps"}
+        et = p["event_types"]["sih"]
+        self.assertTrue(set(et.get("changes", {})) <= allowed)
+        self.assertEqual(sum(et["rubric_default"].values()), 100)
+
+    def test_event_type_aiml_settings_and_rubric(self):
+        p = self.profiles_data
+        allowed = set(p["lengths"]["24h"]["settings"]) | {"explain_steps"}
+        et = p["event_types"]["ai-ml"]
+        self.assertTrue(set(et.get("changes", {})) <= allowed)
+        self.assertEqual(sum(et["rubric_default"].values()), 100)
+
+    def test_event_type_ideathon_settings_and_rubric(self):
+        p = self.profiles_data
+        allowed = set(p["lengths"]["24h"]["settings"]) | {"explain_steps"}
+        et = p["event_types"]["ideathon"]
+        self.assertTrue(set(et.get("changes", {})) <= allowed)
+        self.assertEqual(sum(et["rubric_default"].values()), 100)
+
+    def test_event_type_hardware_settings_and_rubric(self):
+        p = self.profiles_data
+        allowed = set(p["lengths"]["24h"]["settings"]) | {"explain_steps"}
+        et = p["event_types"]["hardware"]
+        self.assertTrue(set(et.get("changes", {})) <= allowed)
+        self.assertEqual(sum(et["rubric_default"].values()), 100)
+
+    def test_event_type_corporate_settings_and_rubric(self):
+        p = self.profiles_data
+        allowed = set(p["lengths"]["24h"]["settings"]) | {"explain_steps"}
+        et = p["event_types"]["corporate"]
+        self.assertTrue(set(et.get("changes", {})) <= allowed)
+        self.assertEqual(sum(et["rubric_default"].values()), 100)
+
+    def test_all_288_combinations_produce_profile_table(self):
+        p = self.profiles_data
+        combos = list(itertools.product(p["event_types"], p["lengths"], p["experience"], p["focus"]))
+        self.assertEqual(len(combos), 288)
+        for t, l, e, f in combos:
+            res = combine(p, t, l, e, f, 4)
+            md = to_markdown(res)
+            self.assertTrue(md.startswith("## Profile"))
+            self.assertIn("| Mode |", md)
+
+    def test_12h_is_quick_mode(self):
+        p = self.profiles_data
+        self.assertEqual(combine(p, "college", "12h")["settings"]["mode"], "quick")
+
+    def test_24h_explores_6_directions(self):
+        p = self.profiles_data
+        self.assertEqual(combine(p, "college", "24h")["settings"]["ideate_directions"], 6)
+
+    def test_ideathon_skips_plan(self):
+        p = self.profiles_data
+        self.assertIn("plan", combine(p, "ideathon", "24h")["settings"]["skip_phases"])
+
+    def test_ideathon_has_no_demo_court(self):
+        p = self.profiles_data
+        self.assertEqual(combine(p, "ideathon", "24h")["settings"]["demo_court"], "not applicable")
+
+    def test_sih_seats_statement_owner(self):
+        p = self.profiles_data
+        self.assertEqual(combine(p, "sih", "24h")["quick_jury_swap"]["in"], "statement-owner")
+
+    def test_beginner_explains_steps(self):
+        p = self.profiles_data
+        self.assertTrue(combine(p, "college", "24h", "beginner")["settings"]["explain_steps"])
+
+    def test_beginner_gets_2_questions(self):
+        p = self.profiles_data
+        self.assertEqual(combine(p, "college", "24h", "beginner")["settings"]["questions_per_command"], 2)
+
+    def test_2_person_team_does_not_split(self):
+        p = self.profiles_data
+        self.assertFalse(combine(p, "college", "24h", team=2)["settings"]["parallel_validate_compete"])
+
+    def test_hardware_adds_bom_plan_extras(self):
+        p = self.profiles_data
+        self.assertGreaterEqual(len(combine(p, "hardware", "36h")["plan_extras"]), 3)
+
+    def test_defaults_load(self):
+        p = self.profiles_data
+        self.assertEqual(combine(p)["profile"]["event_type"], p["defaults"]["event_type"])
+        self.assertEqual(combine(p)["profile"]["length"], p["defaults"]["length"])
+
+    def test_unknown_type_is_rejected(self):
+        p = self.profiles_data
+        with self.assertRaises(SystemExit):
+            combine(p, "nonsense", "24h")
+
+    def test_unknown_length_is_rejected(self):
+        p = self.profiles_data
+        with self.assertRaises(SystemExit):
+            combine(p, "college", "99h")
+
+    def test_unknown_experience_is_rejected(self):
+        p = self.profiles_data
+        with self.assertRaises(SystemExit):
+            combine(p, "college", "24h", "expert")
+
+    def test_unknown_focus_is_rejected(self):
+        p = self.profiles_data
+        with self.assertRaises(SystemExit):
+            combine(p, "college", "24h", "mixed", "random")
+
+    def test_invalid_team_size_rejected(self):
+        p = self.profiles_data
+        with self.assertRaises(SystemExit):
+            combine(p, "college", "24h", team="not-a-number")
+
+    def test_json_output_structure(self):
+        p = self.profiles_data
+        r = combine(p, "college", "24h", "mixed", "balanced", 4)
+        self.assertIn("profile", r)
+        self.assertIn("settings", r)
+        self.assertIn("rubric_default", r)
+        self.assertIn("scoring_weights", r)
+
+
 def run():
-    p = load()
-    fails = 0
-
-    def check(cond, label):
-        nonlocal fails
-        fails += not cond
-        print(f"{'ok ' if cond else 'FAIL'} {label}")
-
-    keys = set(p["lengths"]["24h"]["settings"])
-    check(all(set(v["settings"]) == keys for v in p["lengths"].values()), "every length defines the same settings")
-    allowed = keys | {"explain_steps"}
-    for name, et in p["event_types"].items():
-        check(set(et.get("changes", {})) <= allowed, f"event type '{name}' only changes known settings")
-        check(sum(et["rubric_default"].values()) == 100, f"event type '{name}' rubric adds up to 100")
-    combos = list(itertools.product(p["event_types"], p["lengths"], p["experience"], p["focus"]))
-    ok_all = True
-    for t, l, e, f in combos:
-        try:
-            md = to_markdown(combine(p, t, l, e, f, 4))
-            ok_all &= md.startswith("## Profile") and "| Mode |" in md
-        except SystemExit:
-            ok_all = False
-    check(ok_all, f"all {len(combos)} combinations produce a profile table")
-    check(combine(p, "college", "12h")["settings"]["mode"] == "quick", "12 h is quick mode")
-    check(combine(p, "college", "24h")["settings"]["ideate_directions"] == 6, "24 h explores 6 directions")
-    check("plan" in combine(p, "ideathon", "24h")["settings"]["skip_phases"], "ideathon skips plan")
-    check(combine(p, "ideathon", "24h")["settings"]["demo_court"] == "not applicable", "ideathon has no demo court")
-    check(combine(p, "sih", "24h")["quick_jury_swap"]["in"] == "statement-owner", "SIH seats the statement owner")
-    check(combine(p, "college", "24h", "beginner")["settings"]["explain_steps"] is True, "beginner explains steps")
-    check(combine(p, "college", "24h", "beginner")["settings"]["questions_per_command"] == 2, "beginner gets 2 questions")
-    check(combine(p, "college", "24h", team=2)["settings"]["parallel_validate_compete"] is False, "2-person team doesn't split")
-    check(len(combine(p, "hardware", "36h")["plan_extras"]) >= 3, "hardware adds BOM-style plan extras")
-    check(combine(p)["profile"] == p["defaults"] | {"team_size": 4} or True, "defaults load")
-    try:
-        combine(p, "nonsense", "24h")
-        check(False, "unknown type is rejected")
-    except SystemExit:
-        check(True, "unknown type is rejected")
-    return fails
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestProfile)
+    res = unittest.TextTestRunner(verbosity=1).run(suite)
+    return len(res.failures) + len(res.errors)
 
 
 if __name__ == "__main__":
-    sys.exit(1 if run() else 0)
+    unittest.main()

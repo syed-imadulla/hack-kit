@@ -1,0 +1,170 @@
+[
+  {
+    "juror": "The actual end user",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Wasted trips to the Fair Price Shop cost me half a day of agricultural harvesting wages.",
+    "weakest_assumption": "Foodgrain trucks arrive on fixed calendar days",
+    "missing_info": "Actual grain truck unloading logs at village fair price shops",
+    "fix": {
+      "change": "Tell me if the grain has physically unloaded before I walk 2 kilometres",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The least-digital user",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "Queues stall for hours when the fingerprint machine fails; I cannot use smartphone apps.",
+    "weakest_assumption": "Rural beneficiaries have smartphones and mobile data plans",
+    "missing_info": "Feature phone penetration among rural BPL/AAY cardholders",
+    "fix": {
+      "change": "Make sure checking quota does not require a smartphone or English text",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The front-line worker",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Dealers face angry crowds during ePOS timeouts and cannot risk unverified paper registers.",
+    "weakest_assumption": "Dealers intentionally hoard grains during network outages",
+    "missing_info": "FPS-level cellular uptime logs during morning distribution hours",
+    "fix": {
+      "change": "Give dealers a safe offline buffer log that food inspectors can audit",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The sceptic",
+    "vote": "GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Teams build fancy smartphone tracking apps that real beneficiaries never touch.",
+    "weakest_assumption": "Beneficiaries will install a 50MB tracking app with GPS webcams",
+    "missing_info": "Beneficiary smartphone adoption in target taluk",
+    "fix": {
+      "change": "Ditch smartphone apps; solve the problem on keypad phones and dealer counter flow",
+      "impact": "high",
+      "effort": "high"
+    }
+  },
+  {
+    "juror": "Government clerk",
+    "vote": "INSUFFICIENT EVIDENCE",
+    "confidence": 6,
+    "evidence_strength": "none",
+    "reason": "Offline digital receipts have zero statutory weight without audit chain and reconciliation rules.",
+    "weakest_assumption": "Local app receipts equal official government foodgrain clearance",
+    "missing_info": "State ePOS manual offline exception rules",
+    "fix": {
+      "change": "Separate local cryptographic tamper evidence from statutory government clearance",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "Policy officer",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "NFSA PMGKAY entitlements through 2028 are clear, but state add-ons need clarity.",
+    "weakest_assumption": "State add-ons are fixed national entitlements",
+    "missing_info": "Karnataka 2026-27 Anna Bhagya guidelines and DBT cash transfer rules",
+    "fix": {
+      "change": "Keep central NFSA rules strictly distinct from state DBT or extra grain schemes",
+      "impact": "medium",
+      "effort": "low"
+    }
+  },
+  {
+    "juror": "Citizen advocate (NGO)",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "Biometric friction and timeouts violate basic food security rights.",
+    "weakest_assumption": "100% biometric success is achievable with manual farm labourers",
+    "missing_info": "Biometric failure rates among elderly farm labourers",
+    "fix": {
+      "change": "Ensure offline logging handles biometric failure gracefully",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The 'already exists' researcher",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "Annavitran portals exist online, but fail on the ground during cellular outages.",
+    "weakest_assumption": "Web portals solve rural counter stalls",
+    "missing_info": "FPS-level downtime logs",
+    "fix": {
+      "change": "Focus on the last-mile offline gap where existing web portals fail",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The safety and ethics reviewer",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "False offline claims risk dealer license suspension; need cryptographic proof.",
+    "weakest_assumption": "Dealers will not fabricate offline transactions",
+    "missing_info": "Dealer audit deduction records",
+    "fix": {
+      "change": "Enforce hash-chained audit trails so offline transactions cannot be retroactively fabricated",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The systems person",
+    "vote": "NOT GUILTY",
+    "confidence": 7,
+    "evidence_strength": "medium",
+    "reason": "Network timeouts between ePOS terminals and UIDAI/NIC servers are chronic in rural clusters.",
+    "weakest_assumption": "Broadband will reach all rural shops soon",
+    "missing_info": "Tower latency telemetry",
+    "fix": {
+      "change": "Design an asynchronous reconciliation flow for batch syncing when network returns",
+      "impact": "medium",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The engineer",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "strong",
+    "reason": "Deterministic quota calculation and SQLite hash-chain logging are feasible in 24 hours.",
+    "weakest_assumption": "Local encryption guarantees statutory immutability",
+    "missing_info": "External checkpoint anchoring mechanism",
+    "fix": {
+      "change": "Test ledger truncation, tampering, and key rotation explicitly",
+      "impact": "high",
+      "effort": "medium"
+    }
+  },
+  {
+    "juror": "The statement-owner judge",
+    "vote": "NOT GUILTY",
+    "confidence": 8,
+    "evidence_strength": "medium",
+    "reason": "S1 is far superior to generic price advisories or unrealistic inter-state portability.",
+    "weakest_assumption": "Inter-state portability is buildable in 24 hours",
+    "missing_info": "State godown reconciliation rules",
+    "fix": {
+      "change": "Focus on a single shop and taluk journey first before scaling claims",
+      "impact": "medium",
+      "effort": "low"
+    }
+  }
+]

@@ -19,7 +19,7 @@ HACK KIT  ·  Think deeper. Challenge harder. Build smarter.
                      9 /hack:improve ↺
                     10 /hack:lock  🔒
 
- ANYTIME   /hack:assumptions · /hack:court <thing> ⚖️ · /hack:status · /hack:help
+ ANYTIME   /hack:assumptions · /hack:court <thing> ⚖️ · /hack:status · /hack:help · /hack:retro
  FLAGS     --quick   faster: 7 jurors, fewer ideas, 1 improve round
            /hack:verify --demo   Demo Day Court on what you built
            /hack:pitch --drill   simulated judges, hard-question practice
@@ -40,3 +40,4 @@ Then show the quick start:
 4. Split the team: one person on `/hack:validate`, one on `/hack:compete`, one testing the riskiest assumption with real people.
 5. `/hack:stress` → `/hack:improve` → `/hack:lock`, at about 1.5 h for a 24 h event.
 6. `/hack:plan` → `/hack:verify` → build → `/hack:verify --demo` → `/hack:pitch` → `/hack:pitch --drill` → `/hack:ship`.
+7. Post-hackathon: `/hack:retro` (extract lessons, analyze execution vs goals, and set top 3 improvements).

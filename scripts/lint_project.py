@@ -18,9 +18,12 @@ from check import table_ok  # noqa: E402
 
 
 def main():
+    if "-h" in sys.argv or "--help" in sys.argv:
+        print(__doc__.strip())
+        sys.exit(0)
     folder = Path(sys.argv[1] if len(sys.argv) > 1 else ".hackathon")
     if not folder.is_dir():
-        sys.exit(f"Folder not found: {folder}")
+        sys.exit(f"Folder not found: {folder}. Provide a path to a .hackathon directory (e.g. 'examples/test-run-certificates/.hackathon') or run /hack:start first.")
     errors, warnings = 0, []
     for f in sorted(folder.glob("*.md")):
         if f.name.startswith(("FINAL", "BRIEF")):

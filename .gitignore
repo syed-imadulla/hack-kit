@@ -6,3 +6,6 @@ node_modules/
 /.hackathon/
 examples/**/FINAL.*
 *.sqlite
+*.db
+*.db-wal
+*.db-shm
