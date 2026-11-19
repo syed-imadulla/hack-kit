@@ -1384,6 +1384,7 @@ section {
   padding: 24px 26px;
   font: 15px/1.9 var(--mono);
   box-shadow: 7px 7px 0 var(--navy);
+  overflow-x: auto;
 }
 .tree div {
   opacity: 0;
@@ -1869,7 +1870,6 @@ footer a:hover { color: var(--cream); }
 .sec-head.tight { margin-bottom: 24px; }
 .demo-note.on-light { color: var(--ink-3); }
 .two > *, .court > *, .hero .wrap > * { min-width: 0; }
-.tree { overflow-x: auto; }
 .sr-only {
   position: absolute;
   width: 1px;

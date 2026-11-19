@@ -7,7 +7,7 @@
 From *"here are the problem statements"* to a well-explored, evidence-labelled, challenged and buildable hackathon idea, with an MVP plan, a pitch and one final PDF.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.2.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.1-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-18-orange)](#-commands)

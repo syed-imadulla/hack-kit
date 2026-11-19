@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.1 — 2026-11-19 · "FieldTrip"
+Website UI refresh with the FieldTrip vintage color system, Hack Court 2.0 two-column layout, and an interactive 15-phase workflow split-view dashboard.
+
+### Changed
+- **FieldTrip vintage color system:** Applied consistent four-color palette (Deep Navy `#182335`, Vintage Coral `#E15546`, Soft Peach `#EEAF9D`, Warm Cream `#EAE4CC`) across all website sections and the PDF compiler.
+- **Typography hierarchy:** Georgia serif for headings, Inter/system-ui for body text, monospace for code labels and technical elements. Improved font sizes, line heights and paragraph widths.
+- **Hack Court 2.0 layout:** Redesigned as a compact two-column desktop layout. Left column contains the 3D rotating juror carousel; right column contains the section heading, five-step explanation, demo trial button, voting results and verdict evaluation metrics. Bench shadow removed. Spacing between carousel and metrics card improved.
+- **Interactive workflow split-view:** Replaced the below-the-grid detail layout with a two-panel dashboard. Left panel shows all 15 stations with group labels and active/done state. Right panel updates live with the selected station's details (phase, command, description, questions, files written, next command). Keyboard navigation (← →), play/pause, and mobile scroll-to-detail with a back button are all preserved.
+- **CSS cleanup:** Merged duplicate `.tree` selector (`overflow-x: auto` folded into the primary block).
+- **compile.py:** FINAL.html output now styled with the FieldTrip palette.
+
 ## 1.2.0 — 2026-11-19 · "Prove it"
 Post-hackathon learning, deterministic merging, standardized test infrastructure, verified causal retrospective, and complete 14-phase real-world civic showcase.
 
