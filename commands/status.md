@@ -1,18 +1,30 @@
 ---
-description: Show the current phase, what's locked, time left, open risks and the next command
+description: "Show where the team is: phase checklist, what's locked, latest verdict, time to freezes, open risks, next command"
 argument-hint: ""
 ---
 
-# /hack:status
+# /hack:status — Where are we?
 
-Read `.hackathon/STATE.md` and list the files in `.hackathon/`. If nothing exists, say "No hackathon set up here. Run `/hack:start`."
+Arguments: $ARGUMENTS
 
-Show, in under 15 lines:
-- Event, track, mode (full/quick), captain.
-- Phase checklist (✅ done / ⏳ next / ⬜ not started) for: start, decode, pick, users, validate, compete, stress, lock, plan, verify, pitch, ship.
-- Chosen statement and motto (if any).
-- Locked? (timestamp)
-- Latest verdict (x/12) and lowest rating.
-- Time left to idea freeze / code freeze / submission (compare with the current time; say if a freeze is overdue).
-- Open risks: UNVERIFIED claims count, unapplied fixes, missing files.
-- **Next command** with one line on why.
+Read `.hackathon/STATE.md` and list the files in `.hackathon/`. If nothing is there, say: "No hackathon set up here. Run `/hack:start`."
+
+Show the following in under 15 lines:
+
+```
+Event   <name> · <track> · <mode> · captain <name>
+Pick    <chosen statement>
+Motto   <motto>
+Core    🔒 locked <time>  |  ✏️ not locked
+
+✅ start  ✅ decode  ✅ pick  ⏳ users  ⬜ validate  ⬜ compete
+⬜ stress ⬜ lock    ⬜ plan  ⬜ verify ⬜ pitch     ⬜ ship
+
+Verdict  <x>/12 · lowest rating: <item> <n>/10
+Time     idea freeze in <h:mm> · code freeze in <h:mm> · submission in <h:mm>
+Risks    <n> UNVERIFIED claims · <n> fixes not applied · missing: <files>
+
+Next → /hack:<command> — <why, in one line>
+```
+
+Work out the times by comparing against the current time. If a freeze is overdue, put **OVERDUE** next to it.

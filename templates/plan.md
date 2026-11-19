@@ -1,4 +1,4 @@
-# PLAN
+# PLAN — <idea name>
 
 > Summary: MVP journey = <…>. Wow moment = <…>. Code freeze <time>.
 

@@ -1,6 +1,8 @@
-# CORE
+# CORE — <idea name>
 
-> LOCKED: <timestamp or "draft">
+> LOCKED: <date time, time zone>  — or —  > DRAFT
+
+> Summary: <one line: who it helps and how>.
 
 ## 1. Name and motto
 

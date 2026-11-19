@@ -1,6 +1,10 @@
-# Stakeholder view
+# USERS — <idea name>
 
-## <Role> — e.g. "Patient (58, keypad phone, Kannada)"
+> Summary: main persona <name>; POV <one line>; motto <motto>.
+
+## Stakeholder cards
+
+### <Role> — e.g. "Patient (58, keypad phone, Kannada)"
 | | |
 |---|---|
 | Today, step by step | |

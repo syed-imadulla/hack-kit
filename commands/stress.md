@@ -1,42 +1,53 @@
 ---
-description: Role-play the domain expert and a sceptical judge to attack the idea; propose the smallest fix for each weakness that keeps the core
+description: "Phase 7 · Role-play the domain expert and a sceptical judge to attack the idea; find the smallest fix for each weakness that keeps the core"
 argument-hint: "[--quick]"
 ---
 
-# /hack:stress
+# /hack:stress — Attack it before the judges do
 
-Follow the `hack-kit` skill rules. Read STATE.md, USERS.md, EVIDENCE.md and COMPETE.md first.
+> **Phase 7 of 12** · Reads: `USERS.md`, `EVIDENCE.md`, `COMPETE.md` · Writes: `STRESS.md`, draft `CORE.md` · Next: `/hack:lock`
 
 Arguments: $ARGUMENTS
 
+## Before you start
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `PICK.md`, `USERS.md`, `EVIDENCE.md` and `COMPETE.md`.
+
 ## Goal
-Replace the missing domain expert. Find every weakness *before* the judges do — and fix it **inside** the core idea.
+Stand in for the domain expert you don't have. Find every weakness, and fix it **inside** the core idea.
 
-## Step 1 — Draft the idea
-Write a draft of the idea in 8–10 lines: motto, user, the end-to-end journey step by step, who does what, where AI is used, where humans decide.
+## Steps
 
-## Step 2 — Role-play attacks
-Play each role in turn, 4–6 hard questions each (2–3 in quick mode):
-1. **Senior domain expert** (match to statement: doctor, farmer, lawyer...): "That's not how it works in real life because…", rules, authority, liability.
-2. **Front-line worker:** extra work, rush hour, failure cases.
-3. **Least-digital user:** "I can't read/type/use this."
-4. **Sceptical judge:** "Why not use X that exists?", "Show me evidence", "What if the AI is wrong?", "How is this different?"
-5. **Admin / systems owner:** integration, data, privacy, cost of change.
+### 1. Draft the idea
+In 8–10 lines: the motto, the user, the end-to-end journey step by step, who does what, where AI is used, and where humans decide.
 
-## Step 3 — Fix table
-| # | Doubt | Who raised it | Severity (high/med/low) | Smallest fix that keeps the core | Changes the core? (Y/N) |
+### 2. Role-play the attacks
+Play each role in turn, with 4–6 hard questions each (2–3 in quick mode):
+
+| Role | Typical attack |
+|---|---|
+| Senior domain expert | "That's not how it works in real life…"; rules, authority, liability |
+| Front-line worker | Extra work, rush hour, failure cases |
+| Least-digital user | "I can't read, type or use this." |
+| Sceptical judge | "Why not just use X?" "Where's the evidence?" "What if the AI is wrong?" |
+| Admin or systems owner | Integration, data, privacy, cost of change |
+
+### 3. Fix table
+| # | Doubt | Raised by | Severity | Smallest fix that keeps the core | Changes core? |
 
 Rules for fixes:
-- Prefer removing a feature over adding one.
-- Prefer a human check, a fixed rule or a fallback over "better AI".
-- If a fix changes the core (motto, main user, main journey), mark it **Y** and warn: "This drifts from the idea."
+- Removing a feature beats adding one.
+- A human check, a fixed rule or a fallback beats "better AI".
+- If a fix changes the motto, the main user or the main journey, mark it **Y** and warn: "This drifts from the idea."
 
-## Step 4 — Team decides
-Ask (AskUserQuestion, multiSelect): which fixes to accept. Ask separately about any **Y** fix.
+### 4. The team decides
+- Ask (AskUserQuestion, multiSelect) which fixes to accept. Ask about every **Y** fix separately.
+- Suggest showing the top 3 doubts to 2–3 real people: a mentor, someone who works in the field, or a family member in that job. If the team adds their answers, update the table.
 
-Also suggest: "Show the top 3 doubts to 2–3 real people (mentor, someone in the field, family member who works there) and add what they say." If they add answers, update the table.
+## Output
+- `.hackathon/STRESS.md` from `templates/stress.md`.
+- A refreshed **draft** of `.hackathon/CORE.md` from `templates/core.md`, with the accepted fixes applied.
+- Tick "stress" in STATE.md.
 
-## Step 5 — Save
-Write `.hackathon/STRESS.md` with the table and decisions. Write/refresh a **draft** `.hackathon/CORE.md` with accepted fixes applied. Update STATE.md.
-
-Say: **Next: `/hack:lock`.**
+## Finish
+Give 3 lines: the number of doubts, the number fixed, and the biggest one still open.
+**Next → `/hack:lock`.**

@@ -12,7 +12,7 @@ One question only: **"Does this solve a real problem for its real users, as desc
 - **NOT GUILTY** = it does.
 - Never judge revenue, market size, pricing, business model or investor appeal. If a juror or lawyer brings these up, drop that point.
 
-The juror list is in `${CLAUDE_PLUGIN_ROOT}/skills/hack-court/jurors.json`. Read it before starting.
+The juror list is in `${CLAUDE_PLUGIN_ROOT}/skills/hack-court/jurors.json` and the verdict template in `${CLAUDE_PLUGIN_ROOT}/templates/verdict.md`. If `${CLAUDE_PLUGIN_ROOT}` isn't expanded, find the plugin root as described in section 1 of the `hack-kit` skill. Read the juror list before starting.
 
 ## Modes
 | Mode | Jurors | Points per side | When |
@@ -29,7 +29,7 @@ Write `case.md` (≈120 words, plain words):
 - **Proposed solution:** what it does, step by step, in 3–5 lines.
 - **Constraints:** time left, team skills, rubric top items, existing systems.
 
-Save to `.hackathon/court/<case-slug>/case.md`. Build it only from `.hackathon/` files and what the user said. Don't add facts.
+Save to `.hackathon/court/<case-slug>/case.md` (or `./court/<case-slug>/` if there is no `.hackathon/`). Build it only from `.hackathon/` files and what the user said. Don't add facts.
 
 ## Step 2 — Prosecution and defense
 Launch two subagents **in parallel** using the Agent/Task tool (use the `hack-prosecutor` and `hack-defender` agents if available, else general-purpose with the prompts below). Give each only the case file.

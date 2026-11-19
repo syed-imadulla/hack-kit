@@ -1,4 +1,12 @@
-# Gap table
+# COMPETE — <idea name>
+
+> Summary: closest competitor <name>; our honest difference <one line>.
+
+## Existing solutions
+| # | Name | Type (startup / govt / pilot / research / hackathon / workaround) | What it does | Link | Still active? |
+|---|---|---|---|---|---|
+
+## Gap table
 
 | What matters to the user | Our idea | Competitor A | Competitor B | Government / portal | Today's workaround |
 |---|---|---|---|---|---|

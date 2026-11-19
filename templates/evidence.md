@@ -1,4 +1,4 @@
-# EVIDENCE
+# EVIDENCE — <idea name>
 
 > Summary: <n> verified facts, <n> real voices, <n> venue chats. <n> UNVERIFIED.
 

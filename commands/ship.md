@@ -1,34 +1,58 @@
 ---
-description: Compile everything in .hackathon/ into one final document — FINAL.md, FINAL.html and FINAL.pdf
+description: "Phase 12 · Compile everything in .hackathon/ into one Idea Pack: SUMMARY.md, FINAL.md, FINAL.html and FINAL.pdf"
 argument-hint: "[pdf|md|both]"
 ---
 
-# /hack:ship
+# /hack:ship — One Idea Pack
 
-Follow the `hack-kit` skill rules. Read STATE.md first.
+> **Phase 12 of 12** · Reads: everything · Writes: `SUMMARY.md`, `FINAL.md`, `FINAL.html`, `FINAL.pdf` · Next: build and rehearse
 
 Arguments: $ARGUMENTS
 
-## Step 1 — Check completeness
-List which files exist in `.hackathon/`. If CORE.md, PLAN.md or PITCH.md is missing, warn and ask (AskUserQuestion): "Compile anyway" / "Run the missing command first".
+## Before you start
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`.
 
-## Step 2 — Ask format
-If not given in arguments, ask: PDF, Markdown, or both (default both).
+## Steps
 
-## Step 3 — Executive summary
-Write `.hackathon/SUMMARY.md` (one page): name, motto, problem (2 lines + top number with source), solution (3 lines), journey (5 steps), verdict (x/12, top ratings), MVP scope (built vs mocked), team and roles, next steps.
+### 1. Check what's there
+List the files in `.hackathon/`. If CORE.md, PLAN.md or PITCH.md is missing, ask (AskUserQuestion):
+- **Compile anyway**
+- **Run the missing command first**
 
-## Step 4 — Compile
-Run:
+### 2. Format
+If the arguments don't say, ask: PDF, Markdown, or both (the default is both).
+
+### 3. One-page summary
+Write `.hackathon/SUMMARY.md` from `templates/summary.md`, covering:
+- name and motto;
+- the problem, with its top sourced number;
+- the solution in 3 lines;
+- the journey in 5 steps;
+- the verdict and top ratings;
+- what's built and what's mocked;
+- the team;
+- next steps.
+
+### 4. Compile
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/compile.py" .hackathon
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/compile.py" .hackathon        # add --md-only for no PDF
 ```
-The script joins the files in this order: SUMMARY, BRIEF, STATEMENTS, PICK-VERDICT, USERS, EVIDENCE, COMPETE, STRESS, CORE, PLAN, VERDICT, PITCH — skipping missing ones — into `.hackathon/FINAL.md` and `.hackathon/FINAL.html`, then tries to make `.hackathon/FINAL.pdf` (pandoc → Chromium/Chrome headless → Playwright). If no PDF tool works, it says so; then tell the user to open FINAL.html in a browser and Print → Save as PDF.
+If `${CLAUDE_PLUGIN_ROOT}` isn't set in the shell, use the plugin root found as described in the skill.
 
-If python3 is missing, build FINAL.md yourself by concatenating the files in that order with a page-break line (`<div style="page-break-after:always"></div>`) between them.
+The script:
+- joins SUMMARY, BRIEF, STATEMENTS, PICK, USERS, EVIDENCE, COMPETE, STRESS, CORE, PLAN, VERDICT and PITCH, skipping any that are missing;
+- adds a cover page and a table of contents;
+- writes FINAL.md and FINAL.html;
+- tries to make FINAL.pdf with Chrome/Chromium, then Playwright, then pandoc.
 
-## Step 5 — Check
-Open/inspect the result: page count, every section present, no broken tables. Fix and re-run if needed.
+If no PDF tool works, tell the user to open FINAL.html in a browser and use **Print → Save as PDF**.
+If Python is missing, build FINAL.md yourself by joining the files in that order, with a page-break line between them.
 
-## Step 6 — Finish
-Update STATE.md (phase = shipped). Tell the user where the files are, and the 3 things to do next (e.g. build the demo journey, record backup video, rehearse Q&A).
+### 5. Check the result
+Check the page count, that every section is there, and that no tables are broken. Fix anything wrong and run it again.
+
+## Output
+FINAL.md, FINAL.html and FINAL.pdf in `.hackathon/`. In STATE.md, tick "ship" and set the phase to shipped.
+
+## Finish
+Say where the files are, then list the 3 things to do next: build the demo journey, record the backup video, and rehearse the Q&A.

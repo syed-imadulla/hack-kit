@@ -1,4 +1,4 @@
-# BRIEF
+# BRIEF — <event name>
 
 > Summary: <event>, <track>, <time left>. Top rubric items: <1>, <2>, <3>.
 

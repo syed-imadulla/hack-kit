@@ -1,4 +1,4 @@
-# STATE
+# STATE — <event name>
 
 > Summary: <event> · <phase> · next: <command>
 

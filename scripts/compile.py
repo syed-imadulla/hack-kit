@@ -12,13 +12,14 @@ import re
 import shutil
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 ORDER = [
     ("SUMMARY.md", "Executive summary"),
     ("BRIEF.md", "Brief and rubric"),
     ("STATEMENTS.md", "Problem statements decoded"),
-    ("PICK-VERDICT.md", "Pick and trial"),
+    ("PICK.md", "Pick and trial"),
     ("USERS.md", "Users and stakeholders"),
     ("EVIDENCE.md", "Evidence"),
     ("COMPETE.md", "Existing solutions and gap"),
@@ -30,7 +31,8 @@ ORDER = [
 ]
 
 CSS = """
-@page { size: A4; margin: 16mm 14mm; }
+@page { size: A4; margin: 16mm 14mm 18mm;
+        @bottom-right { content: counter(page); font: 9pt sans-serif; color: #888; } }
 body { font-family: -apple-system, 'Segoe UI', Inter, Roboto, Arial, sans-serif; color:#1b1b1b;
        font-size: 11pt; line-height: 1.5; max-width: 900px; margin: 0 auto; padding: 24px; }
 h1 { font-size: 22pt; border-bottom: 3px solid #f5c400; padding-bottom: 6px; margin-top: 0; }
@@ -158,7 +160,7 @@ def main():
     body = [f'<div class="cover"><h1>{html.escape(event)}</h1>']
     if motto:
         body.append(f"<p><em>{html.escape(motto)}</em></p>")
-    body.append("<p>Idea Pack · compiled with Hack Kit</p></div>")
+    body.append(f"<p>Idea Pack · compiled with Hack Kit · {date.today():%d %b %Y}</p></div>")
     body.append('<h2>Contents</h2><ol class="toc">' +
                 "".join(f"<li>{html.escape(label)}</li>" for _, label in toc) + "</ol>")
     for fname, label, text in parts:

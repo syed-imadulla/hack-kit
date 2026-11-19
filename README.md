@@ -1,136 +1,322 @@
-# Hack Kit 🏁
+<div align="center">
 
-**From "here are the problem statements" to a locked, validated, buildable hackathon idea, MVP plan, pitch and one final PDF.**
+# 🏁 Hack Kit
 
-Hack Kit is a Claude Code plugin with `/hack:` commands. Each step asks your team the questions that matter, saves its work in a `.hackathon/` folder, and tells you the next command. At two key points it puts your idea **on trial** in front of 12 independent AI jurors.
+### From *"here are the problem statements"* to a locked, validated, buildable hackathon idea, in about an hour.
 
-> Hack Kit judges **whether the problem is real and whether your solution truly solves it for real users**. It does **not** judge business viability, revenue or market size.
+[![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue)](CHANGELOG.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Commands](https://img.shields.io/badge/commands-15-orange)](#-commands)
 
-Built by Team Udaan from what we learned making *OPD Saathi* (see `examples/`).
+**Decode the statements → pick one with a courtroom trial → think as real users → prove it's real → lock the idea → plan the MVP → pitch → one final PDF.**
+
+</div>
 
 ---
 
-## Install
+## Why Hack Kit?
 
-### Claude Code (recommended)
-```
+Most hackathon teams lose in the first two hours, long before they write any code:
+
+- They pick the problem that *sounds* cool, not the one the rubric rewards.
+- They build for an imaginary user, and forget the person with a keypad phone.
+- They say "no one has done this" and lose credibility in the Q&A.
+- They keep changing the idea after every piece of feedback.
+
+Hack Kit turns those two hours into a guided process. Each `/hack:` command asks your team the few questions that matter, saves the answers in a shared `.hackathon/` folder, and tells you what to run next. At two key points it puts your idea **on trial** in front of 12 independent AI jurors.
+
+> ⚖️ **Hack Kit judges whether the problem is real and whether your solution truly solves it for real users.**
+> It never judges business viability, revenue or market size.
+
+---
+
+## ⚡ Quick start
+
+```bash
+# 1. Install (inside Claude Code)
 /plugin marketplace add syed-imadulla/hack-kit
 /plugin install hack@hack-kit
+
+# 2. See every command
+/hack:help
+
+# 3. At the hackathon
+/hack:start          # read the brief like a judge
+/hack:decode         # paste the problem statements
+/hack:pick           # score + courtroom trial → choose one
 ```
-Restart Claude Code if the commands don't show up. Type `/hack:` to see them.
 
-**Manual install:** clone the repo and run `/plugin marketplace add ./hack-kit`, then `/plugin install hack@hack-kit`.
-
-### claude.ai (for teammates without Claude Code)
-1. Zip the folder `claude-ai/hack-kit/` (the zip must contain `hack-kit/SKILL.md`).
-2. In claude.ai: **Settings → Capabilities → Skills → Upload skill**.
-3. In a chat, type `hack start` or paste your problem statements.
-
-No skills? Paste `claude-ai/PROMPT.md` into any chat.
+If the commands don't appear, restart Claude Code.
 
 ---
 
-## Commands
+## 🗺️ How it flows
 
-| # | Command | What it does | Saves |
-|---|---|---|---|
-| 1 | `/hack:start` | Sets up the project; reads the brief like a judge (rubric, limits, team, time) | BRIEF.md, STATE.md |
-| 2 | `/hack:decode` | Decodes every statement: real problem, real user, hidden constraints, obvious idea vs smarter angle | STATEMENTS.md |
-| 3 | `/hack:pick` | Rubric-weighted scoring + red flags, then **trial** of the top 2–3; captain picks | PICK-VERDICT.md |
-| 4 | `/hack:users` | Thinks as every real user; POV, How-Might-We, persona, motto | USERS.md |
-| 5 | `/hack:validate` | Sourced facts, real complaints, venue interview script | EVIDENCE.md |
-| 6 | `/hack:compete` | Existing solutions, gap table, fit with existing systems | COMPETE.md |
-| 7 | `/hack:stress` | Role-plays the domain expert and sceptic; smallest fixes inside the core | STRESS.md |
-| 8 | `/hack:lock` | Freezes motto, journey, USPs, AI-vs-rules-vs-humans | CORE.md |
-| 9 | `/hack:plan` | One-journey MVP, build/mock/cut, stack, roles, 90-sec demo, AI tests | PLAN.md |
-| 10 | `/hack:verify` | **Trial** of the solution + rubric score + mistakes and claims check | VERDICT.md |
-| 11 | `/hack:pitch` | Deck outline within the slide limit, form answers, judge Q&A | PITCH.md |
-| 12 | `/hack:ship` | Compiles everything into one document | FINAL.md / .html / .pdf |
-| — | `/hack:status` | Where you are, what's locked, time left, next command | — |
-| — | `/hack:court <thing>` | Put anything on trial: an idea, a feature, a pitch | court/… |
+```mermaid
+flowchart LR
+    subgraph FIND["🔍 Find it"]
+        A["/hack:start"] --> B["/hack:decode"] --> C["/hack:pick ⚖️"]
+    end
+    subgraph SHAPE["🧭 Shape it"]
+        D["/hack:users"] --> E["/hack:validate"]
+        D --> F["/hack:compete"]
+        E --> G["/hack:stress"]
+        F --> G
+        G --> H["/hack:lock 🔒"]
+    end
+    subgraph BUILD["🚀 Build & sell it"]
+        I["/hack:plan"] --> J["/hack:verify ⚖️"] --> K["/hack:pitch"] --> L["/hack:ship 📄"]
+    end
+    C --> D
+    H --> I
+```
 
-Add `--quick` to any command for a faster version (6 jurors, shorter outputs).
-
----
-
-## The trial ⚖️
-
-Used in `/hack:pick`, `/hack:verify` and `/hack:court`.
-
-1. **Case file:** about 120 words on the problem, users, solution and constraints.
-2. **Prosecution:** the strongest case that it does **not** solve a real problem for real users (5 points).
-3. **Defense:** the strongest case that it **does** (5 points).
-4. **Jury:** 12 jurors, each a **separate subagent** who can't see the others, vote GUILTY / NOT GUILTY with confidence 1–10, a reason and a fix.
-5. **Judge:** uses only real votes (never invents any), and gives ratings /10, the top 3 fail reasons, the top 3 fixes, a 30-minute venue check and "If I were your team…".
-
-**The jury:** actual end user · least-digital user · front-line worker · domain professional · today's-workaround user · root-cause analyst · "already exists" researcher · safety & ethics reviewer · systems person · engineer · statement-owner judge · sceptic. No investors or accountants.
-
-**Ratings:** problem is real · problem matters · fits root cause · works for real users · fits existing systems · safe · buildable & demo-able · different from what exists.
+⚖️ courtroom trial · 🔒 idea freeze (after this, fixes go *inside* the core) · 📄 final PDF
 
 ---
 
-## How to use it at a hackathon
+## 📋 Commands
 
-### Before the event
-- Fix roles: captain (final decider), builder(s), researcher, pitcher.
-- Freeze your default stack so you don't debate it on the day.
-- Each person lists 10 real frustrations they've seen. Real problems beat invented ones.
-- Line up 2–3 people you can call (a doctor, farmer, teacher, shopkeeper…).
-- Install Hack Kit and do a 15-minute dry run with an old problem statement.
+### Find it
+| Command | What it does | Saves |
+|---|---|---|
+| `/hack:start` | Sets up the project and reads the brief like a judge: rubric weights, limits, team, time | `BRIEF.md` `STATE.md` |
+| `/hack:decode` | Decodes every statement: real problem, real user, least-digital user, hidden constraints, **obvious idea vs smarter angle** | `STATEMENTS.md` |
+| `/hack:pick` ⚖️ | Rubric-weighted scoring + red flags, then a **trial** for the top 2–3. The captain decides | `PICK.md` |
 
-### During the event
-| Time after statements | Do |
+### Shape it
+| Command | What it does | Saves |
+|---|---|---|
+| `/hack:users` | Thinks as every real user. Writes the POV, How-Might-We, job story, persona and motto | `USERS.md` |
+| `/hack:validate` | Sourced numbers, real complaints, a local example, a 5-minute venue interview script | `EVIDENCE.md` |
+| `/hack:compete` | What already exists, an honest gap table, how you fit **alongside** existing systems | `COMPETE.md` |
+| `/hack:stress` | Role-plays the domain expert and a sceptical judge. Finds the smallest fix that keeps the core | `STRESS.md` |
+| `/hack:lock` 🔒 | Freezes the motto, journey, USPs, and the AI-vs-rules-vs-humans split | `CORE.md` |
+
+### Build & sell it
+| Command | What it does | Saves |
+|---|---|---|
+| `/hack:plan` | One-journey MVP, build/mock/cut, stack with reasons, timeline, 90-second demo, AI test cases | `PLAN.md` |
+| `/hack:verify` ⚖️ | **Trial** of the solution + rubric score + mistakes check + claims check | `VERDICT.md` |
+| `/hack:pitch` | Deck outline within your slide limit, one-line pitch, form answers, judge Q&A | `PITCH.md` |
+| `/hack:ship` 📄 | Compiles everything into one Idea Pack | `FINAL.pdf` |
+
+### Anytime
+| Command | What it does |
 |---|---|
-| 0:00 | `/hack:start` (or do it before statements are out) |
-| 0:05 | `/hack:decode` |
-| 0:20 | `/hack:pick` → captain decides |
-| 0:35 | `/hack:users` |
-| 0:45 | `/hack:validate` ‖ `/hack:compete` (split the team) + venue chats |
-| 1:10 | `/hack:stress` |
-| ~1:30 | `/hack:lock` → **idea freeze** |
-| then | `/hack:plan` → `/hack:verify` → build |
-| before judging | `/hack:pitch` → `/hack:ship` |
+| `/hack:status` | Phase checklist, what's locked, time to each freeze, open risks, next command |
+| `/hack:court <thing>` ⚖️ | Put anything on trial: an idea, a feature, a fix, a pitch |
+| `/hack:help` | Command map and quick start |
 
-**Code freeze** 3–4 hours before judging. Record a backup demo video.
-
-### Team use
-- One person runs the commands in the shared repo, so `.hackathon/` is the single source of truth. Commit it to git so everyone sees the same state.
-- Others work in parallel: one on `/hack:validate`, one on `/hack:compete`, one talking to people at the venue.
-- The captain makes the final call. The verdict is advice, not a decision.
-
-### Honesty rules
-- Open every source you cite. If it can't be opened, it's `UNVERIFIED`.
-- Label mocked parts as mocked in the demo.
-- Never show targets as results.
+**Flag:** add `--quick` to any command for a faster version (6 jurors, shorter outputs). Quick mode turns on automatically for events under 12 hours.
 
 ---
 
-## Limits
-- A full trial uses about **15 subagent calls**; quick mode about 9. Use `--quick` when time or usage is short.
-- Research steps need web search and fetch access. Without them, Hack Kit marks claims `UNVERIFIED`.
-- The PDF step needs Python 3, plus Chrome/Chromium, Playwright or pandoc with a PDF engine. Otherwise, open `FINAL.html` and use Print → Save as PDF.
-- The claude.ai version simulates the jury in one chat, so it's less independent.
+## ⚖️ The trial
+
+```mermaid
+flowchart LR
+    CF["📁 Case file<br/>~120 words"] --> P["🔴 Prosecution<br/>5 points"]
+    CF --> D["🟢 Defense<br/>5 points"]
+    P --> J["👥 12 jurors<br/>separate subagents"]
+    D --> J
+    J --> V["🧑‍⚖️ Judge<br/>verdict · ratings · fixes"]
+```
+
+Each juror is a **separate subagent** who can't see the others' votes. Each one returns:
+
+```json
+{"juror": "Least-digital user", "vote": "NOT GUILTY", "confidence": 7,
+ "reason": "A normal phone call works; counter entry if I have no phone.",
+ "fix": "Demo the phone-call path, not only WhatsApp."}
+```
+
+The judge counts **only real votes**. If a juror fails, the judge re-runs just that juror and never makes up a vote.
+
+<details>
+<summary><b>👥 The 12 jurors</b> (★ = in quick mode)</summary>
+
+| # | Juror | Asks |
+|---|---|---|
+| 1 ★ | Actual end user | Would I use this on a busy day? |
+| 2 ★ | Least-digital user | Can I use it without an app, typing or English? |
+| 3 ★ | Front-line worker | Does this add work for me or remove it? |
+| 4 ★ | Domain professional | Does it respect how the work really happens? |
+| 5 | Today's-workaround user | Why switch from WhatsApp or paper? |
+| 6 ★ | Root-cause analyst | Does it fix the cause or only a symptom? |
+| 7 | "Already exists" researcher | What's honestly different? |
+| 8 | Safety & ethics reviewer | What's the worst that can go wrong? |
+| 9 | Systems person | Does it fit what we already run? |
+| 10 ★ | Engineer | Can it be built and demoed in time? |
+| 11 | Statement-owner judge | Does it answer what was asked? |
+| 12 | Sceptic | Does this really matter, and to how many people? |
+
+No investors and no accountants, on purpose.
+</details>
+
+<details>
+<summary><b>📜 What a verdict looks like</b></summary>
+
+```
+VERDICT: NOT GUILTY  (9 of 12 · avg confidence 7.3/10)
+
+Ratings /10
+  Problem is real ............. 9
+  Problem matters ............. 9
+  Fits the root cause ......... 8
+  Works for real users ........ 7
+  Fits existing systems ....... 8
+  Safe ........................ 8
+  Buildable & demo-able ....... 7
+  Different from what exists .. 7
+
+Top 3 fixes
+  1. Show nurse time saved, not just added
+  2. Demo the phone-call path, not only WhatsApp
+  3. Label all impact numbers as pilot targets
+
+Quick venue check (30 min)
+  Ask 3 people to describe a symptom by voice in Kannada.
+  PASS if 2 of 3 transcripts keep their exact words.
+
+If I were your team… lead the demo with the phone call, not the dashboard.
+```
+</details>
 
 ---
 
-## Repo layout
+## 🧭 The 13 rules every command follows
+
+1. Read the brief like a judge, because rubric weights decide everything.
+2. Pick a problem, not a technology.
+3. Think as every real user, especially the least-digital one.
+4. Prove it's real with sources, real complaints and venue chats.
+5. Check what already exists. "No competitors" is never true.
+6. Stress-test in place of a domain expert, then confirm with real people.
+7. Lock the core. After that, fixes go inside it.
+8. Fit with existing systems. No new hardware.
+9. No app, no typing, the simplest device.
+10. AI suggests, humans decide. Safety checks use fixed rules.
+11. One complete journey for the MVP, plus one wow moment. Mock the rest and say so.
+12. No unsourced numbers. Targets are labelled as targets.
+13. Simple, everyday English.
+
+---
+
+## 📁 What you get
+
+Everything is saved in `.hackathon/` in your project. Commit it so the whole team works from the same state.
+
+```
+.hackathon/
+├── STATE.md        phase checklist, decisions, freeze times
+├── BRIEF.md        rubric, limits, team, time
+├── STATEMENTS.md   every statement decoded
+├── PICK.md         scores + trial → the chosen statement
+├── USERS.md        stakeholder views, persona, motto
+├── EVIDENCE.md     sources, complaints, venue notes
+├── COMPETE.md      existing solutions + gap table
+├── STRESS.md       doubts + fixes
+├── CORE.md         🔒 the locked idea
+├── PLAN.md         MVP, stack, timeline, demo script
+├── VERDICT.md      solution trial + rubric score
+├── PITCH.md        deck outline + judge Q&A
+├── SUMMARY.md      one-page summary
+├── FINAL.pdf       📄 everything, compiled
+└── court/          full trial records
+```
+
+See a worked example in [`examples/opd-saathi`](examples/opd-saathi).
+
+---
+
+## 💬 For teammates without Claude Code
+
+| Option | How |
+|---|---|
+| **claude.ai skill** | Zip the folder `claude-ai/hack-kit/`. In claude.ai, upload it under **Settings → Capabilities → Skills**. Then type `hack start` in a chat. |
+| **Any chat AI** | Paste [`claude-ai/PROMPT.md`](claude-ai/PROMPT.md) as the first message. |
+| **Quick prompts** | Copy single prompts from [`prompts/`](prompts/README.md) for parallel research. |
+
+The chat version simulates the jury in one conversation, so it's less independent than the subagent version.
+
+---
+
+## ❓ FAQ
+
+<details>
+<summary><b>How long does it take?</b></summary>
+
+About 60–80 minutes to a locked idea for a 24-hour event, and about 2 hours for a 36-hour one. Add `--quick` if you're short on time.
+</details>
+
+<details>
+<summary><b>How much usage does a trial cost?</b></summary>
+
+A full trial uses about 15 subagent calls (2 lawyers + 12 jurors + retries). Quick mode uses about 9. `/hack:pick` can run up to 3 trials, so use `--quick` there if usage is tight.
+</details>
+
+<details>
+<summary><b>Does it need web access?</b></summary>
+
+The research steps (`decode`, `validate`, `compete`) work best with web search. Without it, Hack Kit still runs, but marks claims `UNVERIFIED` and tells you what to look up.
+</details>
+
+<details>
+<summary><b>What do I need for the PDF?</b></summary>
+
+Python 3, plus one of: Chrome/Chromium, Playwright, or pandoc with a PDF engine. If none of these is available, open `FINAL.html` and use **Print → Save as PDF**.
+</details>
+
+<details>
+<summary><b>Will it pick the idea for us?</b></summary>
+
+No. It scores, runs trials and recommends, but **the captain decides**. Every big choice is a question to your team.
+</details>
+
+<details>
+<summary><b>Why no business or market judging?</b></summary>
+
+At the idea stage, judges reward a real problem that's clearly solved. Teams that chase "market size" early often drift away from the user. If your rubric asks for business points, `/hack:pitch` covers them.
+</details>
+
+---
+
+## 📚 More
+
+- [`docs/GUIDE.md`](docs/GUIDE.md): the full playbook (before, during, after, how to read verdicts, the mistakes we made)
+- [`CHANGELOG.md`](CHANGELOG.md)
+- [`CONTRIBUTING.md`](CONTRIBUTING.md)
+
+<details>
+<summary><b>Repo layout</b></summary>
+
 ```
 hack-kit/
-├── .claude-plugin/     plugin.json + marketplace.json
-├── commands/           one file per /hack: command
-├── agents/             hack-juror, hack-prosecutor, hack-defender
+├── .claude-plugin/     plugin.json · marketplace.json
+├── commands/           15 /hack: commands
+├── agents/             hack-juror · hack-prosecutor · hack-defender
 ├── skills/
-│   ├── hack-kit/       shared rules (SKILL.md)
-│   └── hack-court/     trial protocol (SKILL.md) + jurors.json
-├── templates/          state, brief, scoring, POV, evidence, gap table, core, plan, verdict, deck outline
-├── scripts/compile.py  builds FINAL.md / FINAL.html / FINAL.pdf
-├── prompts/            copy-ready prompts for teammates
+│   ├── hack-kit/       shared rules
+│   └── hack-court/     trial protocol + jurors.json
+├── templates/          one template per output file
+├── scripts/compile.py  FINAL.md / .html / .pdf
 ├── claude-ai/          one-chat skill + one-paste prompt
+├── prompts/            copy-ready prompts
+├── docs/GUIDE.md       the playbook
 └── examples/           OPD Saathi sample
 ```
+</details>
 
-## Credits
-The trial format was inspired by court-style review skills, such as [alexyc9381/court-skill](https://github.com/alexyc9381/court-skill) (MIT), and adapted to judge problems and solutions instead of business viability. The phase structure was inspired by spec-driven workflows like GSD.
+---
 
-## License
-MIT
+## 🙏 Credits
+
+Built by **Team Udaan**, from what we learned making *OPD Saathi* for the Healthcare AI Agents track.
+
+The trial format was inspired by court-style review skills such as [alexyc9381/court-skill](https://github.com/alexyc9381/court-skill) (MIT), and adapted to judge problems and solutions instead of business. The phase-by-phase flow was inspired by spec-driven workflows like GSD.
+
+## 📄 License
+
+[MIT](LICENSE)

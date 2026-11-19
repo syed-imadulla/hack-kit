@@ -12,3 +12,4 @@ Files:
 - `.hackathon/STATE.md`
 - `.hackathon/CORE.md`
 - `.hackathon/VERDICT.md`
+- `.hackathon/SUMMARY.md`

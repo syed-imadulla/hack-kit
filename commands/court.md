@@ -1,19 +1,36 @@
 ---
-description: Put anything on trial at any time — an idea, a feature, a fix, a pitch — with prosecution, defense, a 12-juror jury and a judge's verdict
+description: "Put anything on trial at any time: an idea, a feature, a fix or a pitch. Prosecution, defense, 12 independent jurors, a judge's verdict"
 argument-hint: "<what to put on trial> [--quick]"
 ---
 
-# /hack:court
-
-Run the `hack-court` skill (`${CLAUDE_PLUGIN_ROOT}/skills/hack-court/SKILL.md`).
+# /hack:court — Put anything on trial
 
 Arguments: $ARGUMENTS
 
-1. Work out what is on trial from the arguments. If empty, ask (AskUserQuestion): "The locked idea (CORE.md)", "A new feature or fix", "The pitch/deck (PITCH.md)", "Something else (type it)".
-2. Build the case file from `.hackathon/` files where relevant plus what the user said. If there's no `.hackathon/` folder, ask the user for a 3–5 line description of the problem, users and solution.
-3. Adapt the question on trial:
-   - Idea/solution: "Does this solve a real problem for its real users?"
-   - Feature/fix: "Does this feature make the solution better for real users without drifting from the core?"
-   - Pitch: "Does this pitch prove the problem is real and the solution solves it, to a judge who has seen 30 pitches?"
-4. Run the full trial (quick if `--quick`). Tell the user the subagent cost before starting.
-5. Save to `.hackathon/court/<slug>/` (or `./court/<slug>/` if no `.hackathon/`). Show the verdict.
+## Before you start
+Load the `hack-court` skill (`${CLAUDE_PLUGIN_ROOT}/skills/hack-court/SKILL.md`). This command works with or without a `.hackathon/` folder.
+
+## Steps
+
+### 1. What's on trial?
+Work it out from the arguments. If there are none, ask (AskUserQuestion):
+- **The locked idea** (CORE.md)
+- **A new feature or fix**
+- **The pitch** (PITCH.md)
+- **Something else** (type it)
+
+### 2. Case file
+Build it from the relevant `.hackathon/` files plus anything the user said. If there's no `.hackathon/` folder, ask for 3–5 lines covering the problem, the users and the solution.
+
+### 3. The question on trial
+| On trial | Question |
+|---|---|
+| Idea or solution | "Does this solve a real problem for its real users?" |
+| Feature or fix | "Does this make the solution better for real users without drifting from the core?" |
+| Pitch | "Does this pitch prove the problem is real and the solution solves it, to a judge who has already seen 30 pitches?" |
+
+### 4. Run the trial
+Run the full trial, or the quick one if `--quick` was passed. Tell the user the cost first: about 15 subagent calls for a full trial, about 9 for a quick one.
+
+## Output
+Save to `.hackathon/court/<slug>/`, or to `./court/<slug>/` if there's no `.hackathon/` folder. Show the verdict.

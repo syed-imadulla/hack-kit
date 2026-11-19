@@ -42,6 +42,7 @@ Ask questions with the ask-user / multiple-choice tool if available (max 4 at a 
 | hack pitch | One-line pitch, opening line, deck outline within slide limit (default 7), form answers, 12–15 judge Q&A. | Pitch |
 | hack ship | One-page summary + the full Idea Pack as one document (export to PDF if the session can). | Final |
 | hack status | Phase checklist, what's locked, next phase. | — |
+| hack help | List all phases and the quick start. | — |
 | hack court <thing> | Trial anything. | — |
 
 ## The trial (simulated jury in one chat)

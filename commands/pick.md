@@ -1,43 +1,67 @@
 ---
-description: Score problem statements against the rubric, apply red flags, then put the top 2–3 on trial to pick one
+description: "Phase 3 · Score statements on the rubric, apply red flags, put the top 2–3 on trial, and let the captain pick one"
 argument-hint: "[--quick] [--no-trial]"
 ---
 
-# /hack:pick
+# /hack:pick — Choose the statement worth your weekend
 
-Follow the `hack-kit` skill rules. Read STATE.md, BRIEF.md and STATEMENTS.md first.
+> **Phase 3 of 12** · Reads: `BRIEF.md`, `STATEMENTS.md` · Writes: `PICK.md`, `court/` · Next: `/hack:users`
 
 Arguments: $ARGUMENTS
 
-## Step 1 — Score
-Use `${CLAUDE_PLUGIN_ROOT}/templates/scoring.md`. Score every remaining statement 1–5 on:
+## Before you start
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `BRIEF.md` and `STATEMENTS.md`.
 
-| Criterion | Default weight | Notes |
-|---|---|---|
-| Problem is real & painful (evidence) | 3 | |
-| Clear real end user we can reach/understand | 2 | |
-| Fits top rubric items | 3 | use BRIEF.md weights |
-| Room for a smarter angle (not the obvious idea) | 2 | |
-| One complete journey buildable in time by this team | 3 | match team skills |
-| Demo-able with a wow moment | 2 | |
-| Data available or easy to mock honestly | 1 | |
-| Team interest / domain access (someone to call) | 1 | |
+## Goal
+Pick the one statement where a **real problem**, the **rubric** and the **team's ability to build** overlap. Base the pick on evidence and a trial, not on gut feeling.
 
-Adjust weights to the real rubric and show the weights used. Show a ranked table with total score.
+## Steps
 
-## Step 2 — Red flags
-Mark any statement with: needs hardware we don't have; needs private data we can't get; needs real-world validation impossible in time; safety-critical with no human-check possible; already solved well by a free government/major app; team has zero knowledge and no one to ask. A red flag drops the score or removes it — say which.
+### 1. Score
+Using `templates/scoring.md`, score every remaining statement 1–5 on each criterion:
 
-## Step 3 — Shortlist
-Ask the team (AskUserQuestion) to confirm the shortlist: top 3 (top 2 in quick mode), or their own choice. For each shortlisted statement, write a **one-paragraph candidate idea** (the smarter angle from STATEMENTS.md).
+| Criterion | Default weight |
+|---|---|
+| Problem is real and painful (evidence) | ×3 |
+| Clear real end user we can reach or understand | ×2 |
+| Fits the top rubric items | ×3 |
+| Room for a smarter angle | ×2 |
+| One complete journey buildable in time by this team | ×3 |
+| Demo-able, with a wow moment | ×2 |
+| Data available or easy to mock honestly | ×1 |
+| Team interest or domain access (someone to call) | ×1 |
 
-## Step 4 — Trial
-Unless `--no-trial`, run the `hack-court` skill (`${CLAUDE_PLUGIN_ROOT}/skills/hack-court/SKILL.md`) once per shortlisted candidate. The question on trial: **"Is this problem worth solving, and can this idea solve it here, in this time, for its real users?"** Use quick mode if `--quick` or STATE.md says quick. Tell the user how many subagent calls this will take before starting (≈15 per full trial, ≈9 per quick trial).
+Adjust the weights to the real rubric and show the weights you used. Rank the statements by total.
 
-## Step 5 — Recommend and decide
-Show a comparison table: candidate | score | verdict (x/12) | weakest rating | best fix. Recommend one with 3 reasons. Then ask the captain to make the final pick (AskUserQuestion with the candidates as options).
+### 2. Red flags
+Flag any statement that:
+- needs hardware the team doesn't have;
+- needs private data the team can't get;
+- needs real-world validation that's impossible in the time;
+- is safety-critical with no possible human check;
+- is already solved well by a free government or major app;
+- the team knows nothing about and has no one to ask.
 
-## Step 6 — Save
-Write `.hackathon/PICK-VERDICT.md`: scores, red flags, trial summaries (link to `.hackathon/court/...`), the final pick, why, and fixes to carry forward. Update STATE.md (phase = picked; chosen statement; candidate idea).
+For each flag, say whether it lowers the score or removes the statement.
 
-Say: **Next: `/hack:users`.**
+### 3. Shortlist
+Ask (AskUserQuestion) to confirm the shortlist: the top 3 (top 2 in quick mode), or the team's own choice. For each statement on the shortlist, write a **one-paragraph candidate idea** based on its smarter angle.
+
+### 4. Trial
+Unless `--no-trial` was passed, run the `hack-court` skill once per candidate.
+- **On trial:** "Is this problem worth solving, and can this idea solve it here, in this time, for its real users?"
+- Use quick mode if `--quick` was passed or STATE.md says quick.
+- Before starting, tell the user the cost: about 15 subagent calls per full trial, about 9 per quick trial.
+
+### 5. Recommend and decide
+| Candidate | Score | Verdict | Weakest rating | Best fix |
+
+Recommend one candidate with 3 reasons. Then the **captain decides** (AskUserQuestion, with the candidates as options).
+
+## Output
+- Write `.hackathon/PICK.md`: the scores, red flags, links to each trial in `court/`, the final pick and why, and the fixes to carry forward.
+- In STATE.md: tick "pick", and set the chosen statement and the candidate idea.
+
+## Finish
+Give 3 lines: the pick, its verdict, and the top fix.
+**Next → `/hack:users`.**

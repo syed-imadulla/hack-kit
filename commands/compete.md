@@ -1,42 +1,58 @@
 ---
-description: Find existing apps, portals, research and past hackathon projects; build an honest gap table and show how the idea fits alongside existing systems
+description: "Phase 6 · Find what already exists, build an honest gap table, and show how the idea fits alongside existing systems"
 argument-hint: "[--quick]"
 ---
 
-# /hack:compete
+# /hack:compete — Know what already exists
 
-Follow the `hack-kit` skill rules. Read STATE.md, PICK-VERDICT.md and USERS.md first.
+> **Phase 6 of 12** · Reads: `PICK.md`, `USERS.md` · Writes: `COMPETE.md` · Next: `/hack:stress`
 
 Arguments: $ARGUMENTS
 
-## Step 1 — Ask
-AskUserQuestion: "Any competitor or existing system you already know?" (they can type names) and "Which existing system must we work alongside?" (e.g. hospital software, government portal, ERP, school app — offer best guesses).
+## Before you start
+Load the `hack-kit` skill rules. Read `.hackathon/STATE.md`, `PICK.md` and `USERS.md`.
 
-## Step 2 — Search (open every source)
-Look for:
-- Commercial products and startups (incl. ones that shut down — why?).
-- Government portals and public schemes.
-- Big-company pilots.
-- Research papers / prototypes.
-- Past hackathon projects (Devpost, GitHub, college fests).
-- The **workaround** people use today (WhatsApp, paper, phone calls).
+## Goal
+Position the idea honestly against what exists, and show that it works **alongside** the systems people already use instead of replacing them.
 
-Aim for 6–10 entries (3–5 in quick mode). Never say "no competitors".
+## Steps
 
-## Step 3 — Gap table
-Use `${CLAUDE_PLUGIN_ROOT}/templates/gap-table.md`. Rows = the 5–7 things that matter **to the real user** (e.g. works without app, regional voice, works for least-digital user, human check, fits existing system, cost to user). Columns = competitors + our idea. Use Yes / Partly / No / Not found. Add the note: *"Not found = not seen in public material, not proof it doesn't exist."*
+### 1. Ask
+Use AskUserQuestion:
+- **Any competitor or existing system you already know?** (Free text.)
+- **Which existing system must we work alongside?** Prefill your best guesses: hospital software, a government portal, an ERP, a school app.
 
-## Step 4 — Positioning
-- **Closest competitor** and the honest difference in one line.
-- **Where we are weaker** (be honest — judges respect this).
-- **Coexistence:** how our idea works *alongside* existing systems in levels:
-  - Level 0: standalone, zero integration (e.g. only a token number).
-  - Level 1: uses an existing ID or QR scheme.
-  - Level 2: exports a standard format (FHIR, CSV, API).
-  - Level 3: full integration by agreement.
-- **Positioning line:** "For [user] who [problem], [name] is a [category] that [key benefit]. Unlike [closest], we [difference]."
+### 2. Search (open every source)
+Aim for 6–10 entries (3–5 in quick mode) from:
+- startups and products, including ones that shut down, and why;
+- government portals and schemes;
+- big-company pilots;
+- research prototypes;
+- past hackathon projects (Devpost, GitHub);
+- **today's workaround**: WhatsApp, paper, phone calls.
 
-## Step 5 — Save
-Write `.hackathon/COMPETE.md`. Update STATE.md. If a competitor already does exactly the idea, warn clearly and suggest 2 angles that keep the core (different user, different step, different channel).
+Never write "no competitors".
 
-Say: **Next: `/hack:stress`.**
+### 3. Gap table
+Rows are what matters **to the user**, not features. Columns are each competitor plus our idea. Each cell is Yes, Partly, No or Not found.
+Add this note under the table: *"Not found = not seen in public material, not proof it doesn't exist."*
+
+### 4. Positioning
+- **Closest competitor,** and the honest difference in one line.
+- **Where we're weaker.** Be honest; judges respect it.
+- **Coexistence levels:**
+  - L0: standalone, with zero integration.
+  - L1: uses an existing ID or QR scheme.
+  - L2: exports a standard format (FHIR, CSV or an API).
+  - L3: full integration, by agreement.
+- **Positioning line:** "For [user] who [problem], [name] is a [category] that [benefit]. Unlike [closest], we [difference]."
+
+### 5. Overlap alarm
+If something already does exactly this idea, say so clearly and suggest 2 angles that keep the core: a different user, a different step, or a different channel.
+
+## Output
+Write `.hackathon/COMPETE.md` from `templates/compete.md`. Tick "compete" in STATE.md.
+
+## Finish
+Give 3 lines: the closest competitor, our honest difference, and the positioning line.
+**Next → `/hack:stress`.**

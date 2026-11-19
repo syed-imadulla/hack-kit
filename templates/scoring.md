@@ -1,4 +1,4 @@
-# Statement scoring
+# Statement scoring (used inside PICK.md)
 
 Score 1–5. Multiply by weight. Adjust weights to the real rubric and show them.
 
