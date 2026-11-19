@@ -71,7 +71,11 @@
     { act: "build", cmd: "ship", icon: "📄", title: "One Idea Pack",
       tag: "Everything compiled into one document.",
       does: ["A one-page SUMMARY.md", "Joins every file, with a cover and contents", "Outputs FINAL.md, FINAL.html and FINAL.pdf"],
-      asks: ["PDF, Markdown or both?"], writes: ["SUMMARY.md", "FINAL.pdf"], time: "5 min" }
+      asks: ["PDF, Markdown or both?"], writes: ["SUMMARY.md", "FINAL.pdf"], time: "5 min" },
+    { act: "build", cmd: "retro", icon: "📊", title: "Learn from the run",
+      tag: "Compare what you believed with what actually happened.",
+      does: ["Diffs assumptions before vs evidence after", "Logs jury verdict accuracy, pivots and kill-test findings", "Captures team velocity, time-sink analysis and reusable patterns", "Writes RETRO.md into .hackathon/"],
+      asks: ["Final outcome?", "Biggest surprise?", "Next experiment?"], writes: ["RETRO.md"], time: "15 min" }
   ];
   var ACTS = { find: "🔍 Find it", shape: "🧭 Shape it", build: "🚀 Build & sell it" };
 
@@ -130,7 +134,8 @@
     ["f", "├── IDEAS.md", "💡 directions, scores, rejected", true], ["f", "├── ASSUMPTIONS.md", "kill test, status", true],
     ["f", "├── EVIDENCE.md", "labelled evidence, experiments"], ["f", "├── COMPETE.md", "differentiation"], ["f", "├── STRESS.md", "doubts, failure scenarios"],
     ["f", "├── IMPROVE.md", "↺ v1 → v2", true], ["f", "├── CORE.md", "🔒 the locked idea", true], ["f", "├── PLAN.md", "MVP, demo script"],
-    ["f", "├── VERDICT.md", "trial + rubric estimate"], ["f", "├── PITCH.md", "deck + Q&A"], ["f", "├── FINAL.pdf", "📄 everything", true],
+    ["f", "├── VERDICT.md", "trial + rubric estimate"], ["f", "├── PITCH.md", "deck + Q&A"],
+    ["f", "├── RETRO.md", "post-hackathon learnings", true], ["f", "├── FINAL.pdf", "📄 everything", true],
     ["d", "├── history/", "earlier versions"], ["d", "└── court/", "trials + raw votes"]
   ];
   var PROMPT = "You are my hackathon thinking partner. Think deeper, challenge harder, build smarter. Run the Hack Kit process with me one phase at a time, and keep a running \"Idea Pack\" summary after each phase.\n\nPhases: start (brief, rubric, event type and length, team size and experience, judging focus, time) → decode (each statement: real problem, severity, end user, least-digital user, hidden constraints, root cause) → pick (choose the problem: weighted scoring + red flags + trial of the top 2–3) → users (stakeholder views, POV, persona, motto) → ideate (6 directions: user, process, access, integration, prevention and technology shift, plus constraint removal like \"no AI / no app / solve 10% exceptionally well\"; score the trade-offs and let me pick) → validate (labelled evidence, real complaints, experiment cards for the riskiest assumptions, a venue interview script) → compete (what exists, what it fails to solve, a differentiation statement based on user value) → stress (role-play the domain expert, front-line worker, least-digital user, sceptic and admin; failure scenarios) → improve (turn feedback into a better version, with reasons, without changing the problem or main user; I approve each change) → lock (protect the problem, user, journey and motto) → plan (one-journey MVP, build/mock/cut, stack, fallbacks, demo script) → verify (trial of the solution + rubric estimate + claims check; after building, a demo check: what was planned, built, tested and shown, with honest mock disclosures) → pitch (deck outline within the slide limit, form answers, judge Q&A; then a drill where you play 3 judges and ask me hard questions one at a time) → ship (one final document). Anytime: assumptions (what we believe but haven't proven; kill test: \"if this is false, does the idea collapse?\").\n\nRules: label every claim [V] verified source, [T] from me/team, [AI] your inference, or [?] unknown. Only [V] and [T] can validate an assumption, and never invent interviews or results. Judge only whether the problem is real and the solution solves it for real users, never business viability. AI suggests, humans decide. No app, no typing, works for the least-digital user. Different technology isn't innovation. Keep a log of rejected ideas and why. Ask me questions with numbered options when my answer matters. Simple English.\n\nTrial = labelled evidence pack → prosecution 5 points → defense 5 points → 12 jurors (end user, least-digital user, front-line worker, domain professional, workaround user, root-cause analyst, already-exists researcher, safety reviewer, systems person, engineer, statement owner, sceptic; for a known domain, swap 3 for domain experts). Each juror votes GUILTY, NOT GUILTY or INSUFFICIENT EVIDENCE, with confidence 1–10, evidence strength, reason, weakest assumption, missing info, and one fix rated for impact and effort. The judge decides: INCONCLUSIVE if under 2/3 valid votes or more than 1/3 insufficient; FAIL if GUILTY outnumbers NOT GUILTY; PASS if NOT GUILTY is at least 75% of all valid votes with mostly solid evidence; otherwise REVISE. Then give contradictions, ratings /10, what's strong, the weakest assumption, what we're overlooking, an alternative approach, ranked improvements, and the next 30-minute experiment. Jurors are simulated perspectives, not real people.\n\nStart with phase \"start\": ask me about the event.";
@@ -175,7 +180,7 @@
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   /* typed terminal line */
-  var typedEl = $("#typed"), cmds = ["/hack:start", "/hack:decode", "/hack:pick --quick", "/hack:lock", "/hack:verify --demo", "/hack:pitch --drill", "/hack:ship"];
+  var typedEl = $("#typed"), cmds = ["/hack:start", "/hack:decode", "/hack:pick --quick", "/hack:lock", "/hack:verify --demo", "/hack:pitch --drill", "/hack:ship", "/hack:retro"];
   if (reduce) typedEl.textContent = "/hack:help";
   else (function typeLoop(i, j, del) {
     var w = cmds[i];
@@ -218,26 +223,26 @@
       b.appendChild(el("span", "num", String(i + 1).padStart(2, "0") + " · /hack:"));
       b.appendChild(el("span", "cmd", p.cmd));
       b.appendChild(el("span", "ic", p.icon));
-      b.addEventListener("click", function () { stop(); show(i); });
+      b.addEventListener("click", function () { stop(); show(i, true); });
       stations[i] = b; row.appendChild(b);
     });
     box.appendChild(row); actsEl.appendChild(box);
   });
 
-  function show(i) {
+  function show(i, userInitiated) {
     current = (i + PHASES.length) % PHASES.length;
     var p = PHASES[current];
     stations.forEach(function (s, k) { s.classList.toggle("on", k === current); s.classList.toggle("done", k < current); });
     rail.style.width = ((current + 1) / PHASES.length * 100) + "%";
     panel.textContent = "";
-    var main = el("div");
+    var main = el("div", "panel-main");
     var ph = el("div", "phase", "Phase " + (current + 1) + " of " + PHASES.length + " · " + ACTS[p.act].replace(/^\S+\s/, "") + " · ~" + p.time);
     main.appendChild(ph);
     var h = el("h3"); h.appendChild(document.createTextNode(p.icon + " " + p.title + " "));
     main.appendChild(h);
-    var cmdLine = el("p", "mt0"); cmdLine.appendChild(code("/hack:" + p.cmd));
-    if (p.trial) cmdLine.appendChild(el("span", "badge", "⚖️ TRIAL"));
-    if (p.parallel) cmdLine.appendChild(el("span", "badge", "runs in parallel"));
+    var cmdLine = el("p", "cmd-line mt0"); cmdLine.appendChild(code("/hack:" + p.cmd));
+    if (p.trial) cmdLine.appendChild(el("span", "badge trial", "⚖️ TRIAL"));
+    if (p.parallel) cmdLine.appendChild(el("span", "badge parallel", "runs in parallel"));
     main.appendChild(cmdLine);
     main.appendChild(el("p", "tag", p.tag));
     var ul = el("ul"); p.does.forEach(function (d) { ul.appendChild(el("li", null, d)); }); main.appendChild(ul);
@@ -249,6 +254,10 @@
     aside.appendChild(a1); aside.appendChild(a2); aside.appendChild(a3);
     panel.appendChild(main); panel.appendChild(aside);
     if (!reduce) { panel.classList.remove("flip"); void panel.offsetWidth; panel.classList.add("flip"); }
+    if (userInitiated && window.innerWidth <= 860) {
+      var d = document.querySelector(".flow-detail");
+      if (d) d.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+    }
   }
   var playBtn = $("#playFlow");
   function stop() { clearInterval(playTimer); playTimer = null; playBtn.textContent = "▶ Play the flow"; playBtn.setAttribute("aria-pressed", "false"); }
@@ -259,14 +268,21 @@
     playTimer = setInterval(function () { if (current >= PHASES.length - 1) return stop(); show(current + 1); }, 2600);
   }
   playBtn.addEventListener("click", play);
-  $("#prevPhase").addEventListener("click", function () { stop(); show(current - 1); });
-  $("#nextPhase").addEventListener("click", function () { stop(); show(current + 1); });
+  $("#prevPhase").addEventListener("click", function () { stop(); show(current - 1, true); });
+  $("#nextPhase").addEventListener("click", function () { stop(); show(current + 1, true); });
+  var backBtn = $("#panelBackLink");
+  if (backBtn) {
+    backBtn.addEventListener("click", function () {
+      var a = $("#acts");
+      if (a) a.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    });
+  }
   document.addEventListener("keydown", function (e) {
     var t = e.target.tagName; if (t === "INPUT" || t === "TEXTAREA") return;
     var f = $("#flow").getBoundingClientRect();
     if (f.top > window.innerHeight || f.bottom < 0) return;
-    if (e.key === "ArrowRight") { stop(); show(current + 1); }
-    if (e.key === "ArrowLeft") { stop(); show(current - 1); }
+    if (e.key === "ArrowRight") { stop(); show(current + 1, true); }
+    if (e.key === "ArrowLeft") { stop(); show(current - 1, true); }
   });
   show(0);
 

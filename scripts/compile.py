@@ -39,21 +39,21 @@ ORDER = [
 
 CSS = """
 @page { size: A4; margin: 16mm 14mm 18mm;
-        @bottom-right { content: counter(page); font: 9pt sans-serif; color: #888; } }
-body { font-family: -apple-system, 'Segoe UI', Inter, Roboto, Arial, sans-serif; color:#1b1b1b;
+        @bottom-right { content: counter(page); font: 9pt sans-serif; color: #586982; } }
+body { font-family: -apple-system, 'Segoe UI', Inter, Roboto, Arial, sans-serif; color:#182335;
        font-size: 11pt; line-height: 1.5; max-width: 900px; margin: 0 auto; padding: 24px; }
-h1 { font-size: 22pt; border-bottom: 3px solid #f5c400; padding-bottom: 6px; margin-top: 0; }
-h2 { font-size: 15pt; margin-top: 22px; color:#111; }
-h3 { font-size: 12.5pt; }
+h1 { font-size: 22pt; border-bottom: 3px solid #E15546; padding-bottom: 6px; margin-top: 0; color:#182335; }
+h2 { font-size: 15pt; margin-top: 22px; color:#182335; }
+h3 { font-size: 12.5pt; color:#182335; }
 table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 9.5pt; }
-th, td { border: 1px solid #ccc; padding: 5px 7px; vertical-align: top; text-align: left; }
-th { background: #f6f3e6; }
-code, pre { background: #f4f4f4; border-radius: 4px; font-size: 9pt; }
-pre { padding: 10px; overflow-x: auto; white-space: pre-wrap; }
-blockquote { border-left: 4px solid #f5c400; margin: 8px 0; padding: 4px 12px; color:#444; background:#fffbea; }
+th, td { border: 1px solid #D1C8AC; padding: 5px 7px; vertical-align: top; text-align: left; }
+th { background: #EAE4CC; color:#182335; }
+code, pre { background: #F8F5EB; border-radius: 4px; font-size: 9pt; }
+pre { padding: 10px; overflow-x: auto; white-space: pre-wrap; border: 1px solid #D1C8AC; }
+blockquote { border-left: 4px solid #E15546; margin: 8px 0; padding: 4px 12px; color:#2E3E56; background:#F8F5EB; }
 .cover { text-align:center; padding: 120px 0 60px; }
-.cover h1 { border: none; font-size: 34pt; }
-.cover p { color:#555; }
+.cover h1 { border: none; font-size: 34pt; color:#182335; }
+.cover p { color:#586982; }
 .section { page-break-before: always; }
 .toc li { margin: 3px 0; }
 """

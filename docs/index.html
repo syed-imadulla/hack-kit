@@ -8,8 +8,8 @@
 <title>Hack Kit — Think deeper. Challenge harder. Build smarter.</title>
 <meta name="description" content="Hack Kit is a Claude Code plugin and Claude skill that helps hackathon teams think deeper, challenge harder and build smarter: explore ideas, track assumptions, put ideas on trial in a 12-juror Hack Court, improve them, and ship one final PDF.">
 <meta property="og:title" content="Hack Kit — Think deeper. Challenge harder. Build smarter.">
-<meta property="og:description" content="Decode, pick, ideate, validate, challenge in Hack Court, improve, lock, plan, pitch, ship. 18 /hack: commands for Claude.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23b0522f'/%3E%3Ctext x='32' y='42' font-size='28' text-anchor='middle' fill='%23fbf5e8' font-family='Georgia' font-weight='700'%3EH%3C/text%3E%3C/svg%3E">
+<meta property="og:description" content="Decode, pick, ideate, validate, challenge in Hack Court, improve, lock, plan, pitch, ship, retro. 19 /hack: commands for Claude.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23182335' stroke='%23E15546' stroke-width='3'/%3E%3Ctext x='32' y='42' font-size='28' text-anchor='middle' fill='%23EAE4CC' font-family='Georgia' font-weight='700'%3EH%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -35,9 +35,9 @@
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.1.0</span>
+      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.2.0</span>
       <h1>Think <em>deeper</em>.<br>Challenge <em>harder</em>.<br>Build <em>smarter</em>.</h1>
-      <p class="lead">Eighteen <code>/hack:</code> commands take your team from "here are the statements" to an idea that's been explored, tested, challenged in Hack Court and improved, then to an MVP plan, a pitch and one final PDF.</p>
+      <p class="lead">Nineteen <code>/hack:</code> commands take your team from "here are the statements" to an idea that's been explored, tested, challenged in Hack Court, improved, built and retroed, then to an MVP plan, a pitch and one final PDF.</p>
       <p class="sr-only">Think deeper. Challenge harder. Build smarter.</p>
       <div class="terminal" aria-label="Install commands">
         <button class="copy" data-copy="/plugin marketplace add syed-imadulla/hack-kit&#10;/plugin install hack@hack-kit">copy</button>
@@ -98,34 +98,48 @@
 <section id="flow" class="band">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">The flow · 14 phases, 3 acts</span>
+      <span class="eyebrow">The flow · 14 phases + retro, 3 acts</span>
       <h2>Press play, or click any <em>station</em>.</h2>
       <p class="lead">Each command asks the questions that matter, saves its work in <code>.hackathon/</code>, and tells you what to run next.</p>
     </div>
-    <div class="flow-ctl reveal">
-      <button class="btn" id="playFlow" aria-pressed="false">▶ Play the flow</button>
-      <button class="btn ghost small" id="prevPhase" aria-label="Previous phase">←</button>
-      <button class="btn ghost small" id="nextPhase" aria-label="Next phase">→</button>
-      <span class="hint">Tip: use ← → keys</span>
+    <div class="flow-dashboard">
+      <div class="flow-nav">
+        <div class="flow-ctl reveal">
+          <button class="btn" id="playFlow" aria-pressed="false">▶ Play the flow</button>
+          <button class="btn ghost small" id="prevPhase" aria-label="Previous phase">←</button>
+          <button class="btn ghost small" id="nextPhase" aria-label="Next phase">→</button>
+          <span class="hint">Tip: use ← → keys</span>
+        </div>
+        <div class="acts reveal" id="acts"></div>
+        <div class="rail" aria-hidden="true"><i id="rail"></i></div>
+      </div>
+      <div class="flow-detail">
+        <div class="panel reveal">
+          <div class="panel-in" id="panel" aria-live="polite"></div>
+          <button type="button" class="panel-back-btn" id="panelBackLink" aria-label="Back to workflow stations">↑ Back to stations</button>
+        </div>
+      </div>
     </div>
-    <div class="acts reveal" id="acts"></div>
-    <div class="rail" aria-hidden="true"><i id="rail"></i></div>
-    <div class="panel reveal"><div class="panel-in" id="panel" aria-live="polite"></div></div>
   </div>
 </section>
 
 <!-- COURT -->
 <section id="court" class="dark">
   <div class="wrap court">
-    <div class="ring-wrap">
-      <div class="ring-stage" id="ringStage" tabindex="0" role="group" aria-label="Twelve jurors. Drag or use arrow keys to spin, tap a card to flip it.">
-        <div class="ring" id="ring"></div>
-        <div class="bench" aria-hidden="true"></div>
+    <div class="court-visual">
+      <div class="ring-wrap">
+        <div class="ring-stage" id="ringStage" tabindex="0" role="group" aria-label="Twelve jurors. Drag or use arrow keys to spin, tap a card to flip it.">
+          <div class="ring" id="ring"></div>
+        </div>
+        <div class="verdict" id="verdict" role="status"></div>
+        <p class="ring-hint" id="ringHint">drag to spin · hold to fan out · tap a card to flip</p>
       </div>
-      <div class="verdict" id="verdict" role="status"></div>
-      <p class="ring-hint" id="ringHint">drag to spin · hold to fan out · tap a card to flip</p>
+      <div class="ratings-wrap">
+        <div class="ratings-head"><span>Verdict evaluation metrics</span><span class="ratings-scale">scale 1–10</span></div>
+        <div class="ratings" id="ratings" aria-label="Demo ratings"></div>
+      </div>
     </div>
-    <div>
+    <div class="court-info">
       <span class="eyebrow">Hack Court 2.0 · inside /hack:pick, /hack:verify and /hack:court</span>
       <h2 class="court-h">Twelve jurors. <em class="mustard">One question.</em></h2>
       <p class="lead">"Does this solve a real problem for its real users?" Each juror is a separate subagent who can't see the others' votes.</p>
@@ -140,7 +154,6 @@
         <button class="btn rust" id="runTrial">⚖️ Run a demo trial</button>
         <span class="tally" id="tally" aria-live="polite"><span class="ng">0 NOT GUILTY</span> · <span class="g">0 GUILTY</span> · <span class="ie">0 INSUFFICIENT</span></span>
       </div>
-      <div class="ratings" id="ratings" aria-label="Demo ratings"></div>
       <p class="demo-note">Demo with sample votes for a sample idea ("voice check-in for hospital OPD patients"), using the healthcare domain seats. The real trial runs inside Claude Code. Jurors are simulated perspectives, and confidence isn't a probability of success.</p>
     </div>
   </div>
