@@ -5,13 +5,13 @@
 ### From *"here are the problem statements"* to a locked, validated, buildable hackathon idea, in about an hour.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-0.3.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.1-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-15-orange)](#-commands)
 
 **Decode the statements → pick one with a courtroom trial → think as real users → prove it's real → lock the idea → plan the MVP → pitch → one final PDF.**
 
-### 🌐 [See it in action → syed-imadulla.github.io/hack-kit](https://syed-imadulla.github.io/hack-kit/)
+### 🌐 [See it in action → syedimadulla.me/hack-kit](https://syedimadulla.me/hack-kit/)
 <sub>An interactive walkthrough with the flow, a demo courtroom trial, and one-click install for Claude Code, the Claude app and any chat AI.</sub>
 
 </div>
@@ -316,7 +316,7 @@ hack-kit/
 
 ## 🙏 Credits
 
-Built by **Team Udaan**, from what we learned making *OPD Saathi* for the Healthcare AI Agents track.
+Built by **[Syed Imadulla](https://github.com/syed-imadulla)**, from what I learned making *OPD Saathi* for the Healthcare AI Agents track.
 
 The trial format was inspired by court-style review skills such as [alexyc9381/court-skill](https://github.com/alexyc9381/court-skill) (MIT), and adapted to judge problems and solutions instead of business. The phase-by-phase flow was inspired by spec-driven workflows like GSD.
 
@@ -324,4 +324,4 @@ The trial format was inspired by court-style review skills such as [alexyc9381/c
 
 Hack Kit is open source under the **[MIT License](LICENSE)**. You're free to use, copy, modify and share it, including in your own hackathon projects, as long as you keep the copyright notice.
 
-<sub>© 2026 Team Udaan · Made for hackers who want to solve real problems.</sub>
+<sub>© 2026 Syed Imadulla · Made for hackers who want to solve real problems.</sub>

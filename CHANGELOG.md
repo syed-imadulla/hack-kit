@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1 — 2026-11-19
+### Changed
+- The website's juror ring is now interactive: drag or swipe to spin it with momentum, tilt it up and down, hold to fan the cards out, tap a card to flip it. Arrow keys spin it, and Enter flips the front card. Auto-spin pauses when the ring is off-screen.
+- Author, copyright and credits are now **Syed Imadulla** (LICENSE, plugin manifest, README, website, example).
+
 ## 0.3.0 — 2026-11-19
 ### Added
 - Project website in `docs/` (GitHub Pages): an interactive 12-phase flow, a 3D demo courtroom trial, a `.hackathon/` folder preview, install tabs with copy buttons, flip cards for the 13 rules, a 24 h timeline and an FAQ.

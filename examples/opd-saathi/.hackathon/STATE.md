@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Event | OPD Saathi — Team Udaan (example) |
+| Event | OPD Saathi (example) |
 | Track | Healthcare AI Agents |
 | Mode | full |
 | Captain (final decider) | Team lead |

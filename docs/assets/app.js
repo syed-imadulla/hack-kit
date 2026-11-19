@@ -263,10 +263,19 @@
   show(0);
 
   /* ---------------- COURT ---------------- */
-  var ring = $("#ring"), jurorEls = [];
+  var running = false;
+  var ring = $("#ring"), ringStage = $("#ringStage"), ringHint = $("#ringHint"), jurorEls = [];
+  /* Ring physics: auto-spin, drag with momentum, hold to fan out, tap to flip. */
+  var RS = { angle: 0, vel: 0, auto: reduce ? 0 : -0.16, tilt: -10, tiltT: -10, scale: 1, scaleT: 1,
+    spread: 0, spreadT: 0, baseR: 260, dragging: false, held: false, paused: false, visible: true };
+  function placeJurors() {
+    var r = RS.baseR + RS.spread;
+    jurorEls.forEach(function (j, i) { j.style.transform = "rotateY(" + (i * 30) + "deg) translateZ(" + r.toFixed(1) + "px)"; });
+  }
   function layoutRing() {
-    var w = ring.offsetWidth || 130, R = Math.round((w / 2) / Math.tan(Math.PI / 12) + 22);
-    jurorEls.forEach(function (j, i) { j.style.transform = "rotateY(" + (i * 30) + "deg) translateZ(" + R + "px)"; });
+    var w = ring.offsetWidth || 130;
+    RS.baseR = Math.round((w / 2) / Math.tan(Math.PI / 12) + 22);
+    placeJurors();
   }
   JURORS.forEach(function (d, i) {
     var j = el("div", "juror"), inner = el("div", "inner");
@@ -282,6 +291,89 @@
   });
   layoutRing(); window.addEventListener("resize", layoutRing);
 
+  var lastSpread = -1, rafOn = false;
+  function frame() {
+    if (!RS.visible) { rafOn = false; return; }
+    if (!RS.dragging) {
+      if (RS.paused || RS.held) RS.vel *= 0.86;
+      else RS.vel += (RS.auto - RS.vel) * 0.025;
+      RS.angle += RS.vel;
+    }
+    RS.tilt += (RS.tiltT - RS.tilt) * 0.12;
+    RS.scale += (RS.scaleT - RS.scale) * 0.15;
+    RS.spread += (RS.spreadT - RS.spread) * 0.12;
+    ring.style.transform = "scale(" + RS.scale.toFixed(4) + ") rotateX(" + RS.tilt.toFixed(2) + "deg) rotateY(" + RS.angle.toFixed(2) + "deg)";
+    if (Math.abs(RS.spread - lastSpread) > 0.3) { placeJurors(); lastSpread = RS.spread; }
+    requestAnimationFrame(frame);
+  }
+  function startRaf() { if (!rafOn) { rafOn = true; requestAnimationFrame(frame); } }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { RS.visible = es[0].isIntersecting; if (RS.visible) startRaf(); }).observe(ringStage);
+  }
+  startRaf();
+
+  var px = 0, py = 0, sx = 0, sy = 0, moved = 0, lastT = 0, holdT = null, pid = null, hinted = false;
+  function hideHint() { if (!hinted) { hinted = true; ringHint.classList.add("gone"); } }
+  function flipCard(j) {
+    if (!j || running) return;
+    j.classList.toggle("flipped");
+    if (!reduce) { j.classList.remove("pop"); void j.offsetWidth; j.classList.add("pop"); }
+  }
+  ringStage.addEventListener("pointerdown", function (e) {
+    if (pid !== null) return;
+    pid = e.pointerId; RS.dragging = true; moved = 0;
+    px = sx = e.clientX; py = sy = e.clientY; lastT = performance.now();
+    RS.vel = 0; RS.scaleT = 1.04;
+    ringStage.classList.add("grabbing");
+    try { ringStage.setPointerCapture(pid); } catch (err) {}
+    clearTimeout(holdT);
+    holdT = setTimeout(function () {
+      if (moved < 8 && RS.dragging) {
+        RS.held = true; RS.spreadT = 70; RS.scaleT = 1.08;
+        ringStage.classList.add("held");
+        if (navigator.vibrate) { try { navigator.vibrate(12); } catch (err) {} }
+      }
+    }, 380);
+    hideHint();
+  });
+  ringStage.addEventListener("pointermove", function (e) {
+    if (e.pointerId !== pid || !RS.dragging) return;
+    var now = performance.now(), dx = e.clientX - px, dy = e.clientY - py, dt = Math.max(now - lastT, 8);
+    moved += Math.abs(dx) + Math.abs(dy);
+    var d = dx * 0.42;
+    RS.angle += d;
+    RS.vel = RS.vel * 0.6 + (d * 16 / dt) * 0.4;
+    RS.tiltT = Math.max(-38, Math.min(22, -10 - (e.clientY - sy) * 0.12));
+    px = e.clientX; py = e.clientY; lastT = now;
+    if (moved >= 8 && !RS.held) clearTimeout(holdT);
+  });
+  function release(e) {
+    if (e.pointerId !== pid) return;
+    clearTimeout(holdT);
+    var wasTap = moved < 8 && !RS.held && e.type === "pointerup";
+    RS.dragging = false; pid = null;
+    RS.vel = Math.max(-14, Math.min(14, RS.vel));
+    if (performance.now() - lastT > 90) RS.vel *= 0.3;
+    RS.tiltT = -10; RS.scaleT = 1; RS.spreadT = 0; RS.held = false;
+    ringStage.classList.remove("grabbing", "held");
+    if (wasTap) {
+      var hit = document.elementFromPoint(e.clientX, e.clientY);
+      flipCard(hit && hit.closest ? hit.closest(".juror") : null);
+    }
+  }
+  ringStage.addEventListener("pointerup", release);
+  ringStage.addEventListener("pointercancel", release);
+  ringStage.addEventListener("lostpointercapture", function (e) { if (e.pointerId === pid) release(e); });
+  ringStage.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") { RS.vel -= 4; e.preventDefault(); hideHint(); }
+    if (e.key === "ArrowRight") { RS.vel += 4; e.preventDefault(); hideHint(); }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      var a = ((-RS.angle % 360) + 360) % 360, idx = Math.round(a / 30) % 12;
+      flipCard(jurorEls[idx]);
+    }
+  });
+
   var ratingsEl = $("#ratings"), bars = [];
   RATINGS.forEach(function (r) {
     var row = el("div", "rate"); row.appendChild(el("span", null, r[0]));
@@ -289,7 +381,7 @@
     row.appendChild(el("span", null, "–")); ratingsEl.appendChild(row); bars.push([fill, row.lastChild, r[1]]);
   });
 
-  var running = false, steps = $$("#trialSteps li"), tally = $("#tally"), verdict = $("#verdict"), runBtn = $("#runTrial");
+  var steps = $$("#trialSteps li"), tally = $("#tally"), verdict = $("#verdict"), runBtn = $("#runTrial");
   function setTally(ng, g) {
     tally.textContent = "";
     tally.appendChild(el("span", "ng", ng + " NOT GUILTY")); tally.appendChild(document.createTextNode(" · ")); tally.appendChild(el("span", "g", g + " GUILTY"));
@@ -302,11 +394,11 @@
   }
   runBtn.addEventListener("click", function () {
     if (running) return; running = true; runBtn.disabled = true; resetTrial();
-    ring.classList.add("paused");
+    RS.paused = true;
     var t = 0, gap = reduce ? 60 : 700, ng = 0, g = 0;
     steps.slice(0, 3).forEach(function (s, k) { setTimeout(function () { s.classList.add("lit"); }, t + k * gap); });
     t += 3 * gap;
-    setTimeout(function () { steps[3].classList.add("lit"); ring.classList.remove("paused"); }, t);
+    setTimeout(function () { steps[3].classList.add("lit"); RS.paused = false; }, t);
     JURORS.forEach(function (d, i) {
       setTimeout(function () {
         jurorEls[i].classList.add("flipped");
@@ -316,7 +408,7 @@
     });
     t += 200 + JURORS.length * (reduce ? 30 : 380) + 400;
     setTimeout(function () {
-      steps[4].classList.add("lit"); ring.classList.add("paused");
+      steps[4].classList.add("lit"); RS.paused = true;
       verdict.textContent = "";
       verdict.appendChild(document.createTextNode("NOT GUILTY"));
       verdict.appendChild(el("small", null, ng + " of 12 · avg confidence 7.3/10"));
@@ -324,7 +416,7 @@
       bars.forEach(function (b, k) { setTimeout(function () { b[0].style.width = (b[2] * 10) + "%"; b[1].textContent = b[2]; }, k * 90); });
     }, t);
     setTimeout(function () {
-      verdict.classList.remove("show"); ring.classList.remove("paused");
+      verdict.classList.remove("show"); RS.paused = false;
       running = false; runBtn.disabled = false; runBtn.textContent = "⚖️ Run it again";
     }, t + 4200);
   });

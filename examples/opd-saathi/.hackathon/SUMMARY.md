@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Event / track | Acharya The Big Hack · Healthcare AI Agents |
-| Team | Udaan (4) |
+| Team | Syed Imadulla + 3 teammates |
 | Verdict | NOT GUILTY 9/12 (illustrative sample) |
 
 ## Problem

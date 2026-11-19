@@ -1,18 +1,19 @@
 {
   "name": "hack-kit",
   "owner": {
-    "name": "Team Udaan"
+    "name": "Syed Imadulla",
+    "url": "https://github.com/syed-imadulla"
   },
   "metadata": {
     "description": "Hack Kit: from problem statements to a locked, validated, buildable hackathon idea.",
-    "version": "0.3.0"
+    "version": "0.3.1"
   },
   "plugins": [
     {
       "name": "hack",
       "source": "./",
       "description": "Hackathon ideation kit with /hack: commands and a problem-focused courtroom trial.",
-      "version": "0.3.0"
+      "version": "0.3.1"
     }
   ]
 }
