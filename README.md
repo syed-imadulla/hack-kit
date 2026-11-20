@@ -7,7 +7,7 @@
 A Claude Code plugin that takes your hackathon team from *"here are the problem statements"* to a **tested idea, an MVP plan, a pitch and one final PDF**, and tells you honestly where the idea is weak before the judges do.
 
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://docs.claude.com/en/docs/claude-code/plugins)
-[![Version](https://img.shields.io/badge/version-1.3.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.4.0-blue)](CHANGELOG.md)
 [![Checks](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml/badge.svg)](https://github.com/syed-imadulla/hack-kit/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Commands](https://img.shields.io/badge/commands-19-orange)](#-commands)
@@ -263,15 +263,16 @@ Read the [test report](docs/TEST-RUN.md), or browse the [worked examples](exampl
 
 ---
 
-## 💬 For teammates without Claude Code
+## 💬 Use it in ChatGPT, Antigravity or the Claude app
 
-| Option | How |
+| Where | How |
 |---|---|
+| **ChatGPT** (and Codex) | Download [`hack-kit-plugin.zip`](docs/downloads/hack-kit-plugin.zip). In ChatGPT: **Plugins → Add → New Plugin**, choose the zip, **Add plugin**. Then type `hack start` |
+| **Google Antigravity** | Same zip. Copy its `skills/hack-kit/` folder into `.agents/skills/` in your project (or `~/.gemini/config/skills/` for every project), then ask `hack start`. Antigravity runs the bundled scripts for vote counting, plan checks and the PDF |
 | **Claude app** | Upload [`hack-kit-skill.zip`](docs/downloads/hack-kit-skill.zip) under **Settings → Capabilities → Skills**, then type `hack start` |
 | **Any chat AI** | Paste [`claude-ai/PROMPT.md`](claude-ai/PROMPT.md) as your first message |
-| **Single prompts** | Copy from [`prompts/`](prompts/README.md) for parallel research |
 
-The app version is generated from the plugin, so both follow the same rules. Its jury runs in one chat, so it's less independent.
+All versions are generated from the same plugin source, so they follow the same rules. Outside Claude Code, phases are said in words ("hack ideate") instead of `/hack:` commands, and if the tool can't run separate agents, the jury is simulated in one conversation (less independent).
 
 ---
 

@@ -35,7 +35,7 @@
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.3.0</span>
+      <span class="eyebrow">A Claude plugin &amp; skill for hackathon teams · v1.4.0</span>
       <h1>Think <em>deeper</em>.<br>Challenge <em>harder</em>.<br>Build <em>smarter</em>.</h1>
       <p class="lead">Nineteen <code>/hack:</code> commands take your team from "here are the statements" to an idea that's been explored, tested, challenged in Hack Court and improved, then to an MVP plan, a checked demo, a pitch and one final PDF, with a retro after the event.</p>
       <p class="sr-only">Think deeper. Challenge harder. Build smarter.</p>
@@ -187,12 +187,14 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Install · pick your way</span>
-      <h2>Use it in <em>your</em> Claude.</h2>
+      <h2>Use it in <em>your</em> AI.</h2>
     </div>
     <div class="reveal">
       <div class="tabs" role="tablist" aria-label="Install options">
         <button class="tab" role="tab" id="tab-cc" aria-controls="p-cc" aria-selected="true">Claude Code plugin</button>
         <button class="tab" role="tab" id="tab-ai" aria-controls="p-ai" aria-selected="false" tabindex="-1">Claude app skill</button>
+        <button class="tab" role="tab" id="tab-gpt" aria-controls="p-gpt" aria-selected="false" tabindex="-1">ChatGPT</button>
+        <button class="tab" role="tab" id="tab-ag" aria-controls="p-ag" aria-selected="false" tabindex="-1">Antigravity</button>
         <button class="tab" role="tab" id="tab-any" aria-controls="p-any" aria-selected="false" tabindex="-1">Any chat AI</button>
       </div>
 
@@ -220,6 +222,31 @@
         <p class="demo-note on-light">The chat version simulates the jury in one conversation, so it's less independent than the Claude Code version.</p>
       </div>
 
+      <div class="tabpanel" role="tabpanel" id="p-gpt" aria-labelledby="tab-gpt" hidden>
+        <p class="mt0"><b>For ChatGPT</b> (and Codex). One plugin package with the whole flow.</p>
+        <p><a class="btn rust" href="downloads/hack-kit-plugin.zip" download>⬇ Download hack-kit-plugin.zip</a></p>
+        <div class="how">
+          <div class="s"><b>STEP 1</b><p>Download the zip. Don't unzip it.</p></div>
+          <div class="s"><b>STEP 2</b><p>In ChatGPT, open <b>Plugins → Add → New Plugin</b>, choose the zip, then click <b>Add plugin</b>.</p></div>
+          <div class="s"><b>STEP 3</b><p>In a new chat, type <code>hack start</code> or paste your problem statements.</p></div>
+        </div>
+        <p class="demo-note on-light">ChatGPT simulates the jury in one conversation, so it's less independent than the Claude Code version.</p>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-ag" aria-labelledby="tab-ag" hidden>
+        <p class="mt0"><b>For Google Antigravity</b> (IDE, app or CLI). The same package, used as a skill. Antigravity can run the bundled Python scripts for vote counting, plan checks and the PDF.</p>
+        <p><a class="btn rust" href="downloads/hack-kit-plugin.zip" download>⬇ Download hack-kit-plugin.zip</a></p>
+<pre class="code"><button class="copy" data-copy="mkdir -p .agents/skills && unzip -o hack-kit-plugin.zip 'skills/hack-kit/*' -d /tmp/hk && cp -r /tmp/hk/skills/hack-kit .agents/skills/">copy</button><span class="c"># in your project folder: install for this project</span>
+<span class="p">›</span> mkdir -p .agents/skills
+<span class="p">›</span> unzip -o hack-kit-plugin.zip 'skills/hack-kit/*' -d /tmp/hk
+<span class="p">›</span> cp -r /tmp/hk/skills/hack-kit .agents/skills/</pre>
+        <div class="how">
+          <div class="s"><b>ONE PROJECT</b><p>Put the <code>skills/hack-kit</code> folder in <code>.agents/skills/</code> inside your project.</p></div>
+          <div class="s"><b>EVERY PROJECT</b><p>Put it in <code>~/.gemini/config/skills/</code> instead.</p></div>
+          <div class="s"><b>THEN</b><p>Ask the agent <code>hack start</code>. In the CLI you can also install the unzipped folder with <code>agy plugin install</code>.</p></div>
+        </div>
+      </div>
+
       <div class="tabpanel" role="tabpanel" id="p-any" aria-labelledby="tab-any" hidden>
         <p class="mt0"><b>No install.</b> Paste this as the first message of a new chat, then paste your statements.</p>
 <pre class="code" id="promptBox"><button class="copy" data-copy-from="promptText">copy</button><span id="promptText"></span></pre>
@@ -227,7 +254,7 @@
 
       <div class="safe">
         <span class="i">🛡️</span>
-        <p><b>Safe by design.</b> The plugin is plain Markdown instructions plus one small, readable Python script for the PDF. It has no hooks, no background processes, no MCP servers and no telemetry, and it only writes inside your project's <code>.hackathon/</code> folder. This website loads nothing from outside this repo.</p>
+        <p><b>Safe by design.</b> The plugin is plain Markdown instructions plus a few small, readable Python scripts (vote counting, plan checks, the PDF). It has no hooks, no background processes, no MCP servers and no telemetry, and it only writes inside your project's <code>.hackathon/</code> folder. This website loads nothing from outside this repo.</p>
       </div>
     </div>
   </div>

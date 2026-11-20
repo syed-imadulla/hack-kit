@@ -204,6 +204,17 @@ def check_app_skill():
     with zipfile.ZipFile(z) as zf:
         names = zf.namelist()
     ok("hack-kit/SKILL.md" in names and all(n.startswith("hack-kit/") for n in names), "zip has hack-kit/SKILL.md at the top")
+    pz = ROOT / "docs" / "downloads" / "hack-kit-plugin.zip"
+    with zipfile.ZipFile(pz) as zf:
+        pn = set(zf.namelist())
+        root_m = json.loads(zf.read("plugin.json")) if "plugin.json" in pn else {}
+        codex_m = json.loads(zf.read(".codex-plugin/plugin.json")) if ".codex-plugin/plugin.json" in pn else {}
+    ok({"plugin.json", ".codex-plugin/plugin.json", "skills/hack-kit/SKILL.md"} <= pn,
+       "portable plugin zip has both manifests and skills/hack-kit/SKILL.md at the archive root (ChatGPT, Antigravity)")
+    ok(set(root_m) <= {"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"}
+       and root_m.get("$schema") and root_m.get("name") == "hack-kit", "root plugin.json follows the Agent Plugins schema")
+    ok(codex_m.get("skills") == "./skills/" and codex_m.get("version") == root_m.get("version"), "Codex manifest points at skills/ and versions match")
+    ok(all(f"skills/hack-kit/scripts/{n}" in pn for n in ("tally.py", "profile.py", "compile.py")), "portable plugin bundles the scripts")
 
 
 def check_website(version):

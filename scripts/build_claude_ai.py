@@ -20,6 +20,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SKILL_DIR = ROOT / "claude-ai" / "hack-kit"
 OUT = SKILL_DIR / "SKILL.md"
 ZIP = ROOT / "docs" / "downloads" / "hack-kit-skill.zip"
+PLUGIN_ZIP = ROOT / "docs" / "downloads" / "hack-kit-plugin.zip"  # ChatGPT, Codex, Antigravity
+PORTABLE_SCRIPTS = ["profile.py", "tally.py", "plan_check.py", "compile.py", "lint_project.py", "merge.py", "retro.py"]
 FIXED_TIME = (2026, 1, 1, 0, 0, 0)  # stable zip timestamps so --check is reproducible
 
 
@@ -192,32 +194,133 @@ def files():
     return out
 
 
-def zip_bytes(fileset):
+# ---------- Portable plugin: ChatGPT, Codex, Antigravity (and any agent that reads skills/) ----------
+
+PORTABLE_NOTE = ("> **Note:** this file comes from the Hack Kit plugin. `.hackathon/<FILE>.md` means a real file if you can "
+                 "write files (Antigravity, Codex), or that section of the Idea Pack in a chat. Templates are in `templates/`. "
+                 "Where it says to launch subagents, run them separately if your tool can, otherwise simulate them one after "
+                 "another and say so. Where it says to run a script, run `python3 <skill folder>/scripts/<name>.py` if you can "
+                 "run commands; otherwise apply the same rules by hand.\n\n")
+
+PORTABLE_SWAPS = [
+    ("# Hack Kit (Claude app version)", "# Hack Kit (portable version)"),
+    ("This is the one-chat version of the Hack Kit Claude Code plugin.",
+     "This is the portable version of the Hack Kit plugin, for ChatGPT, Codex, Antigravity, the Claude app and other "
+     "agents that read skills. If you can run commands and write files, use the scripts in `scripts/` and save real files "
+     "in `.hackathon/`; in a chat, keep everything in one Idea Pack."),
+    ("In the Claude app, `.hackathon/<FILE>.md` means that section of the Idea Pack, or a real file if this session has file tools.",
+     "`.hackathon/<FILE>.md` means a real file if you can write files, or else that section of the Idea Pack."),
+    ("A source Claude opened and read", "A source the AI opened and read"),
+    ("Claude's reasoning or estimate", "The AI's reasoning or estimate"),
+    ("(for example, in the Claude app)", "(for example, in a chat app)"),
+    ("run and observed by Claude", "run and observed by the AI"),
+    ("${CLAUDE_PLUGIN_ROOT}/scripts/", "<skill folder>/scripts/"),
+    ("<plugin>/scripts/", "<skill folder>/scripts/"),
+    ("${CLAUDE_PLUGIN_ROOT}", "<skill folder>"),
+]
+
+
+def portable(text):
+    text = text.replace(APP_NOTE, PORTABLE_NOTE)
+    for a, b in PORTABLE_SWAPS:
+        text = text.replace(a, b)
+    return text
+
+
+def plugin_files():
+    """The portable plugin, as {path inside the zip: text}. Manifests sit at the archive root."""
+    manifest = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
+    version, desc = manifest["version"], manifest["description"]
+    author = {"name": "Syed Imadulla", "url": "https://github.com/syed-imadulla"}
+    home = "https://syed-imadulla.github.io/hack-kit/"
+    keywords = ["hackathon", "ideation", "validation", "pitch", "hack-court"]
+    root_manifest = {  # Agent Plugins portable manifest (read by Antigravity and ChatGPT)
+        "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+        "name": "hack-kit", "version": version, "description": desc,
+        "author": author, "homepage": home, "license": "MIT", "keywords": keywords,
+    }
+    codex_manifest = {  # ChatGPT / Codex compatibility manifest
+        "name": "hack-kit", "version": version, "description": desc,
+        "author": author, "homepage": home, "repository": "https://github.com/syed-imadulla/hack-kit",
+        "license": "MIT", "keywords": keywords, "skills": "./skills/",
+        "interface": {
+            "displayName": "Hack Kit",
+            "shortDescription": "Think deeper. Challenge harder. Build smarter.",
+            "longDescription": "From hackathon problem statements to a tested idea, an MVP plan, a pitch and one final "
+                               "document. Pick the problem the rubric rewards, explore different ideas, track assumptions, "
+                               "and put the idea on trial with a 12-juror Hack Court.",
+            "developerName": "Syed Imadulla",
+            "websiteURL": home,
+        },
+    }
+    out = {
+        "plugin.json": json.dumps(root_manifest, indent=2) + "\n",
+        ".codex-plugin/plugin.json": json.dumps(codex_manifest, indent=2) + "\n",
+        "README.md": PLUGIN_README.format(version=version),
+    }
+    for rel, text in files().items():
+        out[f"skills/hack-kit/{rel}"] = portable(text)
+    for name in PORTABLE_SCRIPTS:
+        out[f"skills/hack-kit/scripts/{name}"] = (ROOT / "scripts" / name).read_text(encoding="utf-8")
+    return out
+
+
+PLUGIN_README = """# Hack Kit {version}: portable plugin
+
+**Think deeper. Challenge harder. Build smarter.** Full docs: https://github.com/syed-imadulla/hack-kit
+
+This package works in ChatGPT, Codex and Google Antigravity (and any agent that reads `skills/*/SKILL.md`).
+
+## ChatGPT
+Plugins → Add → New Plugin → choose `hack-kit-plugin.zip` → Add plugin. Then start a chat and say **"hack start"**.
+
+## Codex
+Unzip into a folder and add it to a marketplace file (`~/.agents/plugins/marketplace.json`), then install it from the Plugins directory.
+
+## Antigravity
+- **IDE / App, one project:** copy `skills/hack-kit/` into `<your project>/.agents/skills/hack-kit/`.
+- **IDE / App, every project:** copy `skills/hack-kit/` into `~/.gemini/config/skills/hack-kit/`.
+- **As a plugin:** unzip into `~/.gemini/config/plugins/hack-kit/` (or `.agents/plugins/hack-kit/` in a project).
+- **CLI:** `agy plugin install ./hack-kit` (the unzipped folder).
+
+Then ask the agent: **"hack start"** (or type `/hack-kit` where slash commands are supported).
+Antigravity can run commands, so it uses the scripts in `skills/hack-kit/scripts/` (Python 3) for vote counting, plan checks and the final PDF.
+
+## What's different from the Claude Code plugin
+Phases are said in words ("hack ideate") instead of `/hack:` commands. If your tool can't run separate subagents, the jury is simulated in one conversation, which is less independent.
+"""
+
+
+def zip_bytes(fileset, prefix="hack-kit/"):
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         for rel in sorted(fileset):
-            info = zipfile.ZipInfo(f"hack-kit/{rel}", date_time=FIXED_TIME)
+            info = zipfile.ZipInfo(f"{prefix}{rel}", date_time=FIXED_TIME)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16
             z.writestr(info, fileset[rel])
     return buf.getvalue()
 
 
-def zip_contents(data):
+def zip_contents(data, prefix="hack-kit/"):
     """Files inside a zip as {relative path: text}. Compared by content, since compressed bytes vary by zlib version."""
     with zipfile.ZipFile(io.BytesIO(data)) as z:
-        return {n[len("hack-kit/"):]: z.read(n).decode("utf-8") for n in z.namelist()
-                if n.startswith("hack-kit/") and not n.endswith("/")}
+        return {n[len(prefix):]: z.read(n).decode("utf-8") for n in z.namelist()
+                if n.startswith(prefix) and not n.endswith("/")}
 
 
 def main():
     fileset = files()
     data = zip_bytes(fileset)
+    pfiles = plugin_files()
+    pdata = zip_bytes(pfiles, prefix="")
     if "--check" in sys.argv:
         on_disk = {str(p.relative_to(SKILL_DIR)): p.read_text(encoding="utf-8")
                    for p in SKILL_DIR.rglob("*") if p.is_file()} if SKILL_DIR.exists() else {}
         ok = on_disk == fileset and ZIP.exists() and zip_contents(ZIP.read_bytes()) == fileset
-        print("claude.ai skill is up to date" if ok else "claude.ai skill is OUT OF DATE: run python3 scripts/build_claude_ai.py")
+        ok = ok and PLUGIN_ZIP.exists() and zip_contents(PLUGIN_ZIP.read_bytes(), prefix="") == pfiles
+        print("claude.ai skill and portable plugin are up to date" if ok
+              else "claude.ai skill or portable plugin is OUT OF DATE: run python3 scripts/build_claude_ai.py")
         sys.exit(0 if ok else 1)
     for old in SKILL_DIR.rglob("*") if SKILL_DIR.exists() else []:
         if old.is_file() and str(old.relative_to(SKILL_DIR)) not in fileset:
@@ -228,7 +331,9 @@ def main():
         dest.write_text(text, encoding="utf-8")
     ZIP.parent.mkdir(parents=True, exist_ok=True)
     ZIP.write_bytes(data)
-    print(f"Wrote {len(fileset)} files to {SKILL_DIR.relative_to(ROOT)}/ and {ZIP.relative_to(ROOT)}")
+    PLUGIN_ZIP.write_bytes(pdata)
+    print(f"Wrote {len(fileset)} files to {SKILL_DIR.relative_to(ROOT)}/ and {ZIP.relative_to(ROOT)}; "
+          f"{len(pfiles)} files to {PLUGIN_ZIP.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.4.0 — 2026-11-20 · "Anywhere"
+Hack Kit now runs in ChatGPT, Codex and Google Antigravity as well as Claude.
+
+### Added
+- **`docs/downloads/hack-kit-plugin.zip`: one portable package.** It contains:
+  - a root `plugin.json` (Agent Plugins schema, read by Antigravity and ChatGPT);
+  - `.codex-plugin/plugin.json` (ChatGPT and Codex);
+  - the full skill under `skills/hack-kit/`: every phase, templates, jurors, profiles, and the Python scripts for tallying, profiles, plan checks, merging, retro and the PDF.
+- **ChatGPT:** upload the zip under Plugins → Add → New Plugin.
+- **Antigravity:** copy `skills/hack-kit/` into `.agents/skills/` (one project) or `~/.gemini/config/skills/` (every project), or install the unzipped folder as a plugin. Antigravity can run the bundled scripts.
+- The website's install section has ChatGPT and Antigravity tabs; the README lists every way to use the kit.
+- `check.py` verifies the package: both manifests at the archive root, the root manifest following the Agent Plugins schema, the skill and the scripts.
+
+### Changed
+- `profile.py` finds `profiles.json` in either the repo layout or the portable skill layout. `lint_project.py` works without `check.py`. Both now run from inside the package.
+- The portable skill uses tool-neutral wording ("the AI" instead of "Claude", `<skill folder>/scripts/` instead of plugin paths). The Claude app skill is unchanged.
+
 ## 1.3.0 — 2026-11-19 · "Start simple"
 A shorter way in for first-time teams.
 

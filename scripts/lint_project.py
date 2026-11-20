@@ -14,7 +14,23 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from check import table_ok  # noqa: E402
+try:
+    from check import table_ok  # noqa: E402
+except ImportError:  # portable skill package ships without check.py
+    def table_ok(md):
+        """Every Markdown table row has the same number of cells as its header."""
+        bad, lines, i = [], md.splitlines(), 0
+        while i < len(lines):
+            if lines[i].startswith("|") and i + 1 < len(lines) and re.match(r"^\|[\s:|-]+\|$", lines[i + 1]):
+                cols, j = lines[i].count("|"), i + 2
+                while j < len(lines) and lines[j].startswith("|"):
+                    if lines[j].replace("\\|", "").count("|") != cols:
+                        bad.append(lines[j][:60])
+                    j += 1
+                i = j
+            else:
+                i += 1
+        return bad
 
 
 def main():

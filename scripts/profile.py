@@ -15,7 +15,10 @@ import json
 import sys
 from pathlib import Path
 
-PROFILES = Path(__file__).resolve().parent.parent / "skills" / "hack-kit" / "profiles.json"
+_BASE = Path(__file__).resolve().parent.parent
+# Repo layout (skills/hack-kit/profiles.json) or portable skill layout (<skill>/profiles.json next to scripts/)
+PROFILES = next((c for c in (_BASE / "skills" / "hack-kit" / "profiles.json", _BASE / "profiles.json") if c.exists()),
+                _BASE / "skills" / "hack-kit" / "profiles.json")
 
 
 def load():
